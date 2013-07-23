@@ -5,7 +5,7 @@ Aquí encontraras las piezas de código que se comunican directamente con el har
 
 La idea detrás de este tipo de código es separar la complejidad que implica codificar directamente con el micro y separarla de la capa de aplicación, dotándola de potabilidad entre fabricantes y reusabilidad sacrificando un poco de rendimiento.
 
-Las interfaces (funciones y/o macros) comparten notaciones similares entre fabricantes. 
+Las interfaces (funciones y/o macros) comparten notaciones similares entre fabricantes. Así que las mismas funciones para trasmitir por puerto serial (ejemplo) podrán usarse con Atmel, Microchip o Freescale.
 
 ####Directorios
 - **Microchip.-** Drivers de bajo nivel para la familia de 8 bits PIC18F.
