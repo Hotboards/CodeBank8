@@ -14,26 +14,66 @@ Es necesario configurar esta pieza de código antes de utilizarse. en el archivo
 Si no se define esta linea de código, la velocidad que usara el driver por defaul sera de 12MHz.
 
 ####Ejemplos de uso:
-> Parpadeando un led cada 100ms, combinado con el driver gpios
+Parpadeando un led cada 100ms
 ```
-Gpios_PinDirection(GPIOS_PORTA, 1, GPIOS_OUTPUT); /*Pin RA1 como salida*/
-for(;;)
+#include "vectors.h"
+#include "types.h"
+#include "gpios.h"
+#include "swtimers.h"
+
+void main(void)
 {
-    Gpios_TogglePin(GPIOS_PORTA, 1); /*invierto el estado del pin RA1*/
-    Delays_ms(100);                  /*ciclo al CPU por 100ms*/
+	Gpios_PinDirection(GPIOS_PORTA, 1, GPIOS_OUTPUT); /*Pin RA1 como salida*/
+	for(;;)
+	{
+    	Gpios_TogglePin(GPIOS_PORTA, 1); /*invierto el estado del pin RA1*/
+    	Delays_ms(100);                  /*ciclo al CPU por 100ms*/
+	}
 }
 ```
 
-> Rotando un led a la izquierda cada 100ms, combinado con el driver gpios y el archivo types.h
+Rotando un led a la izquierda cada 100ms
 ```
-_U08 var = 1;                           /*declaro variable que contendrá el valor a rotar*/
-Gpios_WriteTris(GPIOS_PORTB, 0x00);     /*declaro puerto B como salida*/
-for(;;)
+#include "vectors.h"
+#include "types.h"
+#include "gpios.h"
+#include "swtimers.h"
+
+void main(void)
 {
-    Gpios_WritePort(GPIOS_PORTB, var);  /*escribo el valor de var en el puerto B*/
-    Delays_ms(100);                     /*ciclo al CPU por 100ms*/
-    LEFT_8SHIFT(var,1);                 /*recorro un bit a la izquierda el valor de var*/
-    if(var == 0)var = 1;Delays_ms(100); /*si el valor de var es cero vuelve a empezar*/
+	_U08 var = 1;                           /*declaro variable que contendrá el valor a rotar*/
+	Gpios_WriteTris(GPIOS_PORTB, 0x00);     /*declaro puerto B como salida*/
+	for(;;)
+	{
+    	Gpios_WritePort(GPIOS_PORTB, var);  /*escribo el valor de var en el puerto B*/
+    	Delays_ms(100);                     /*ciclo al CPU por 100ms*/
+    	LEFT_8SHIFT(var,1);                 /*recorro un bit a la izquierda el valor de var*/
+    	if(var == 0)var = 1;Delays_ms(100); /*si el valor de var es cero vuelve a empezar*/
+	}
 }
 ``` 
+
+####API
+```
+/*----------------------------------------------------------------
+Cicla al procesador en multiplos de 10 us
+us.- decenas de micro segundos a ciclar, valores de 0 a 0xffffffff
+-----------------------------------------------------------------*/
+Delays_10us(_U32 us);
+
+/*---------------------------------------------------------------
+Cicla al procesador en lapsos de milisegundos
+ms.- milisegundos a ciclar, valores de 0 a 65535
+----------------------------------------------------------------*/
+Delays_ms(_U16 ms);
+```
+
+
+
+
+
+
+
+
+
  
