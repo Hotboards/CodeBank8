@@ -55,17 +55,22 @@ void main(void)
 
 ####API
 ```
-/*----------------------------------------------------------------
-Cicla al procesador en multiplos de 10 us
-us.- decenas de micro segundos a ciclar, valores de 0 a 0xffffffff
------------------------------------------------------------------*/
-Delays_10us(_U32 us);
+	/*-- Functions --*/
+    /**---------------------------------------------------------------------------------------------    
+      \brief      Esta función realiza retardos en múltiplos de 10 micro segundos
+      \param      us.- numero de decenas de micro segundos a retardar.
+      \return     None
+      \warning    Esta función se debe usar con las interrupciones desactivadas
+    ----------------------------------------------------------------------------------------------*/
+    void Delays_10us(_U32 us);
 
-/*---------------------------------------------------------------
-Cicla al procesador en lapsos de milisegundos
-ms.- milisegundos a ciclar, valores de 0 a 65535
-----------------------------------------------------------------*/
-Delays_ms(_U16 ms);
+    /**---------------------------------------------------------------------------------------------
+      \brief      Esta función realiza retardos en lapsos de mili segundos
+      \param      ms.- numero de mili segundos a retardar
+      \return     None
+      \warning    Esta función se debe usar con las interrupciones desactivadas
+    ----------------------------------------------------------------------------------------------*/
+    void Delays_ms(_U16 ms);
 ```
 
 
