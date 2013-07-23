@@ -65,42 +65,50 @@ timer_mod_register = 65535 - ||------------------------------| * TIMERS_BASE_TIM
  
 ####API
 ```
-/*-----------------------------------------------------------------------------------------
-Inicializa el timer de hardware TMR0 para que genere una interrupción cada TIMERS_BASE_TIME
------------------------------------------------------------------------------------------*/
-void Timers_Init(void);
+	/*-- Functions --*/
+    /**---------------------------------------------------------------------------------------------    
+      \brief      Inicializa el timer interno TMR0 para que genere una interrupción cada TIMERS_BASE_TIME
+      \param	  None
+      \return     None
+      \warning	  None   	
+    ----------------------------------------------------------------------------------------------*/
+    void Timers_Init(void);
+	
+    /**---------------------------------------------------------------------------------------------
+      \brief      Asigna prioridad a la interrupción que generara el driver
+      \param	  bPriority.- valor de la prioridad _HIGH o _LOW
+      \return     None
+      \warning	  Por default al llamarse la función Timers_Init la interrupción tiene un valor _LOW
+    ----------------------------------------------------------------------------------------------*/
+    void Timers_InterruptPriority(const _BOOL bPriority);
 
-/*-----------------------------------------------------------------------------------------
-Asigna prioridad a la interrupción que generara el driver
-bPriority.- valor de la prioridad _HIGH o _LOW
------------------------------------------------------------------------------------------*/
-void Timers_InterruptPriority(const _BOOL bPriority);
+    /**---------------------------------------------------------------------------------------------
+      \brief      Regresa el valor actual del timer seleccionado
+      \param	  eTimers.- Canal a regresar su valor de timepo, valores de 0 a TIMERS_CHANNELS-1
+      \return     Valor de la cuenta actual
+      \warning	  None   	
+    ----------------------------------------------------------------------------------------------*/
+    _U16 Timers_u16GetTime(const _U08 u8Timer);
+	
+    /**---------------------------------------------------------------------------------------------    
+      \brief      Asigna un nuevo periodo de tiempo a decrementar al canal asignado
+      \param	  eTimers.- Canal a recargar, valores de 0 a TIMERS_CHANNELS-1 
+      \param	  u16Time.-  Cantidad e tiempo a decrementar, solo valores múltiplos de TIMERS_BASE_TIME
+      \return     None
+      \warning	  se puede convertir un valor constante a ms si se usa la constante timers_ms, siempre 
+				  y cuando el valor sea múltiplo de TIMERS_BASE_TIME    	
+    ----------------------------------------------------------------------------------------------*/
+    void Timers_SetTime(const _U08 u8Timer, const _U16 u16Time);
 
-/*-----------------------------------------------------------------------------------------
-Asigna un nuevo periodo de tiempo a decrementar al canal asignado
-u8Timer.- Canal a recargar, valores de 0 a TIMERS_CHANNELS-1 
-u16Time.- Cantidad e tiempo a decrementar, solo valores múltiplos de TIMERS_BASE_TIME
-se puede convertir un valor constante a ms si se usa la constante timers_ms, siempre y cuando
-el valor sea multiplo de TIMERS_BASE_TIME 
------------------------------------------------------------------------------------------*/
-void Timers_SetTime(const _U08 u8Timer, const _U16 u16Time);
+    /**---------------------------------------------------------------------------------------------
+      \brief      Función de interrupción la cual decrementa en uno los canales activos.
+      \param	  None
+      \return     None
+      \warning	  Esta función se debe mandar llamar en uno de los dos vectores de interrupción
+    ----------------------------------------------------------------------------------------------*/
+    void Timers_Isr(void);
 
-/*-----------------------------------------------------------------------------------------
-Regresa el valor actual del timer seleccionado
-u8Timer.- Canal a regresar su valor de timepo, valores de 0 a TIMERS_CHANNELS-1
------------------------------------------------------------------------------------------*/
-_U16 Timers_u16GetTime(const _U08 u8Timer);
-
-/*-----------------------------------------------------------------------------------------
-Función de interrupción la cual decrementa en uno los canales activos.
-Esta función se debe mandar llamar en uno de los dos vectores de interrupción
------------------------------------------------------------------------------------------*/
-void Timers_Isr(void);
 ```
-
-
-
-
 
 
 
