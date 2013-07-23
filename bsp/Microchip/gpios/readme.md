@@ -7,7 +7,7 @@ El driver gpios tiene dependencia directa del archivo **types.h.**
 
 ####Ejemplos de uso:
 
-> Inicio de dirección de un puerto como salida y escritura del mismo.
+Inicio de dirección de un puerto como salida y escritura del mismo.
 
 ```
 Gpios_PinDirection(GPIOS_PORTA, 2, GPIOS_OUTPUT); 	/*pin RA2 como salida*/
@@ -15,7 +15,7 @@ Gpios_WritePin(GPIOS_PORTA, 2, 1); 					/*enciendo pin RA2*/
 Gpios_WritePin(GPIOS_PORTA, 2, 0); 					/*apago pin RA2*/
 ```
 
-> Lectura de un pin de entrada y toggleo de un pin de salida.
+Lectura de un pin de entrada y toggleo de un pin de salida.
 
 ```
 Gpios_PinDirection(GPIOS_PORTA, 5, GPIOS_OUTPUT); 	/*pin RA5 como salida*/
@@ -27,7 +27,7 @@ if(Gpios_bReadPin(GPIOS_PORTA, 3)==1)				/*si se lee un 1 en el pin RA3*/
 }
 ```
 
-> Lectura de un puerto completo.
+Lectura de un puerto completo.
 
 ```
 _U08 valor;
@@ -35,7 +35,7 @@ Gpios_WriteTris(GPIOS_PORTA, 0xFF); 	/*puerto A como entrada*/
 valor = Gpios_u8ReadPort(GPIOS_PORTA); 	/*asignamos el valor del puerto a la variable valor*/
 ```
 
-> Lectura de un puerto y escritura en otro puerto
+Lectura de un puerto y escritura en otro puerto
 
 ```
 _U08 valor;
@@ -43,7 +43,7 @@ Gpios_WriteTris(GPIOS_PORTD, 0xFF); 	/*puerto D como entrada*/
 Gpios_WriteTris(GPIOS_PORTB, 0x00); 	/*puerto B como salida*/
 
 valor = Gpios_u8ReadPort(GPIOS_PORTD); 	/*asignamos el valor del puerto a la variable valor*/
-Gpios_WritePort(GPIOS_PORTB, valor);	/*escrivimos el valor de valor en el puerto B*/
+Gpios_WritePort(GPIOS_PORTB, valor);	/*escribimos el valor de valor en el puerto B*/
 ``` 
 
 ####API
