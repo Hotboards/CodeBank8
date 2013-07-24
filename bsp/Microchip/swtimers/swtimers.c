@@ -55,7 +55,7 @@
     #define TIMERS_PREESCALER               8
 #endif
 
-#ifndef TIMERS_CHANNELS                                	
+#ifndef TIMERS_N_CHANNELS
     #define TIMERS_N_CHANNELS               9
 #endif
 
