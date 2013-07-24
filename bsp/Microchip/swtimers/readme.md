@@ -47,9 +47,9 @@ void YourHighPriorityISRCode(void) /*vector de prioridad alta*/
 El driver puede configurarse para establecer diferentes bases de tiempo y ajustarse a las necesidades de la aplicación, puede ser mas eficiente o mas flexible.
 En el archivo **bsp_profile.h** se pueden definir las siguientes constantes:
 ```
-#define BSP_TIMERS_BASE_TIME		5 /*Base de tiempo, el valor deberá ser en ms (valor por default)*/
-#define BSP_TIMERS_PREESCALER		8 /*Valor de preescaler para la base de tiempo del TMR0 (valor por default)*/
-#define BSP_TIMERS_CHANNELS			9 /*Numero de canales (valor por default)*/
+#define TIMERS_BASE_TIME		5 /*Base de tiempo, el valor deberá ser en ms (valor por default)*/
+#define TIMERS_PREESCALER		8 /*Valor de preescaler para la base de tiempo del TMR0 (valor por default)*/
+#define TIMERS_N_CHANNELS		9 /*Numero de canales (valor por default)*/
 ```
 Si no se definen estas constantes se tomaran sus valores por default.
 Los valores combinados se conjuntan para generar la base de tiempo interna, la cual obedece a la siguiente formula:
