@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 16, 2013
+  \date         July 25, 2013
   \target       PIC18F series
 
   \brief        Este driver maneja operaciones internas realizadas por el CPU tales como activacion/

@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 17, 2013
+  \date         July 25, 2013
   \target       8-bit uC (Generic)
 
   \brief        Esta pieza de código maneja la complejidad detrás de la activación de interruptores
@@ -280,15 +280,7 @@ void Gpis_Init(void)
 
     for(i=0u;i<(_U08)GPIS_N_INPUTS;i++)
     {
-        if((_U08)GPIS_DEBOUNCE < 3)
-        {
-            gau8SetDebounce[i] = 3;
-        }
-        else
-        {
             gau8SetDebounce[i] = (_U08)GPIS_DEBOUNCE;
-        }
-        gau8Debounce[i] = 1u;
     }
 }
 /**-----------------------------------------------------------------------------------------------*/

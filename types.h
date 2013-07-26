@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 16, 2013
+  \date         July 25, 2013
   \target       Generic
   \brief        Header file used to redefine the variable types and several standard macros.
                 Warning: this file should (must) not contain compiler-native macros, if needed,

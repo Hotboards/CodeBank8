@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 17, 2013
+  \date         July 25, 2013
   \target       8-bit uC (Generic)
 
   \brief        Esta pieza de código maneja la complejidad detrás de la activación de interruptores

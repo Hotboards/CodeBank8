@@ -9,7 +9,7 @@
   \author       Microchip Technology, Inc
   \email        
   \ver          1.0
-  \date         July 16, 2013
+  \date         July 15, 2013
   \target       PIC18F series
   
   \brief        Código para generar retardos por software sin utilizar ningún periférico del 

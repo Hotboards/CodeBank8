@@ -9,8 +9,8 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 16, 2013
-  \target	8-bit uC
+  \date         July 25, 2013
+  \target       8-bit uC
 
   \brief        El driver gpos permite tener en los pines digitales del micro configurados de manera
                 que oscilen continuamente, se mantengan encendidas o apagadas por cierto tiempo o
