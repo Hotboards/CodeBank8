@@ -47,9 +47,9 @@ void YourHighPriorityISRCode(void) /*vector de prioridad alta*/
 El driver puede configurarse para establecer diferentes bases de tiempo y ajustarse a las necesidades de la aplicación, puede ser mas eficiente o mas flexible.
 En el archivo **bsp_profile.h** se pueden definir las siguientes constantes:
 ```
-#define TIMERS_BASE_TIME		5 /*Base de tiempo, el valor deberá ser en ms (valor por default)*/
-#define TIMERS_PREESCALER		8 /*Valor de preescaler para la base de tiempo del TMR0 (valor por default)*/
-#define TIMERS_N_CHANNELS		9 /*Numero de canales (valor por default)*/
+#define TIMERS_BASE_TIME        5 /*Base de tiempo, el valor deberá ser en ms (valor por default)*/
+#define TIMERS_PREESCALER       8 /*Valor de preescaler para la base de tiempo del TMR0 (valor por default)*/
+#define TIMERS_N_CHANNELS       9 /*Numero de canales (valor por default)*/
 ```
 Si no se definen estas constantes se tomaran sus valores por default.
 Los valores combinados se conjuntan para generar la base de tiempo interna, la cual obedece a la siguiente formula:
@@ -84,7 +84,7 @@ timer_mod_register = 65535 - ||------------------------------| * TIMERS_BASE_TIM
 
     /**---------------------------------------------------------------------------------------------
       \brief      Regresa el valor actual del timer seleccionado
-      \param	  eTimers.- Canal a regresar su valor de timepo, valores de 0 a TIMERS_CHANNELS-1
+      \param	  eTimers.- Canal a regresar su valor de tiempo, valores de 0 a TIMERS_CHANNELS-1
       \return     Valor de la cuenta actual
       \warning	  None   	
     ----------------------------------------------------------------------------------------------*/
@@ -109,10 +109,19 @@ timer_mod_register = 65535 - ||------------------------------| * TIMERS_BASE_TIM
     void Timers_Isr(void);
 
 ```
+####Ejemplos
+Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
+
+- [Ejemplo 1: Parpadeo de un led cada 100ms][1]
+- [Ejemplo 2: Parpadeo de de 3 leds a diferentes tiempos][2]
+- [Ejemplo 3: Rotación de leds en un puerto cada 500ms y parpadeo de un led en RA1 cada 100ms][3]
+- [Ejemplo 4: Parpadeo de led con prioridad alta, CPU a 48MHz y base de tiempo a 10ms][4]
 
 
-
-
+  [1]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers1.zip
+  [2]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers2.zip
+  [3]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers3.zip
+  [4]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers4.zip
 
 
 
