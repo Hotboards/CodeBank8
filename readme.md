@@ -11,7 +11,7 @@ El código es perfectamente compatible con la técnica de programación de "Máq
 
 Los diferentes drivers y piezas de código que podrás descargar son de uso libre, solo obedecen a la siguiente licencia, la cual es opcional =)
 
-This is a test to check pulls/push
+Esto es una prueba de actualizacion
 
 ```
 /*--------------------------------------------------------------------------------
