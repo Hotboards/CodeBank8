@@ -48,7 +48,7 @@ void main(void)
     	Gpios_WritePort(GPIOS_PORTB, var);  /*escribo el valor de var en el puerto B*/
     	Delays_ms(100);                     /*ciclo al CPU por 100ms*/
     	LEFT_8SHIFT(var,1);                 /*recorro un bit a la izquierda el valor de var*/
-    	if(var == 0)var = 1;Delays_ms(100); /*si el valor de var es cero vuelve a empezar*/
+    	if(var == 0)var = 1; 				/*si el valor de var es cero vuelve a empezar*/
 	}
 }
 ``` 
@@ -72,7 +72,17 @@ void main(void)
     ----------------------------------------------------------------------------------------------*/
     void Delays_ms(_U16 ms);
 ```
+####Ejemplos
+Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
+- [Ejemplo 1: Parpadeo de un led cada 100ms][1]
+- [Ejemplo 2: Parpadeo de un  puerto completo a 500ms][2]
+- [Ejemplo 3: Rotación de leds en un puerto cada 200ms][3]
+
+
+  [1]: http://www.hotboards.org/images/codigo/8bits/examples/delays1.zip
+  [2]: http://www.hotboards.org/images/codigo/8bits/examples/delays2.zip
+  [3]: http://www.hotboards.org/images/codigo/8bits/examples/delays3.zip
 
 
 

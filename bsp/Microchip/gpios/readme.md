@@ -171,7 +171,15 @@ Gpios_WritePort(GPIOS_PORTB, valor);	/*escribimos el valor de valor en el puerto
     _U08 Gpios_u8ReadPullups(_eGPIOS_PORT ePort);
 
 ```
+####Ejemplos
+Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
+
+- [Ejemplo 1: Parpadeo de un led][1]
+- [Ejemplo 2: Escritura y lectura de un puerto][2]
+- [Ejemplo 3: Rotación de leds en un puerto][3]
 
 
-
+  [1]: http://www.hotboards.org/images/codigo/8bits/examples/gpios1.zip
+  [2]: http://www.hotboards.org/images/codigo/8bits/examples/gpios2.zip
+  [3]: http://www.hotboards.org/images/codigo/8bits/examples/gpios3.zip
 

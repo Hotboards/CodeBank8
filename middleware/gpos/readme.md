@@ -48,13 +48,12 @@ Una vez indicadas el numero de salidas a usar, se debe definir los pines a los q
 ```
 #define GPOS_P0_P					GPIOS_PORTA /* port */
 #define GPOS_P0_B                  	1           /* pin */
-/*en caso de utilizarse mas entradas se debe repetir 
+/*en caso de utilizarse mas entradas se debe repetir */ 
 #define GPOS_Px_P            	    GPIOS_PORTD //puerto
 #define GPOS_Px_B               	3			//pin
-donde (x) es la siguiente salida a asignar, el numero de salidas declaradas 
+/* donde (x) es la siguiente salida a asignar, el numero de salidas declaradas 
 debe coincidir con el valor de GPOS_N_PINS, y el ultimo valor de (x) deberá 
-ser GPOS_N_PINS-1
-*/
+ser GPOS_N_PINS-1 */
 ``` 
 
 ####API
@@ -68,8 +67,8 @@ ser GPOS_N_PINS-1
         GPOS_OSC_MODE = 0u,             /*|-|_|-|_|-|_|-|_|  siempre oscilando*/
         GPOS_HIGH_MODE,                 /*-----------------  siempre en alto*/
         GPOS_LOW_MODE,                  /*_________________  siempre en bajo*/
-        GPOS_DELAYHIGH_MODE,            /*--------|________  un momento en alto*/
-        GPOS_DELAYLOW_MODE              /*________|--------  un momento en bajo*/
+        GPOS_DELAYHIGH_MODE,            /*________|--------  un momento en alto*/
+        GPOS_DELAYLOW_MODE              /*--------|________  un momento en bajo*/
     }_eGPOS_MODES;
     
     
@@ -93,10 +92,21 @@ ser GPOS_N_PINS-1
     /**---------------------------------------------------------------------------------------------
       \brief      Establece el modo de operación la salida seleccionada 
       \param	  u8Gpo.- Pin seleccionado
-      \param	  u8Status.- Modo de operacion de la salida
-      \param	  u8Counter.- Numero de ejecuciones de Gpos_Task en los que permanecera uns estado el pin
+      \param	  u8Status.- Modo de operación de la salida
+      \param	  u8Counter.- Numero de ejecuciones de Gpos_Task en los que permanecera un estado el pin
       \return     None
       \warning	  None
     ----------------------------------------------------------------------------------------------*/
     void Gpos_SetMode(_U08 u8Gpo, _eGPOS_MODES eModes, _U08 u8Counter);
 ```
+####Ejemplos 
+Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
+
+- [Ejemplo 1: Invertir el estado de un led cada 200ms][1]
+- [Ejemplo 2: Encender un led por 300ms cada que se presione un botón][2]
+- [Ejemplo 3: Parpadeo un led a 50ms por un lapso de 1s][3]
+
+
+  [1]: http://www.hotboards.org/images/codigo/8bits/examples/gpos1.zip
+  [2]: http://www.hotboards.org/images/codigo/8bits/examples/gpos2.zip
+  [3]: http://www.hotboards.org/images/codigo/8bits/examples/gpos3.zip
