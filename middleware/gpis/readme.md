@@ -58,11 +58,12 @@ Se debe indicar a que pines esta conectado cada entrada
 ```
 #define GPIS_B0_P               GPIOS_PORTA /*puerto*/
 #define GPIS_B0_B               0			/*pin*/
-/*en caso de utilizarse mas entradas se debe repetir 
+/*en caso de utilizarse mas entradas se debe repetir */
 #define GPIS_Bx_P               GPIOS_PORTD //puerto
 #define GPIS_Bx_B               3			//pin
-donde (x) es la siguiente entrada a asignar, el numero de entradas declaradas debe coincidir con el valor de GPIS_N_INPUTS, y el ultimo valor de (x) debera ser GPIS_N_INPUTS-1
-*/
+/* donde (x) es la siguiente entrada a asignar, el numero de entradas declaradas 
+debe coincidir con el valor de GPIS_N_INPUTS, y el ultimo valor de (x) deberá 
+ser GPIS_N_INPUTS-1 */
 ```
 
 Existen otros parámetros los cuales son opcionales, en caso de querer variar sus valores solo habrá que definirnos en **middleware_profile.h**, de no hacerse esto, el driver tomara sus valores por defaul.
@@ -127,4 +128,18 @@ Existen otros parámetros los cuales son opcionales, en caso de querer variar su
     ----------------------------------------------------------------------------------------------*/
     _BOOL Gpis_bGetStatus(_U08 u8Gpi);
 
-``` 
+```
+####Ejemplos 
+Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
+
+- [Ejemplo 1: Invertir el estado de un led cada que se presiona un botón][1]
+- [Ejemplo 2: Aumentar el tiempo que se debe presionar un botón][2]
+- [Ejemplo 3: Apagar y prender un led según el estado de un botón/interruptor][3]
+- [Ejemplo 4: Invertir el estado de 3 leds acorde a la activación de 3 botones][4]
+
+
+  [1]: http://www.hotboards.org/images/codigo/8bits/examples/gpis1.zip
+  [2]: http://www.hotboards.org/images/codigo/8bits/examples/gpis2.zip
+  [3]: http://www.hotboards.org/images/codigo/8bits/examples/gpis3.zip
+  [4]: http://www.hotboards.org/images/codigo/8bits/examples/gpis4.zip
+
