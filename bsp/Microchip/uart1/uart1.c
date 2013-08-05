@@ -9,9 +9,15 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 5, 2013
-  \target       
-  \brief        Write here a nice description about your driver.
+  \date         August 5, 2013
+  \target       PIC18FJ series
+
+  \brief        El driver de puerto serial maneja el periférico EUART para que realize transmisiones
+                de 8 y 9 bits. El driver fue creado principalmente para que este funcione mediante
+                interrupciones y no sea necesario ciclar al uC de manera innecesaria, sin embargo se
+                crearon un par de funciones de tx de caracteres y cadenas, para cuando se requiera
+                implementar una prueba rápida o si la aplicación no requiere demasiado procesamiento
+                multitarea.
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "uart1.h"
@@ -51,9 +57,9 @@ static _U08 gu8Counter = 1;
 
 
 /*-- Private functions prototypes --*/
-_U16 u16BaudRateL(const _U32 u32BaudRate);
-_U16 u16BaudRateH(const _U32 u32BaudRate);
-_U32 u32GetBaudRate(void);
+static _U16 u16BaudRateL(const _U32 u32BaudRate);
+static _U16 u16BaudRateH(const _U32 u32BaudRate);
+static _U32 u32GetBaudRate(void);
 
 
 /*-- External functions --*/
@@ -115,7 +121,7 @@ void Uart1_RxInterruptProprity(const _BOOL bPriority)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Uart1_PutChar(const _S08 u8Char)
+void Uart1_PutChar(const _U08 u8Char)
 {
     while(TX_BUFFER_BUSY()==0){}
     TX_BUFFER(u8Char);
@@ -127,7 +133,7 @@ void Uart1_PutString(const rom _S08 *strString)
 {
     while(*strString != 0)
     {
-        Uart1_PutChar(*strString);
+        Uart1_PutChar((_U08)*strString);
         strString++;
     }
 }
@@ -173,7 +179,7 @@ _BOOL Uart1_TxBusy(void)
 /**-----------------------------------------------------------------------------------------------*/
 void Uart1_TxIsr(void)
 {
-    if((QUERY_8BIT(PIR1, 4) != 0u) && (bTxFlag == 1u)) /*enter this interrupt only if the int was cause by the TMR0 overflow*/
+    if((QUERY_8BIT(PIR1, 4) != 0u) && (bTxFlag == 1u)) /*enter this interrupt only if the int was cause by the EUSART tx*/
     {
         gu8Counter--;
         if((gu8Counter != 0u) && (gu8Index < UART1_TX_BUFFER))
@@ -193,7 +199,7 @@ void Uart1_TxIsr(void)
 /**-----------------------------------------------------------------------------------------------*/
 void Uart1_RxIsr(void)
 {
-    if(QUERY_8BIT(PIR1, 5) != 0u) /*enter this interrupt only if the int was cause by the TMR0 overflow*/
+    if(QUERY_8BIT(PIR1, 5) != 0u) /*enter this interrupt only if the int was cause by the EUSART rx*/
     {
     #if UART1_ENABLE_RX == 1
         Uart1_CallbackRx(RX_BUFFER());
@@ -202,15 +208,22 @@ void Uart1_RxIsr(void)
 }
 /**-----------------------------------------------------------------------------------------------*/
 
+/**-----------------------------------------------------------------------------------------------*/
+_U08 Uart1_u8GetChar(void)
+{
+    while(QUERY_8BIT(PIR1, 5) == 0){}
+    return RX_BUFFER();
+}
+/**-----------------------------------------------------------------------------------------------*/
 
 /*-- Private functions --*/
 /**-------------------------------------------------------------------------------------------------    
-  \brief        None
-  \param        None
+  \brief        Regresa el calculo del baud rate con un preescaler de 16
+  \param        u32BaudRate.- valor de baudrate deseado
   \return       None
-  \warning      None       
+  \warning      Valor del registro que ira en BAUDREG
 --------------------------------------------------------------------------------------------------*/
-_U16 u16BaudRateL(const _U32 u32BaudRate)
+static _U16 u16BaudRateL(const _U32 u32BaudRate)
 {
     _U16 u16Baud;
 
@@ -220,12 +233,12 @@ _U16 u16BaudRateL(const _U32 u32BaudRate)
 }
 
 /**-------------------------------------------------------------------------------------------------
-  \brief        None
-  \param        None
+  \brief        Regresa el calculo del baud rate con un preescaler de 4
+  \param        u32BaudRate.- valor de baudrate deseado
   \return       None
-  \warning      None
+  \warning      Valor del registro que ira en BAUDREG
 --------------------------------------------------------------------------------------------------*/
-_U16 u16BaudRateH(const _U32 u32BaudRate)
+static _U16 u16BaudRateH(const _U32 u32BaudRate)
 {
     _U16 u16Baud;
 
@@ -235,12 +248,12 @@ _U16 u16BaudRateH(const _U32 u32BaudRate)
 }
 
 /**-------------------------------------------------------------------------------------------------
-  \brief        None
+  \brief        Regresa el calculo del baud rate actual con los parametros establecidos
   \param        None
-  \return       None
-  \warning      None
+  \return       Baud rate actual generado
+  \warning      Valor actual del baud rate generado
 --------------------------------------------------------------------------------------------------*/
-_U32 u32GetBaudRate(void)
+static _U32 u32GetBaudRate(void)
 {
     _U32 u32BaudRate;
     _U32 u32Mul;

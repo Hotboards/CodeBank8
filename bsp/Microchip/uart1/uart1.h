@@ -9,10 +9,15 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 5, 2013
-  \target       PIC18F series
+  \date         August 5, 2013
+  \target       PIC18FJ series
 
-  \brief        Write here a nice description about your driver.
+  \brief        El driver de puerto serial maneja el periférico EUART para que realize transmisiones
+                de 8 y 9 bits. El driver fue creado principalmente para que este funcione mediante
+                interrupciones y no sea necesario ciclar al uC de manera innecesaria, sin embargo se
+                crearon un par de funciones de tx de caracteres y cadenas, para cuando se requiera
+                implementar una prueba rápida o si la aplicación no requiere demasiado procesamiento
+                multitarea.
  -------------------------------------------------------------------------------------------------*/
 #ifndef __UART_H__
 #define __UART_H__
@@ -86,7 +91,7 @@
       \return     None
       \warning    La función se espera a que el buffer de trasmisión este libre para mandar el carácter
     ----------------------------------------------------------------------------------------------*/
-    void Uart1_PutChar(const _S08 u8Char);
+    void Uart1_PutChar(const _U08 u8Char);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite una cadena de caracteres terminada en cero
@@ -153,6 +158,15 @@
                   #define UART1_ENABLE_RX          1
     ----------------------------------------------------------------------------------------------*/
     extern void Uart1_CallbackRx(_U08 u8Data);
+
+    /**---------------------------------------------------------------------------------------------
+      \brief      Regresa un carácter llegado del puerto serial
+      \param      None
+      \return     Carácter llegado del puerto serial
+      \warning    Esta función traba al procesador hasta recibir un carácter por serial. Es
+                  conveniente solo utilizarla para propósitos de depuración y pruebas.
+    ----------------------------------------------------------------------------------------------*/
+    _U08 Uart1_u8GetChar(void);
 
 
 #endif   
