@@ -20,6 +20,47 @@ __DISABLE_INTERRUPTS();
 
 ####API
 ```
+	/*-- Defines --*/
+    /**--------------------------------------------------------------------------------------------- 
+      \def        _ePPS
+      \brief      periféricos que pueden ser re-ubicados en los diferentes pines "RPn"
+    ----------------------------------------------------------------------------------------------*/ 
+    typedef enum
+    {
+        ExternalInterrupt1 = 0,
+        ExternalInterrupt2,
+        ExternalInterrupt3,
+        Timer0ExternalClockInput,
+        Timer3ExternalClockInput,
+        InputCapture1,
+        InputCapture2,
+        Timer1GateInput,
+        Timer3GateInput,
+        AsynchronousReceive2,
+        AsynchronousClockInput2,
+        SPI2DataInput,
+        SPI2ClockInput,
+        SPI2SlaveSelect,
+        PWMFaultInput,
+        Comparator1Output = 101,
+        Comparator2Output,
+        AsynchronousTransmit2 = 105,
+        SynchronousTransmit2,
+        SPI2DataOutput = 109,
+        SPI2ClockOutput,
+        SPIDMASlaveSelect = 112,
+        UltraLow_PowerWake_upEvent,
+        CompareOrPWMOutputChannel1A,
+        EnhancedPWMOutputChannel1B,
+        EnhancedPWMOutputChannel1C,
+        EnhancedPWMOutputChannel1D,
+        CompareOrPWMOutputChannel2A,
+        EnhancedPWMOutputChannel2B,
+        EnhancedPWMOutputChannel2C,
+        EnhancedPWMOutputChannel2D
+    }_ePPS;
+    
+	/*-- Macros --*/
 	/**--------------------------------------------------------------------------------------------- 
       \def        ENABLE_INTERRUPTS/DISABLE_INTERRUPTS
       \brief      Habilita o deshabilita las interrupciones globales del uC
@@ -70,6 +111,16 @@ __DISABLE_INTERRUPTS();
       \warning    Esta función limpia los bits GIEH, GIEL e IPEN
     ----------------------------------------------------------------------------------------------*/
     void System_DisableInterrupts(void);
+
+	/**---------------------------------------------------------------------------------------------
+      \brief      Asigna pines re-mapeables a periféricos que posean esa capacidad
+      \param      ePeripheral.- salida/entrada de periférico a mapear
+      \param      u8Pin.- cualquier pin marcado como "RPn" en el uC
+      \return     None
+      \warning    Se recomienda usar esta función solo en la inicializacion
+    ----------------------------------------------------------------------------------------------*/
+    void System_PeripheralPinSelect(_ePPS ePeripheral, _U08 u8Pin);
+
 
 ```
 ####Ejemplos
