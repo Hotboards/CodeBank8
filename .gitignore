@@ -17,8 +17,6 @@
 *.app
 
 # Local objects
-bsp/Microchip/uart2
 bsp/Microchip/usb
-bsp/Microchip/spi1
 middleware/keyboard
  
