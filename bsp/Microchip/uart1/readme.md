@@ -1,7 +1,7 @@
 Puerto serial asíncrono (uart)
 ------------------------------
 -----
-El driver de puerto serial maneja el periférico UART para que realize transmisiones de 8 y 9 bits, son configurables por el usuario las opciones de paridad y numero de bits de stop.
+El driver de puerto serial maneja el periférico EUART para que realize transmisiones de 8 y 9 bits, son configurables por el usuario las opciones de paridad y numero de bits de stop.
 
 El driver fue creado principalmente para que este funcione mediante interrupciones y no sea necesario ciclar al uC de manera innecesaria, sin embargo se crearon un par de funciones de tx de caracteres y cadenas, para cuando se requiera implementar una prueba rápida o si la aplicación no requiere demasiado procesamiento multitarea.
 
@@ -232,7 +232,7 @@ Si no se definen estas constantes se tomaran sus valores por default.
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función de interrupción por recepción en puerto serial, lo único que se realiza aquí 
-                  es mandar llamar la funcion Uart1_CallbackRx y pasarle el dato llegado
+                  es mandar llamar la función Uart1_CallbackRx y pasarle el dato llegado
       \param      None
       \return     None
       \warning    Indispensable mandar llamar esta función en alguno de los vectores de interrupción
@@ -241,14 +241,22 @@ Si no se definen estas constantes se tomaran sus valores por default.
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función callback mandada llamar por la función Uart1_RxIsr, es necesario que la 
-				  aplicación defina esta funcion y establezca que haser con dad parametro que llegue
+				  aplicación defina esta función y establezca que hacer con dad parámetro que llegue
       \param      u8Data.- dato de 8 bits llegado por puerto serial
       \return     None
-      \warning    Es importante recordar que esta funcion se ejecuta dentro de la interrupcion por rx
+      \warning    Es importante recordar que esta función se ejecuta dentro de la interrupción por rx
  				  y debe ser lo mas eficiente posible
     ----------------------------------------------------------------------------------------------*/
     extern void Uart1_CallbackRx(_U08 u8Data);
 
+    /**---------------------------------------------------------------------------------------------
+      \brief      Regresa un carácter llegado del puerto serial
+      \param      None
+      \return     Carácter llegado del puerto serial
+      \warning    Esta función traba al procesador hasta recibir un carácter por serial. Es
+				  conveniente solo utilizarla para propósitos de depuración y pruebas.
+    ----------------------------------------------------------------------------------------------*/
+	_U08 Uart1_u8GetChar(void);
 ```
 
 ####Ejemplos
@@ -259,6 +267,7 @@ Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de códi
 - [Ejemplo 3: Transmicion de una cadena cada que se presiona un botón a 9600][3]
 - [Ejemplo 4: Simple eco de un caracter escrito en una terminal a 9600][4]
 - [Ejemplo 5: Encendido y apagado de leds con recepción de cadenas por puerto serial a 9600][5]
+- [Ejemplo 6: Transmicion de una cadena de caracteres a 115200 usando uart2][6]
 
 
   [1]: http://www.hotboards.org/images/codigo/8bits/examples/uart1.zip
@@ -266,3 +275,4 @@ Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de códi
   [3]: http://www.hotboards.org/images/codigo/8bits/examples/uart3.zip
   [4]: http://www.hotboards.org/images/codigo/8bits/examples/uart4.zip
   [5]: http://www.hotboards.org/images/codigo/8bits/examples/uart5.zip
+  [6]: http://www.hotboards.org/images/codigo/8bits/examples/uart6.zip
