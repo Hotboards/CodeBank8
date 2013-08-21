@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 25, 2013
+  \date         August 20, 2013
   \target       PIC18F series
 
   \brief        Este driver maneja operaciones internas realizadas por el CPU tales como activacion/
@@ -26,11 +26,45 @@
 
     /*-- Defines --*/
     /**--------------------------------------------------------------------------------------------- 
-      \def      
-      \brief      Write here a nice description about your definition
+      \def        _ePPS
+      \brief      perifericos que pueden ser reubicados en los diferentes pines "RPn"
     ----------------------------------------------------------------------------------------------*/ 
+    typedef enum
+    {
+        ExternalInterrupt1 = 0,
+        ExternalInterrupt2,
+        ExternalInterrupt3,
+        Timer0ExternalClockInput,
+        Timer3ExternalClockInput,
+        InputCapture1,
+        InputCapture2,
+        Timer1GateInput,
+        Timer3GateInput,
+        AsynchronousReceive2,
+        AsynchronousClockInput2,
+        SPI2DataInput,
+        SPI2ClockInput,
+        SPI2SlaveSelect,
+        PWMFaultInput,
+        Comparator1Output = 101,
+        Comparator2Output,
+        AsynchronousTransmit2 = 105,
+        SynchronousTransmit2,
+        SPI2DataOutput = 109,
+        SPI2ClockOutput,
+        SPIDMASlaveSelect = 112,
+        UltraLow_PowerWake_upEvent,
+        CompareOrPWMOutputChannel1A,
+        EnhancedPWMOutputChannel1B,
+        EnhancedPWMOutputChannel1C,
+        EnhancedPWMOutputChannel1D,
+        CompareOrPWMOutputChannel2A,
+        EnhancedPWMOutputChannel2B,
+        EnhancedPWMOutputChannel2C,
+        EnhancedPWMOutputChannel2D
+    }_ePPS;
 
-    
+
     /*-- Macros --*/
     /**--------------------------------------------------------------------------------------------- 
       \def        ENABLE_INTERRUPTS/DISABLE_INTERRUPTS
@@ -82,6 +116,15 @@
       \warning    Esta funcion limpia los bits GIEH, GIEL e IPEN
     ----------------------------------------------------------------------------------------------*/
     void System_DisableInterrupts(void);
+
+    /**---------------------------------------------------------------------------------------------
+      \brief      Asigna pines remapeables a perifericos que posean esa capacidad
+      \param      ePeripheral.- salida/entrada de periferico a mapear
+      \param      u8Pin.- cualquier pin marcado como "RPn" en el uC
+      \return     None
+      \warning    Se recomienda usar esta funcion solo en la inicializacion
+    ----------------------------------------------------------------------------------------------*/
+    void System_PeripheralPinSelect(_ePPS ePeripheral, _U08 u8Pin);
 
 
 #endif   

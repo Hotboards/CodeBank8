@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 25, 2013
+  \date         August 20, 2013
   \target       PIC18F series
 
   \brief        Este driver maneja operaciones internas realizadas por el CPU tales como activacion/
@@ -19,27 +19,79 @@
 /*-- Includes --*/
 #include "system.h"
 #include <p18cxxx.h>
+#include <string.h>
 
 
 /*-- Private Definitions--*/
 
 
 /*-- Global variables --*/
+static volatile far _U08 *const guap8Inputs[] =
+{
+    &RPINR1,
+    &RPINR2,
+    &RPINR3,
+    &RPINR4,
+    &RPINR6,
+    &RPINR7,
+    &RPINR8,
+    &RPINR12,
+    &RPINR13,
+    &RPINR16,
+    &RPINR17,
+    &RPINR21,
+    &RPINR22,
+    &RPINR23,
+    &RPINR24
+};
+
+static volatile far _U08 *const guap8Outputs[] =
+{
+    &RPOR0,
+    &RPOR1,
+    &RPOR2,
+    &RPOR3,
+    &RPOR4,
+    &RPOR5,
+    &RPOR6,
+    &RPOR7,
+    &RPOR8,
+    &RPOR9,
+    &RPOR10,
+    &RPOR11,
+    &RPOR12,
+    &RPOR13,
+    NULL,
+    NULL,
+    NULL,
+    &RPOR17,
+    &RPOR18,
+    &RPOR19,
+    &RPOR20,
+    &RPOR21,
+    &RPOR22,
+    &RPOR23,
+    &RPOR24
+};
 
 
 /*-- Private Macros --*/
 
 
 /*-- Private functions prototypes --*/
+static void unlock(void);
+static void lock(void);
 
 
 /*-- External functions --*/
+/**-----------------------------------------------------------------------------------------------*/
 void System_EnablePLL(void)
 {
     _U16 pll_startup_counter  = 600;
     SET_8BIT(OSCTUNE, 6); /*Enable the PLL and wait 2+ms until the PLL locks before enabling USB module*/
     while(pll_startup_counter--);
 }
+/**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
 void System_EnableInterrupts(void)
@@ -59,11 +111,52 @@ void System_DisableInterrupts(void)
 }
 /**-----------------------------------------------------------------------------------------------*/
 
+/**-----------------------------------------------------------------------------------------------*/
+void System_PeripheralPinSelect(_ePPS ePeripheral, _U08 u8Pin)
+{
+    unlock();
+    if((_U08)ePeripheral <= (_U08)PWMFaultInput)
+    {
+        *guap8Inputs[(_U08)ePeripheral] = u8Pin;
+    }
+    else if(((_U08)ePeripheral >= (_U08)Comparator1Output) && ((_U08)ePeripheral <= (_U08)EnhancedPWMOutputChannel2D))
+    {
+        *guap8Outputs[u8Pin] = (_U08)ePeripheral % (_U08)100;
+    }
+    lock();
+}
+/**-----------------------------------------------------------------------------------------------*/
 
 /*-- Private functions --*/
 /**-------------------------------------------------------------------------------------------------    
-  \brief        None
+  \brief        desbloquea los regitros de remapeado de pines
   \param        None
   \return       None
   \warning      None       
 --------------------------------------------------------------------------------------------------*/
+static void unlock(void)
+{
+    _asm MOVLW 0x55 _endasm;
+    _asm MOVWF EECON2, 0 _endasm;
+    _asm MOVLW 0xAA _endasm;
+    _asm MOVWF EECON2, 0 _endasm;
+    //Turn off PPS Write Protect
+    PPSCON = 0;//_asm BCF PPSCON, IOLOCK, BANKED _endasm;
+}
+
+/**-------------------------------------------------------------------------------------------------
+  \brief        bloquea los registros de remapeo de pines
+  \param        None
+  \return       None
+  \warning      None
+--------------------------------------------------------------------------------------------------*/
+static void lock(void)
+{
+    _asm MOVLW 0x55 _endasm;
+    _asm MOVWF EECON2, 0 _endasm;
+    _asm MOVLW 0xAA _endasm;
+    _asm MOVWF EECON2, 0 _endasm;
+    // Write Protect PPS (if desired)
+    PPSCON = 1;//_asm BSF PPSCON, IOLOCK, BANKED _endasm;
+}
+
