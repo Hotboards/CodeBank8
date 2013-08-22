@@ -9,9 +9,14 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         July 5, 2013
-  \target
-  \brief        Write here a nice description about your driver.
+  \date         August 21, 2013
+  \target       Generic 8-bits uC
+
+  \brief        Este código permite manejar un teclado matricial de n x m, es decir la cantidad de
+                lineas y columnas son configurables de 1 a 8, lo cual permite manejar un máximo de 64
+                botones en el teclado. El driver se utiliza únicamente por poleo y es necesario mandar
+                llamar una función periódica cada x tiempo. Ademas es configurable por el usuario el
+                tiempo de debounce y los pines a los cuales se puede conectar.
             
                 Example:
 

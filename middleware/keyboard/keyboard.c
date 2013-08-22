@@ -1,31 +1,36 @@
-/**-------------------------------------------------------------------------------------------------
-  \n 2012 StackBlocks  www.stackblocks.org (GNU license)
-  \n This file could be use for either commercial, educational or just for fun!!
+/*--------------------------------------------------------------------------------------------------
+  "THE BEER-WARE LICENSE" (Revision 42):
+  <phk@FreeBSD.ORG> wrote this file. As long as you retain this notice you
+  can do whatever you want with this stuff. If we meet some day, and you think
+  this stuff is worth it, you can buy me a beer in return to Hotboards crew
+  (Beer-ware license created by Poul-Henning Kamp)
 
-  \file		HIL_keyboard.h
-  \author   StackMAN
-  \email    stack.man1984@gmail.com   
-  \email    software@stackblocks.org  
-  \ver      1.0
-  \date     May 12, 2012
-  \target	8-Bits uC
+  \file         keyboard.h
+  \author       Diego
+  \email        diego.perez@hotboards.org
+  \ver          1.0
+  \date         August 21, 2013
+  \target       Generic 8-bits uC
 
-  \brief    This file handle a Matrix keyboard with n rows as outputs and n columns as inputs 
-            (with pullups). The maximun matrix allow is 8x8.
-            
-            example:
-            
-            Keyboard_Init();
-            
-            for(;;)
-            {
-                Keyboard_Task();
-                if(Keyboard_bIsPresed()==1)
+  \brief        Este código permite manejar un teclado matricial de n x m, es decir la cantidad de
+                lineas y columnas son configurables de 1 a 8, lo cual permite manejar un máximo de 64
+                botones en el teclado. El driver se utiliza únicamente por poleo y es necesario mandar
+                llamar una función periódica cada x tiempo. Ademas es configurable por el usuario el
+                tiempo de debounce y los pines a los cuales se puede conectar.
+
+                Example:
+
+                Keyboard_Init();
+
+                for(;;)
                 {
-                    key = Keyboard_u8GetKey();
-                    do something....
+                    Keyboard_Task();
+                    if(Keyboard_bIsPresed()==1)
+                    {
+                        key = Keyboard_u8GetKey();
+                        do something....
+                    }
                 }
-            }
 --------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "keyboard.h"
