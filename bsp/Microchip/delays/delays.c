@@ -20,7 +20,7 @@
 /*-- Includes --*/
 #include "delays.h"
 #include <p18cxxx.h>
-#include "bsp_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
