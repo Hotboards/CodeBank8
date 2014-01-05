@@ -16,7 +16,7 @@ Distintas formas de cadenas formateadas con salida a través del puerto uart
 #include "vectors.h"
 #include "types.h"
 #include "gpios/gpios.h"
-#include "uart1/uart1.h"
+#include "uart/uart1.h"
 #include "printf/printf.h"
 
 #pragma code
@@ -51,7 +51,8 @@ void main(void)
 
 
 ####Configuración
-La única constante a configurar en el archivo **middleware_profile.h** es la definición
+La única constante a configurar en el archivo **hardware_profile.h** es la definición
+
 ```
 #define _CR_CRLF            1 /*Convert \n ==> \r\n in the output char*/
 ```
@@ -141,7 +142,6 @@ Esta función acepta otra función como parámetro, la cual se encargara de mand
 
 ```
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Trasnmicion de cadenas formateadas con la función xprintf][1]
 - [Ejemplo 2: Transmicion de una cadena formateada con xsprintf por interrupciones][2]

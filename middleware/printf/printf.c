@@ -13,7 +13,7 @@
 /*-- Includes --*/
 #include "printf.h"
 #include <stdarg.h>
-#include "middleware_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
