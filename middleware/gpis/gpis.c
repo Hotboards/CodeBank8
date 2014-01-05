@@ -33,13 +33,13 @@
 /*-- Includes --*/
 #include "gpis.h"
 #include "gpios/gpios.h"
-#include "middleware_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
 #ifndef GPIS_N_INPUTS
-    #error "Se debe definir al menos una entrada en el archivo middleware_profile.h"
-    //#define GPIS_N_INPUTS         1 definace como minimo en middleware_profile.h
+    #error "Se debe definir al menos una entrada en el archivo hardware_profile.h"
+//#define GPIS_N_INPUTS         1 definace como minimo en hardware_profile.h
 #endif
 
 #if GPIS_N_INPUTS > 16

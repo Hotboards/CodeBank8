@@ -42,7 +42,7 @@
       \def      GPIS_N_INPUTS
       \brief    Numero de entradas a sensar, 16 es el valor maximo
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define GPIS_N_INPUTS en middleware_profile.h
+                no se define GPIS_N_INPUTS en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPIS_N_INPUTS                   0
 
@@ -50,7 +50,7 @@
       \def      GPIS_ON
       \brief    Nivel logico en el cual se activaran las entradas (0 o 1)
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define GPIS_ON en middleware_profile.h
+                no se define GPIS_ON en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPIS_ON                         0
 
@@ -59,7 +59,7 @@
       \brief    Numero de ejecuiones de la funcion Gpis_Task necesarias para determinar la activacion
                 de una entrada, el valor minimo es 3
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define GPIS_DEBOUNCE en middleware_profile.h
+                no se define GPIS_DEBOUNCE en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPIS_DEBOUNCE                   5
 
@@ -67,7 +67,7 @@
       \def      GPIS_PULLUPS
       \brief    Activacion de pullups internas (0 o 1)
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define GPIS_PULLUPS en middleware_profile.h
+                no se define GPIS_PULLUPS en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPIS_PULLUPS                    0
 
@@ -75,7 +75,7 @@
       \def      GPIS_Bx
       \brief    Asigna los pines ncesarios a cada entrada que deba sensarse
                 incrementa el valor de x con cadad nueva entrada
-                Esta definiciones se trasladan al archivo middleware_profile.h
+                Esta definiciones se trasladan al archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPIS_B0_P                       GPIOS_PORTA
     //#define GPIS_B0_B                       0
