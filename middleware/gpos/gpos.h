@@ -44,7 +44,7 @@
       \def      GPOS_N_PINS
       \brief    Numero de salidas a utilizar por la aplicacion
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define GPOS_N_PINS en middleware_profile.h
+                no se define GPOS_N_PINS en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPOS_N_PINS                       0
 
@@ -52,7 +52,7 @@
       \def      GPOS_Px
       \brief    Asigna los pines ncesarios a cada salida que deba actualizarse
                 incrementa el valor de x con cadad nueva salida
-                Estas definiciones se trasladan al archivo middleware_profile.h
+                Estas definiciones se trasladan al archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define GPOS_P0_P                         GPIOS_PORTA     /* PORT */
     //#define GPOS_P0_B                  	1               /* BYTE */

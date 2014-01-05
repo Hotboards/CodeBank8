@@ -34,13 +34,13 @@
 /*-- Includes --*/
 #include "gpos.h"
 #include "gpios/gpios.h"
-#include "middleware_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
 #ifndef GPOS_N_PINS
-    #error "Se debe definir al menos una salida en el archivo middleware_profile.h"
-    //#define GPOS_N_PINS         1 definace como minimo en middleware_profile.h
+    #error "Se debe definir al menos una salida en el archivo hardware_profile.h"
+    //#define GPOS_N_PINS         1 definace como minimo en hardware_profile.h
 #endif
 
 #define GPOS_BYTE_ARRAY()            (((_U08)GPOS_N_PINS - (_U08)1)/(_U08)8) + (_U08)1
