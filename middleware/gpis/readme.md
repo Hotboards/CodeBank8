@@ -1,11 +1,12 @@
 Entradas de propósito general (gpis)
 -----------------------------------
 --------
+
 Esta pieza de código maneja la complejidad detrás de la activación de interruptores mecánicos, toma en cuenta la eliminación de rebotes, detección de flancos de subida, tiempo de presionado y el estado actual de cada botón.
 
 La detección de activaciones se realiza mediante poleo y puede configurarse para que detecte activaciones en niveles ato (1) o bajo (0). El driver puede activar resistencias internas de pullup en los uC que disponen de ellas.
 
-El código es dependiente de **types.h**, **gpios/gpios.h** y **middleware_profile.h**
+El código es dependiente de **types.h**, **gpios/gpios.h** y **hardware_profile.h**
 
 
 ####Ejemplo de uso:
@@ -49,12 +50,14 @@ void YourHighPriorityISRCode(void)
 
 
 ####Configuracion
-Antes de utilizar este código se debe realizar algunas configuraciones dentro del archivo middleware_profile.h
-Se debe indicar el numero de entradas que la aplicación utilizara
+Antes de utilizar este código se debe realizar algunas configuraciones dentro del archivo **hardware_profile.h**. Se debe indicar el numero de entradas que la aplicación utilizara
+
 ```
 #define GPIS_N_INPUTS           1 /*su valor por defaul es cero*/
 ```
+
 Se debe indicar a que pines esta conectado cada entrada
+
 ```
 #define GPIS_B0_P               GPIOS_PORTA /*puerto*/
 #define GPIS_B0_B               0			/*pin*/
@@ -66,7 +69,8 @@ debe coincidir con el valor de GPIS_N_INPUTS, y el ultimo valor de (x) deberá
 ser GPIS_N_INPUTS-1 */
 ```
 
-Existen otros parámetros los cuales son opcionales, en caso de querer variar sus valores solo habrá que definirnos en **middleware_profile.h**, de no hacerse esto, el driver tomara sus valores por defaul.
+Existen otros parámetros los cuales son opcionales, en caso de querer variar sus valores solo habrá que definirnos en **hardware_profile.h**, de no hacerse esto, el driver tomara sus valores por defaul.
+
 ```
 #define GPIS_ON                         0/*nivel de activación bajo (0) o alto(1)*/
 #define GPIS_DEBOUNCE                   5/*debounce por defaul, la cifra mínima permitida es de 3*/
@@ -129,8 +133,8 @@ Existen otros parámetros los cuales son opcionales, en caso de querer variar su
     _BOOL Gpis_bGetStatus(_U08 u8Gpi);
 
 ```
+
 ####Ejemplos 
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Invertir el estado de un led cada que se presiona un botón][1]
 - [Ejemplo 2: Aumentar el tiempo que se debe presionar un botón][2]

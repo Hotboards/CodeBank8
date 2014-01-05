@@ -1,22 +1,27 @@
 Timers por software (swtimers)
 -----------------------------
 ------------
+
 El driver swtimers permite generar períodos de tiempo sin la necesidad de ciclar el CPU haciendo nada. Mediante el uso del **TIMER0** del PIC18F se puede multiplicar el número de canales que representará un periodo de tiempo diferente. De esta manera se pueden ejecutar diferentes tareas en el microcontrolador a diferente tiempo sin  causar un overhead excesivo en el CPU.
 
 El driver swtimers tiene dependencia directa del archivo **types.h**.
 
-Es necesario configurar esta pieza de código antes de utilizarse. en el archivo bsp_profile.h se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
+Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **hardware_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
+
 ```
 #define BSP_CLOCK           12000000 /*Varia el valor de esta definición acorde a la frecuencia de tu aplicación*/
 ```
+
 Si no se define esta linea de código, la velocidad que usara el driver por defaul sera de 12MHz.
 
 ####Ejemplo de uso:
+
 Generacion de un lapso de tiempo de 100ms
+
 ```
 #include "vectors.h"
 #include "types.h"
-#include "timer.h"
+#include "swtimers.h"
 #include "system.h"
 
 void main(void)
@@ -45,7 +50,7 @@ void YourHighPriorityISRCode(void) /*vector de prioridad alta*/
 
 ####Configuración
 El driver puede configurarse para establecer diferentes bases de tiempo y ajustarse a las necesidades de la aplicación, puede ser mas eficiente o mas flexible.
-En el archivo **bsp_profile.h** se pueden definir las siguientes constantes:
+En el archivo **hardware_profile.h** se pueden definir las siguientes constantes:
 ```
 #define TIMERS_BASE_TIME        5 /*Base de tiempo, el valor deberá ser en ms (valor por default)*/
 #define TIMERS_PREESCALER       8 /*Valor de preescaler para la base de tiempo del TMR0 (valor por default)*/
@@ -109,8 +114,8 @@ timer_mod_register = 65535 - ||------------------------------| * TIMERS_BASE_TIM
     void Timers_Isr(void);
 
 ```
+
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Parpadeo de un led cada 100ms][1]
 - [Ejemplo 2: Parpadeo de de 3 leds a diferentes tiempos][2]

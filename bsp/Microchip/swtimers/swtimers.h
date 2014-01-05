@@ -46,7 +46,7 @@
       \def      TIMERS_BASE_TIME
       \brief    value in milliseconds
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define TIMERS_BASE_TIME en bsp_profile.h
+                no se define TIMERS_BASE_TIME en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define TIMERS_BASE_TIME              	5
 	
@@ -54,7 +54,7 @@
       \def      TIMERS_BUSFREC
       \brief    bus clock frequency in Hz that feed this peripheral
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define BSP_CLOCK en bsp_profile.h
+                no se define BSP_CLOCK en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define TIMERS_CLOCK                	12000000
 	
@@ -62,7 +62,7 @@
       \def      TIMERS_PREESCALER
       \brief    preescaler value (2,4,8,16,32,64,128,256)
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define TIMERS_PREESCALER en bsp_profile.h
+                no se define TIMERS_PREESCALER en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define TIMERS_PREESCALER             	8     		
 	
@@ -70,7 +70,7 @@
       \def      TIMERS_N_CHANNELS
       \brief    define max number of channels allow
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define TIMERS_CHANNELS en bsp_profile.h
+                no se define TIMERS_CHANNELS en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define TIMERS_N_CHANNELS                 9
 	

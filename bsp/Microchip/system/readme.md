@@ -14,7 +14,7 @@ System_EnablePLL();	/*es recomendable que esta función se llama inmediatamente 
 Se sugiere activar y desactivar las interrupciones globales usando los siguientes macros
 ```
 __ENABLE_INTERRUPTS(); 
-....
+:
 __DISABLE_INTERRUPTS();
 ```
 
@@ -123,8 +123,8 @@ __DISABLE_INTERRUPTS();
 
 
 ```
+
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Aumento de la frecuencia de operación][1]
 - [Ejemplo 2: Parpadeo de led usando timers e interrupciones a 48MHz][2]

@@ -29,7 +29,7 @@
     /**--------------------------------------------------------------------------------------------- 
       \def        DELAYS_CLOCK
       \brief      Esta definicion es interna unicamente, autuando solo como valor por default cuando
-                  cuando no se define BSP_CLOCK en bsp_profile.h
+                  cuando no se define BSP_CLOCK en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define DELAYS_CLOCK                 12000000 (move to delays.c)
 
