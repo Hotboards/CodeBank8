@@ -1,6 +1,7 @@
 Puerto serial asíncrono (uart)
 ------------------------------
 -----
+
 El driver de puerto serial maneja el periférico EUART para que realize transmisiones de 8 y 9 bits, son configurables por el usuario las opciones de paridad y numero de bits de stop.
 
 El driver fue creado principalmente para que este funcione mediante interrupciones y no sea necesario ciclar al uC de manera innecesaria, sin embargo se crearon un par de funciones de tx de caracteres y cadenas, para cuando se requiera implementar una prueba rápida o si la aplicación no requiere demasiado procesamiento multitarea.
@@ -13,7 +14,7 @@ Algunas cosas que se agregaran a futuro son:
 - Autobauding
 - Detección de errores
 
-Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **bsp_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
+Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **hardware_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
 
 ```
 #define BSP_CLOCK           12000000/*Varia el valor de esta definición acorde a la frecuencia de tu aplicación*/
@@ -21,12 +22,14 @@ Es necesario configurar esta pieza de código antes de utilizarse. en el archivo
 Si no se define esta linea de código, la velocidad que usara el driver por defaul sera de 12MHz.
 
 ####Ejemplo de uso:
+
 Trasmitir de manera sencilla una cadena de caracteres terminada en cero y almacenada en memoria flash
+
 ```
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
-#include "uart1/uart1.h"
+#include "uart/uart1.h"
 #include "delays/delays.h"
 #include "gpios/gpios.h"
 
@@ -51,11 +54,12 @@ void main(void)
 ```
 
 Trasmitir una cadena de caracteres usando interrupciones
+
 ```
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
-#include "uart1/uart1.h"
+#include "uart/uart1.h"
 #include "system/system.h"
 #include "gpios/gpios.h"
 
@@ -90,12 +94,13 @@ void YourLowPriorityISRCode(void)
 }
 ```
 
-Simple recepción y transmicion de un eco por interrupciones en **bsp_profile.h** se debe escribir: #define UART1_ENABLE_RX      1
+Simple recepción y transmicion de un eco por interrupciones en **hardware_profile.h** se debe escribir: #define UART1_ENABLE_RX      1
+
 ```
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
-#include "uart1/uart1.h"
+#include "uart/uart1.h"
 #include "system/system.h"
 #include "gpios/gpios.h"
 
@@ -139,7 +144,7 @@ void Uart1_CallbackRx(_U08 u8Data)
 ```
 
 ####Configuración
-El driver puede configurarse con 2 parámetros extras, uno de ellos indica la cantidad máxima de datos a transmitir por interrupciones y otro mas indica si se usara recepción. En el archivo **bsp_profile.h** se pueden definir las siguientes constantes:
+El driver puede configurarse con 2 parámetros extras, uno de ellos indica la cantidad máxima de datos a transmitir por interrupciones y otro mas indica si se usara recepción. En el archivo **hardware_profile.h** se pueden definir las siguientes constantes:
 
 ```
 #define UART1_ENABLE_RX          0  /*Definición para habilitar la recepción por interrupciones, 
@@ -260,7 +265,6 @@ Si no se definen estas constantes se tomaran sus valores por default.
 ```
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Transmicion de una cadena de caracteres a 115200][1]
 - [Ejemplo 2: Transmicion de una cadena de caracteres con interrupciones a 115200][2]

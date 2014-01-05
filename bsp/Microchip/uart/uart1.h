@@ -32,7 +32,7 @@
       \def      UART1_CLOCK
       \brief    Frecuencia de cpu que alimenta este periferico
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define BSP_CLOCK en bsp_profile.h
+                no se define BSP_CLOCK en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define UART1_CLOCK              12000000
 
@@ -40,7 +40,7 @@
       \def      UART1_ENABLE_RX
       \brief    Definicion para habilitar la recepcion por interrupciones, setear a 1 (no hay por poleo)
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define UART1_ENABLE_RX en bsp_profile.h
+                no se define UART1_ENABLE_RX en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define UART1_ENABLE_RX          0
 
@@ -48,7 +48,7 @@
       \def      UART1_TX_BUFFER
       \brief    Se indica la cantidad maxima de datos que se pueden trasmitir por interrupciones
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define UART1_TX_BUFFER en bsp_profile.h
+                no se define UART1_TX_BUFFER en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define UART1_TX_BUFFER          30
 
