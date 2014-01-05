@@ -5,7 +5,7 @@ Código para generar retardos por software sin utilizar ningún periférico del 
 
 El driver gpios tiene dependencia directa del archivo **types.h**.
 
-Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **bsp_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
+Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **hardware_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
 
 ```
 #define BSP_CLOCK			12000000 /*Varia el valor de esta definición acorde a la frecuencia de tu aplicación*/
@@ -14,12 +14,14 @@ Es necesario configurar esta pieza de código antes de utilizarse. en el archivo
 Si no se define esta linea de código, la velocidad que usara el driver por defaul sera de 12MHz.
 
 ####Ejemplos de uso:
+
 Parpadeando un led cada 100ms
+
 ```
 #include "vectors.h"
 #include "types.h"
 #include "gpios.h"
-#include "swtimers.h"
+#include "delays.h"
 
 void main(void)
 {
@@ -37,7 +39,7 @@ Rotando un led a la izquierda cada 100ms
 #include "vectors.h"
 #include "types.h"
 #include "gpios.h"
-#include "swtimers.h"
+#include "delays.h"
 
 void main(void)
 {
@@ -72,8 +74,8 @@ void main(void)
     ----------------------------------------------------------------------------------------------*/
     void Delays_ms(_U16 ms);
 ```
+
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Parpadeo de un led cada 100ms][1]
 - [Ejemplo 2: Parpadeo de un  puerto completo a 500ms][2]
