@@ -8,7 +8,7 @@ El tiempo de adquisición del modulo adc se ajusta automáticamente dependiendo 
 
 El driver gpios tiene dependencia directa del archivo **types.h**.
 
-Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **bsp_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
+Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **hardware_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
 
 ```
 #define BSP_CLOCK			12000000 /*Varia el valor de esta definición acorde a la frecuencia de tu aplicación*/
@@ -80,11 +80,10 @@ No se requiere configurar este modulo mas a allá de indicar la frecuencia de op
 ```
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: lectura simple de una canal de adc][1]
 - [Ejemplo 2: lectura múltiple de diferentes canales de adc][2]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/adc1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/adc2.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/adc1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/adc2.X/main.c

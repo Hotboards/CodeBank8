@@ -24,7 +24,7 @@
 /*-- Includes --*/
 #include "adc.h"
 #include <p18cxxx.h>
-#include "bsp_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/

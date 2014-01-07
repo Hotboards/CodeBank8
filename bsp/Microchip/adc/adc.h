@@ -34,7 +34,7 @@
       \def      ADC_CLOCK
       \brief    Frecuencia de cpu que alimenta este periferico
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define BSP_CLOCK en bsp_profile.h
+                no se define BSP_CLOCK en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define ADC_CLOCK           12000000
 
