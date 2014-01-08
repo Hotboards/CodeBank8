@@ -11,8 +11,6 @@ El código es perfectamente compatible con la técnica de programación de "Máq
 
 Los diferentes drivers y piezas de código que podrás descargar son de uso libre, solo obedecen a la siguiente licencia, la cual es opcional =)
 
-Esto es una prueba de actualizacion
-
 ```
 /*--------------------------------------------------------------------------------
   "THE BEER-WARE LICENSE" (Revision 42):
@@ -30,3 +28,16 @@ Esto es una prueba de actualizacion
 - **middleware.-** Piezas de código que no son dependientes de ningún hardware en especifico y que solo estén programadas usando el estandar ANSI C
 
 - **modules.-** Drivers para comunicar con periféricos externos, tales como memorias, sensores, modems, etc. No son dependientes de ninguna maquina en especifico.
+
+####Configuracion
+
+Para que no tengas ningun problema al utilizar las piezas de codigo que encontraras en este repositorio deberas indicarle a tu compilador las rutas de los siguientes directorios.
+
+```
+<path_to>/CodeBank8
+<path_to>/CodeBank8/middleware
+<path_to>/CodeBank8/modules
+<path_to>/CodeBank8/bsp/<fabricante> (ejemplo: CodeBank8/bsp/Microchip )
+```
+Lo anterior lo podras haser atravez del ambiente de desarrollo que estes usando o directamente en un archivo Makefile
+

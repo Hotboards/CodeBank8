@@ -19,8 +19,7 @@ Actualmente este BSP a sido probado en los siguientes equipos, pero en teoría d
 - **system.-** Configuraciones internas del cpu del uC
 - **delays.-** Retardos por software
 - **swtimers.-** Multiplicadores de bases de tiempo
-- **uart.-** Lectura y escritura del puerto serial (prox.)
-- **adc.-** Convertidor análogo digital (prox.)
-- **spi.-** Serial peripheral Comunications (prox.)
-- **iic.-** Inter Integrated Comunication (prox.)
-- **pwm.-** Variador de ciclo util (prox.)
+- **uart.-** Lectura y escritura del puerto serial
+- **adc.-** Convertidor análogo digital
+- **spi.-** Serial peripheral Comunications
+- **usb.-** Bus Serial Universal

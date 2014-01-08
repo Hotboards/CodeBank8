@@ -8,4 +8,7 @@ Algunas de etas piezas de código dependen directamente de drivers de bajo nivel
 ####Directorios
 
 - **gpis.-** Manejo de entradas mecánicas de propósito general (botones)
-- **gpos.-** Manejo de salidas oscilantes/retardadas de propósito general 
+- **gpos.-** Manejo de salidas oscilantes/retardadas de propósito general
+- **printf.-** Emulacion la salida por pantalla de la libreria estandar
+- **keyboard.-** Teclado matricial
+- **6800.-** Interfaz paralela 6800 
