@@ -274,9 +274,9 @@ Si no se definen estas constantes se tomaran sus valores por default.
 - [Ejemplo 6: Transmicion de una cadena de caracteres a 115200 usando uart2][6]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/uart1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/uart2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/uart3.zip
-  [4]: http://www.hotboards.org/images/codigo/8bits/examples/uart4.zip
-  [5]: http://www.hotboards.org/images/codigo/8bits/examples/uart5.zip
-  [6]: http://www.hotboards.org/images/codigo/8bits/examples/uart6.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/uart1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/uart2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/uart3.X/main.c
+  [4]: https://github.com/Hotboards/Examples/blob/master/Microchip/uart4.X/main.c
+  [5]: https://github.com/Hotboards/Examples/blob/master/Microchip/uart5.X/main.c
+  [6]: https://github.com/Hotboards/Examples/blob/master/Microchip/uart6.X/main.c

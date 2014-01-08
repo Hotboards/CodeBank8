@@ -123,10 +123,10 @@ timer_mod_register = 65535 - ||------------------------------| * TIMERS_BASE_TIM
 - [Ejemplo 4: Parpadeo de led con prioridad alta, CPU a 48MHz y base de tiempo a 10ms][4]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers3.zip
-  [4]: http://www.hotboards.org/images/codigo/8bits/examples/swtimers4.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/swtimers1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/swtimers2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/swtimers3.X/main.c
+  [4]: https://github.com/Hotboards/Examples/blob/master/Microchip/swtimers4.X/main.c
 
 
 

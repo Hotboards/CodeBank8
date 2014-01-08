@@ -82,15 +82,8 @@ void main(void)
 - [Ejemplo 3: Rotación de leds en un puerto cada 200ms][3]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/delays1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/delays2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/delays3.zip
-
-
-
-
-
-
-
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/delays1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/delays2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/delays3.X/main.c
 
  

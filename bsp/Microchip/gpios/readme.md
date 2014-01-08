@@ -179,7 +179,7 @@ Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de códi
 - [Ejemplo 3: Rotación de leds en un puerto][3]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/gpios1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/gpios2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/gpios3.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpios1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpios2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpios3.X/main.c
 

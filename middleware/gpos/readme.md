@@ -109,8 +109,11 @@ ser GPOS_N_PINS-1 */
 - [Ejemplo 1: Invertir el estado de un led cada 200ms][1]
 - [Ejemplo 2: Encender un led por 300ms cada que se presione un botón][2]
 - [Ejemplo 3: Parpadeo un led a 50ms por un lapso de 1s][3]
+- [Ejemplo 4: Parpadeo de 4 leds a diferentes timepos][4]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/gpos1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/gpos2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/gpos3.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpos1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpos2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpos3.X/main.c
+  [4]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpos4.X/main.c
+ 

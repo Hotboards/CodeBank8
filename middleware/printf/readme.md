@@ -148,9 +148,9 @@ Esta función acepta otra función como parámetro, la cual se encargara de mand
 - [Ejemplo 3: Printf como herramienta de depuración][3]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/printf1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/printf2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/printf3.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/printf1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/printf2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/printf3.X/main.c
 
   [5]: http://elm-chan.org/ 
 

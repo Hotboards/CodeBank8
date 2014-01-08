@@ -142,8 +142,8 @@ Existen otros parámetros los cuales son opcionales, en caso de querer variar su
 - [Ejemplo 4: Invertir el estado de 3 leds acorde a la activación de 3 botones][4]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/gpis1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/gpis2.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/gpis3.zip
-  [4]: http://www.hotboards.org/images/codigo/8bits/examples/gpis4.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpis1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpis2.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpis3.X/main.c
+  [4]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpis4.X/main.c
 

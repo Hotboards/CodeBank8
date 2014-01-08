@@ -100,12 +100,11 @@ Esta pieza de código no requiere configuración alguna, ni siquiera es necesari
 ```
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Transmicion y recepción de datos][1]
 - [Ejemplo 2: Transmicion y recepción de datos con spi2][2]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/spi1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/spi2.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/spi1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/spi2.X/main.c
 
