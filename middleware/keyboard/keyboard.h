@@ -46,7 +46,7 @@
       \brief    Numero de ejecuiones de la funcion Keyboard_Task necesarias para determinar la activacion
                 de una entrada, el valor minimo es 3
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define KEYBOARD_DEBOUNCE en middleware_profile.h
+                no se define KEYBOARD_DEBOUNCE en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define KEYBOARD_DEBOUNCE                	10
 	
@@ -54,7 +54,7 @@
       \def      KEYBOARD_PULLUPS
       \brief    Activacion de pullups internas (0 o 1)
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define KEYBOARD en middleware_profile.h
+                no se define KEYBOARD en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define KEYBOARD_PULLUPS                    1
     
@@ -62,7 +62,7 @@
       \def      KEYBOARD_ROWS
       \brief    Numero de filas en uso
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define KEYBOARD_ROWS en middleware_profile.h
+                no se define KEYBOARD_ROWS en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define KEYBOARD_ROWS                    	4
 	
@@ -70,7 +70,7 @@
       \def      KEYBOARD_COLUMNS
       \brief    Numero de columnas en uso
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                no se define KEYBOARD_COLUMNS en middleware_profile.h
+                no se define KEYBOARD_COLUMNS en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define KEYBOARD_COLUMNS                 	3
     
@@ -78,7 +78,7 @@
       \def      KEYBOARD_Rn
       \brief    Asigna los pines ncesarios a cada fila que deba sensarse
                 incrementa el valor de x con cadad nueva entrada
-                Esta definiciones se trasladan al archivo middleware_profile.h
+                Esta definiciones se trasladan al archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define KEYBOARD_R0_P						GPIO_PORTB
     //#define KEYBOARD_R0_B						3
@@ -88,7 +88,7 @@
       \def      KEYBOARD_Cn
       \brief    Asigna los pines ncesarios a cada columna que deba sensarse
                 incrementa el valor de x con cadad nueva entrada
-                Esta definiciones se trasladan al archivo middleware_profile.h
+                Esta definiciones se trasladan al archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define KEYBOARD_C0_P						GPIO_PORTB
     //#define KEYBOARD_C0_B						0

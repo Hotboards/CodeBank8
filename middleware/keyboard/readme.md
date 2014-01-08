@@ -5,9 +5,10 @@ Este código permite manejar un teclado matricial de n x m, es decir la cantidad
 
 El teclado solo funciona con resistencias de pullups externas en las columnas y de momento no permite presionar dos teclas al mismo tiempo, sin embargo es posible que mediante las funciones del driver la aplicación pueda implementar algoritmos tipo "Ctrl + <tecla>"
 
-El código es dependiente de **types.h**, **gpios/gpios.h** y **middleware_profile.h**
+El código es dependiente de **types.h**, **gpios/gpios.h** y **hardware_profile.h**
 
 ####Ejemplo de uso
+
 Simple poleo del teclado matricial cada 10ms con un debounce por default de 5, por lo que la activación de cada tecla se realiza a los 50ms de haberla presionado
 ```
 #include "vectors.h"
@@ -33,7 +34,7 @@ void main(void)
             Keyboard_Task();                    /*se polea las entradas*/
         }
 
-        if(Gpis_bbIsPressed() == _TRUE) /*se pregunta si se activo la entrada 0*/
+        if(Gpis_bIsPressed() == _TRUE) /*se pregunta si se activo la entrada 0*/
         {
 		   	u8Key = Keyboard_u8GetKey();/*esto debe ocurrir cada 50ms pues su valor de debounce es de 5*/
             /*si se activo la tecla 2 por ejemplo, haremos cualquier cosa que queramos hacer*/
@@ -50,11 +51,15 @@ void YourHighPriorityISRCode(void)
 ```
 
 ####Configuración
-Antes de utilizar este código se debe realizar algunas configuraciones dentro del archivo **middleware_profile.h** Se debe indicar el numero de filas que la aplicación utilizara
+
+Antes de utilizar este código se debe realizar algunas configuraciones dentro del archivo **hardware_profile.h** Se debe indicar el numero de filas que la aplicación utilizara
+
 ```
 #define KEYBOARD_ROWS        2/*su valor por default es cero*/
 ```
+
 Se debe indicar a que pines esta conectado a cada fila
+
 ```
 #define KEYBOARD_R0_P        GPIOS_PORTD
 #define KEYBOARD_R0_B        3
@@ -70,10 +75,13 @@ ser KEYBOARD_ROWS */
 ```
 
 De la misma forma se debe indicar el numero de columnas que la aplicación utilizara
+
 ```
 #define KEYBOARD_COLUMNS     2/*su valor por default es cero*/
 ```
+
 Se debe indicar a que pines esta conectado cada entrada
+
 ```
 #define KEYBOARD_C0_P        GPIOS_PORTC
 #define KEYBOARD_C0_B        2
@@ -86,15 +94,17 @@ Se debe indicar a que pines esta conectado cada entrada
 /* donde (x) es la siguiente entrada a asignar, el numero de entradas declaradas 
 debe coincidir con el valor de KEYBOARD_COLUMNS, y el ultimo valor de (x) deberá 
 ser KEYBOARD_COLUMNS */
-
 ```
-Existen otros parámetros los cuales son opcionales, en caso de querer variar sus valores solo habrá que definirnos en **middleware_profile.h**, de no hacerse esto, el driver tomara sus valores por defaul.
+
+Existen otros parámetros los cuales son opcionales, en caso de querer variar sus valores solo habrá que definirnos en **hardware_profile.h**, de no hacerse esto, el driver tomara sus valores por defaul.
+
 ```
 #define KEYBOARD_DEBOUNCE                   5/*debounce por default, la cifra mínima permitida es de 3*/
 #define KEYBOARD_PULLUPS                    0/*pullups activas (1) o desactivadas (0)*/
 ```
 
 ####API
+
 ```
 	/*-- Functions --*/
     /**---------------------------------------------------------------------------------------------    
@@ -148,11 +158,10 @@ Existen otros parámetros los cuales son opcionales, en caso de querer variar su
 ```
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Simple lectura de teclado y despliegue con leds][1]
 - [Ejemplo 2: Teclas con diferente tiempo de presionado][2]
 
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/keyboard1.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/keyboard2.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/keyboard1.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/keyboard2.X/main.c

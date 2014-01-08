@@ -35,7 +35,7 @@
 /*-- Includes --*/
 #include "keyboard.h"
 #include "gpios/gpios.h"
-#include "middleware_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
@@ -54,11 +54,11 @@
 #endif
 
 #ifndef KEYBOARD_ROWS
-    #error "Se debe definir al menos una fila en el archivo middleware_profile.h"
+    #error "Se debe definir al menos una fila en el archivo hardware_profile.h"
     //#define KEYBOARD_ROWS                    	1
 #endif
 #ifndef KEYBOARD_COLUMNS
-    #error "Se debe definir al menos una columna en el archivo middleware_profile.h"
+    #error "Se debe definir al menos una columna en el archivo hardware_profile.h"
     //#define KEYBOARD_COLUMNS                 	1
 #endif
 
