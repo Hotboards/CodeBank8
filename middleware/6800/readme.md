@@ -6,7 +6,7 @@ Esta pieza de código emula la interfaz paralela 6800 mediante simples pines del
 
 Debido a los diferentes dispositivos que se pueden usar con esta interfaz es necesario establecer la duración de la señal de estrobo o Enable acorde al dispositivo a usar. el driver mide la duración de esta señal acorde al numero de operaciones tipo Nop();  pues regularmente esta en el orden de los nano segundos.   
 
-El driver es dependiente de ***types.h**, **gpios/gpios.h** y **middleware_profile.h**
+El driver es dependiente de ***types.h**, **gpios/gpios.h** y **hardware_profile.h**
 
 ####Ejemplo de uso
 Simple escritura en modo de 8 bits
@@ -57,7 +57,7 @@ void main(void)
 ```
 
 ####Configuración
-En el archivo **middleware_profile** se debe indicar de manera obligatorio los pines que actuaran en la interfaz 6800, de la siguiente manera, ademas de la duracion de la señal de enable medida en instrucciones tipo nop().
+En el archivo **hardware_profile** se debe indicar de manera obligatorio los pines que actuaran en la interfaz 6800, de la siguiente manera, ademas de la duracion de la señal de enable medida en instrucciones tipo nop().
 ```
 #define _6800_ENABLE_TIME			1	/*numero de Nop's que durara la señal Enable */	
 #define _6800_BUSLENGHT             8   /*numero de bits enviados por vez (valores de 4 o 8)*/
@@ -122,12 +122,11 @@ En el archivo **middleware_profile** se debe indicar de manera obligatorio los p
 ```
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Inicilizacion de un controlador hd44780][1]
 - [Ejemplo 2: Escritura de un dato a un controlador hd44780][2]
 - [Ejemplo 3: Escritura de un dato a un controlador hd44780 en modo 4 bits a 48MHz][2]
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/68001.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/68002.zip
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/68003.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/68001.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/68002.X/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/68003.X/main.c

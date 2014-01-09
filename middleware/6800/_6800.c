@@ -20,7 +20,7 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "_6800.h"
-#include "middleware_profile.h"
+#include "hardware_profile.h"
 
 /*-- Private Definitions--*/
 #ifndef _6800_BUSLENGHT

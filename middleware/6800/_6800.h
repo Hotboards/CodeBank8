@@ -32,7 +32,7 @@
       \def      _6800_BUSLENGHT
       \brief    tamaño del bus de datos (4 u 8)
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                cuando no se define _6800_BUSLENGHT en middleware_profile.h
+                cuando no se define _6800_BUSLENGHT en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define _6800_BUSLENGHT               4
 
@@ -41,7 +41,7 @@
       \brief    Numero de nop instrucciones para completar 300ns utlizados en la generacion de la
                 señal Enable
                 Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                cuando no se define _6800_ENABLE_TIME en middleware_profile.h
+                cuando no se define _6800_ENABLE_TIME en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/
     //#define _6800_ENABLE_TIME               1
 
@@ -49,14 +49,14 @@
       \def      _6800_DATAPORT
       \brief    Selecciona el puerto del uC que sera utilizado como bus de datos, en caso de la opcion
                 de 4 bits, solo se utilizara la parte mas significativa.
-                Es obligatorio escribir esta definicion en el archivo middleware_profile.h
+                Es obligatorio escribir esta definicion en el archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define _6800_DATAPORT              GPIOS_PORTD
 
     /**--------------------------------------------------------------------------------------------- 
       \def      6800_E_n 
       \brief    pin que manipulara la señal de estrobo (enable)
-                Es obligatorio escribir esta definicion en el archivo middleware_profile.h
+                Es obligatorio escribir esta definicion en el archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define _6800_E_P               	GPIOS_PORTC
     //#define _6800_E_B               	6
@@ -64,7 +64,7 @@
     /**--------------------------------------------------------------------------------------------- 
       \def      6800_RW_n 
       \brief    pin utilizado para indicar modo lectura o escritura
-                Es obligatorio escribir esta definicion en el archivo middleware_profile.h
+                Es obligatorio escribir esta definicion en el archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define _6800_RW_P                  GPIOS_PORTC
     //#define _6800_RW_B                  7
@@ -72,7 +72,7 @@
     /**--------------------------------------------------------------------------------------------- 
       \def      6800_RS_n 
       \brief    pin itlizado para indicar si se escribe un dato o un comando
-                Es obligatorio escribir esta definicion en el archivo middleware_profile.h
+                Es obligatorio escribir esta definicion en el archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define _6800_RS_P                  GPIOS_PORTB
     //#define _6800_RS_B                  7
