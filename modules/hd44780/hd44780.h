@@ -28,18 +28,20 @@
     /*-- Defines --*/
     /**--------------------------------------------------------------------------------------------- 
       \def      HD44780_ROWS
-      \brief    the numbers of rows presented in the display
+      \brief    numero de filas presentes en el display, esta definicion debera
+                colocarse en el archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define HD44780_ROWS                    4
 
     /**--------------------------------------------------------------------------------------------- 
       \def      HD44780_COLUMNS
-      \brief    the numbers of columns presented in the display
+      \brief    en el numero de columnas presentes en el display, esta definicion debera
+                colocarse en el archivo hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define HD44780_COLUMNS                 20
 
 
-	/*-- Macros --*/
+    /*-- Macros --*/
     /**--------------------------------------------------------------------------------------------- 
       \def      Define
       \brief    Write a nice description for your macros

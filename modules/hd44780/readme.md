@@ -6,7 +6,7 @@ Pieza de código para controlar un lcd alfanumérico externo con el controlador 
 
 Se necesita implementar funciones para escribir en la memoria de gráficos del lcd "CGRam" 
 
-Este codigo es dependiente de los archivos **types.h**, **6800/_6800.h**, y **middleware_profile.h** 
+Este codigo es dependiente de los archivos **types.h**, **6800/_6800.h**, y **hardware_profile.h** 
 
 
 ####Ejemplo de uso
@@ -41,12 +41,12 @@ void main(void)
 ```
 
 ####Configuración
-Para seleccionar el tamaño del bus de datos se define en el archivo middleware_profile.h el siguiente define 
+Para seleccionar el tamaño del bus de datos se define en el archivo hardware_profile.h el siguiente define 
 ```
 #define _6800_BUSLENGHT         4 /*tamaño del bus en la interfaz 6800*/
 ```
 
-Para seleccionar el numero de columnas y filas en el lcd se escriben las siguientes lineas en el archivo modules_profile.h
+Para seleccionar el numero de columnas y filas en el lcd se escriben las siguientes lineas en el archivo hardware_profile.h
 ```
 #define HD44780_ROWS			2 /*numero de filas (valor por default)*/  
 #define HD44780_COLUMNS			16/*numero de columnas (valor por default)*/
@@ -98,10 +98,9 @@ Para seleccionar el numero de columnas y filas en el lcd se escriben las siguien
 ```
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Envió de mensajes en diferentes posiciones del lcd][1]
 - [Ejemplo 2: Uso de la funciones printf con el lcd][2]
 
-  [1]: http://www.hotboards.org/images/codigo/8bits/examples/hd447801.zip
-  [2]: http://www.hotboards.org/images/codigo/8bits/examples/hd447802.zip
+  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/hd447801.X/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/hd447802.X/main.c

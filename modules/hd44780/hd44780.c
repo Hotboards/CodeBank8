@@ -21,8 +21,7 @@
 #include "hd44780.h"
 #include "6800/_6800.h"
 #include "delays/delays.h"
-#include "middleware_profile.h"
-#include "modules_profile.h"
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
