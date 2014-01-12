@@ -7,7 +7,7 @@ Los sistemas embebidos no son la excepción en donde podrás encontrar estos dis
 
 En esta sección encontraras una distribución del stack oficial de **Microchip**, con ligeras modificaciones. Este stack es una pieza de código muy completa que te permitirá manejar las diferentes clases de comunicación que especifica el protocolo USB.
 
-Las modificaciones realizadas por **Hotboards** tienen como objetivo presentar esta pieza de código de una manera mas sencilla y compacta. Los cambios solo se basan en la reubicacion de archivos en un árbol de directorios especifico para los **pics18f** y la eliminación del archivo **HardwareProfile.h**, así como de todo aquello no referente a los uC de la serie 18f. En caso de requerir la versión completa y sin modificar de este stack se puede descargar la [Microchip Application Library][1].  
+Las modificaciones realizadas por **Hotboards** tienen como objetivo presentar esta pieza de código de una manera mas sencilla y compacta. Los cambios solo se basan en la reubicacion de archivos en un árbol de directorios especifico para los **pics18f** y la eliminación del archivo **HardwareProfile.h**, así como de todo aquello no referente a los uC de la serie 18f. En caso de requerir la versión completa y sin modificar de este stack se puede descargar la [Microchip Application Library](http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=2680&dDocName=en547784).  
 
 ####Ejemplos de uso
 Esta es la implementacion mas básica del stack de usb, por si solo no hase nada, es necesario implementar las funciones de las diferentes clases que brinda microchip como CDC o HID.
@@ -57,6 +57,5 @@ La lista completa de las funciones usb device las puedes encontrar en al pagina 
 - Audio Function Driver
 - Vendor Class (Generic)
 
-  [1]: http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=2680&dDocName=en547784
   [2]: http://www.hotboards.org/images/files/MCHPFSUSB.pdf
-  [3]: index.php?option=com_content&view=article&id=28
+  [3]: https://github.com/Hotboards/CodeBank8/tree/master/bsp/Microchip/usb/cdc

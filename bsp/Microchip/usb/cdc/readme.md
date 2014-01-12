@@ -215,7 +215,6 @@ Una de las opciones mas importantes en usb_config.h es definir si el stack se us
 Para mayor información de las funciones revisar la pagina 254 del [manual][2] de la librería de USB
 
 ####Ejemplos
-Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de código.
 
 - [Ejemplo 1: Transmicion continua de una cadena de caracteres][3]
 - [Ejemplo 2: Simple eco de caracteres][4]
@@ -224,6 +223,6 @@ Descomprime estos ejemplos en el mismo directorio donde tengas tu banco de códi
 
   [1]: http://www.hotboards.org/images/files/mchpinf.zip
   [2]: http://www.hotboards.org/images/files/MCHPFUSB.pdf
-  [3]: http://www.hotboards.org/images/codigo/8bits/examples/usb_cdc1.zip
-  [4]: http://www.hotboards.org/images/codigo/8bits/examples/usb_cdc2.zip
-  [5]: http://www.hotboards.org/images/codigo/8bits/examples/usb_cdc3.zip
+  [3]: http://github.com/Hotboards/Examples/blob/master/Microchip/usb_cdc1.X/main.c
+  [4]: http://github.com/Hotboards/Examples/blob/master/Microchip/usb_cdc2.X/main.c
+  [5]: http://github.com/Hotboards/Examples/blob/master/Microchip/usb_cdc3.X/main.c
