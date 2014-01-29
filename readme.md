@@ -3,11 +3,9 @@ CodeBank8 (low cost machines)
 
 ------
 
-En este repositorio se encuentra la librería oficial de **Hotboards** para maquinas de 8 bits. 
+En este repositorio se encuentra la librería oficial de **[Hotboards](http://hotboards.org/)** para maquinas de 8 bits. El código que encontrarás en esta página te permitirá desarrollar más rápido tus proyectos, fue diseñado para ser utilizado incluso por software de producción. Es perfectamente compatible con la técnica de programación de "Máquinas de Estado" la cual te permitirá programar aplicaciones multitarea. 
 
-El código que encontrarás en esta página te permitirá desarrollar más rápido tus proyectos, fue diseñado para ser utilizado incluso por software de producción. 
-
-El código es perfectamente compatible con la técnica de programación de "Máquinas de Estado" la cual te permitirá programar aplicaciones multitarea. 
+Revisa nuestra [Wiki](https://github.com/Hotboards/CodeBank8/wiki) para que conoscas mas de como usar los codigos que aqui encontraras. Ademas no se te olvide clonar nuestro repositorio de [ejemplos](https://github.com/Hotboards/Examples), los cuales te seran de gran ayuda y guia ante posibles dudas.
 
 Los diferentes drivers y piezas de código que podrás descargar son de uso libre, solo obedecen a la siguiente licencia, la cual es opcional =)
 
