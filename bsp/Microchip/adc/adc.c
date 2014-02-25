@@ -44,9 +44,9 @@
     #define TOSC        0b001
 #elif ADC_CLOCK < 23000000 && ADC_CLOCK > 11999999
     #define TOSC        0b101
-#elif ADC_CLOCK < 47000000 && ADC_CLOCK > 22999999
+#elif ADC_CLOCK < 46000000 && ADC_CLOCK > 22999999
     #define TOSC        0b010
-#elif ADC_CLOCK < 48000000 && ADC_CLOCK > 46999999
+#elif ADC_CLOCK <= 48000000 && ADC_CLOCK > 45999999
     #define TOSC        0b110
 #else
     #define TOSC        0b000
