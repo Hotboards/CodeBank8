@@ -1,6 +1,6 @@
 Puerto serial asíncrono (uart)
-------------------------------
------
+==============================
+
 
 El driver de puerto serial maneja el periférico EUART para que realize transmisiones de 8 y 9 bits, son configurables por el usuario las opciones de paridad y numero de bits de stop.
 
@@ -16,16 +16,17 @@ Algunas cosas que se agregaran a futuro son:
 
 Es necesario configurar esta pieza de código antes de utilizarse. en el archivo **hardware_profile.h** se debe agregar la siguiente linea que indica la frecuencia de operación del micro:
 
-```
+```C
 #define BSP_CLOCK           12000000/*Varia el valor de esta definición acorde a la frecuencia de tu aplicación*/
 ```
 Si no se define esta linea de código, la velocidad que usara el driver por defaul sera de 12MHz.
 
-####Ejemplo de uso:
+Ejemplo de uso
+---------------
 
 Trasmitir de manera sencilla una cadena de caracteres terminada en cero y almacenada en memoria flash
 
-```
+```C
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
@@ -37,13 +38,13 @@ Trasmitir de manera sencilla una cadena de caracteres terminada en cero y almace
 void main(void)
 {
     _U32 baudrate;
-    
+
     ANCON0 = 0XFF;  /*Desativamos las salidas analogicas*/
     ANCON1 = 0XFF;  /*Desativamos las salidas analogicas*/
 
     Gpios_PinDirection(GPIOS_PORTC, 6, GPIOS_OUTPUT); /*pin de tx como salida*/
     baudrate = Uart1_Init(115200); /*se iniclaiza el puerto serial a 115200 baudios*/
-    
+
     while (1)
     {
         Uart1_PutString("Hola mundo\n\r");   /*se manda mensaje por puerto serial*/
@@ -55,7 +56,7 @@ void main(void)
 
 Trasmitir una cadena de caracteres usando interrupciones
 
-```
+```C
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
@@ -81,7 +82,7 @@ void main(void)
         {
             /*transmitimos una cadena de datos almacenada en flash*/
             Uart1_TxFlashBuffer((rom _U08*)"Hola mundo\n\r", sizeof("Hola mundo\n\r")-1);
-        }        
+        }
     }
 }
 
@@ -96,7 +97,7 @@ void YourLowPriorityISRCode(void)
 
 Simple recepción y transmicion de un eco por interrupciones en **hardware_profile.h** se debe escribir: #define UART1_ENABLE_RX      1
 
-```
+```C
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
@@ -143,10 +144,12 @@ void Uart1_CallbackRx(_U08 u8Data)
 }
 ```
 
-####Configuración
+Configuración
+-------------
+
 El driver puede configurarse con 2 parámetros extras, uno de ellos indica la cantidad máxima de datos a transmitir por interrupciones y otro mas indica si se usara recepción. En el archivo **hardware_profile.h** se pueden definir las siguientes constantes:
 
-```
+```C
 #define UART1_ENABLE_RX          0  /*Definición para habilitar la recepción por interrupciones, 
                                     setear a 1 (no hay por poleo)*/
 #define UART1_TX_BUFFER          30 /*Se indica la cantidad máxima de datos que se pueden trasmitir 
@@ -154,8 +157,10 @@ El driver puede configurarse con 2 parámetros extras, uno de ellos indica la ca
 ```
 Si no se definen estas constantes se tomaran sus valores por default.
 
-####API
-```
+API
+---
+
+```C
     /*-- Functions --*/
     /**---------------------------------------------------------------------------------------------
       \brief      Inicializa el periférico del puerto serial uart a la velocidad seleccionada
@@ -194,7 +199,7 @@ Si no se definen estas constantes se tomaran sus valores por default.
       \param      strString.- Cadena de caracteres a transmitir
       \return     None
       \warning    la función traba al procesador hasta que la cadena es enviada por completo y solo
-				  funciona con cadenas almacenadas en memoria flash
+                  funciona con cadenas almacenadas en memoria flash
     ----------------------------------------------------------------------------------------------*/
     void Uart1_PutString(const rom _S08 *strString);
 
@@ -225,10 +230,10 @@ Si no se definen estas constantes se tomaran sus valores por default.
       \warning    None
     ----------------------------------------------------------------------------------------------*/
     _BOOL Uart1_TxBusy(void);
-    
+
     /**---------------------------------------------------------------------------------------------
       \brief      Función de interrupción por transmisión de datos en puerto serial, esta función es
-				  complemento de las función Uart1_TxBuffer y Uart1_TxFlashBuffer  
+                  complemento de las función Uart1_TxBuffer y Uart1_TxFlashBuffer
       \param      None
       \return     None
       \warning    Indispensable mandar llamar esta función en alguno de los vectores de interrupción
@@ -236,7 +241,7 @@ Si no se definen estas constantes se tomaran sus valores por default.
     void Uart1_TxIsr(void);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Función de interrupción por recepción en puerto serial, lo único que se realiza aquí 
+      \brief      Función de interrupción por recepción en puerto serial, lo único que se realiza aquí
                   es mandar llamar la función Uart1_CallbackRx y pasarle el dato llegado
       \param      None
       \return     None
@@ -246,11 +251,11 @@ Si no se definen estas constantes se tomaran sus valores por default.
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función callback mandada llamar por la función Uart1_RxIsr, es necesario que la 
-				  aplicación defina esta función y establezca que hacer con dad parámetro que llegue
+                  aplicación defina esta función y establezca que hacer con dad parámetro que llegue
       \param      u8Data.- dato de 8 bits llegado por puerto serial
       \return     None
       \warning    Es importante recordar que esta función se ejecuta dentro de la interrupción por rx
- 				  y debe ser lo mas eficiente posible
+                  y debe ser lo mas eficiente posible
     ----------------------------------------------------------------------------------------------*/
     extern void Uart1_CallbackRx(_U08 u8Data);
 
@@ -259,12 +264,14 @@ Si no se definen estas constantes se tomaran sus valores por default.
       \param      None
       \return     Carácter llegado del puerto serial
       \warning    Esta función traba al procesador hasta recibir un carácter por serial. Es
-				  conveniente solo utilizarla para propósitos de depuración y pruebas.
+                  conveniente solo utilizarla para propósitos de depuración y pruebas.
     ----------------------------------------------------------------------------------------------*/
 	_U08 Uart1_u8GetChar(void);
 ```
 
-####Ejemplos
+Ejemplos
+--------
+
 
 - [Ejemplo 1: Transmicion de una cadena de caracteres a 115200][1]
 - [Ejemplo 2: Transmicion de una cadena de caracteres con interrupciones a 115200][2]
