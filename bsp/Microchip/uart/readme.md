@@ -39,15 +39,15 @@ void main(void)
 {
     _U32 baudrate;
 
-    ANCON0 = 0XFF;  /*Desativamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desativamos las salidas analogicas*/
+    ANCON0 = 0XFF;  /*Desativamos las entradas analogicas*/
+    ANCON1 = 0XFF;  /*Desativamos las entradas analogicas*/
 
     Gpios_PinDirection(GPIOS_PORTC, 6, GPIOS_OUTPUT); /*pin de tx como salida*/
-    baudrate = Uart1_Init(115200); /*se iniclaiza el puerto serial a 115200 baudios*/
+    baudrate = Uart_Init(UART_PORT1, 115200); /*se iniclaiza el puerto serial a 115200 baudios*/
 
     while (1)
     {
-        Uart1_PutString("Hola mundo\n\r");   /*se manda mensaje por puerto serial*/
+        Uart_PutString(UART_PORT1, "Hola mundo\n\r");   /*se manda mensaje por puerto serial*/
         Delays_ms(1000);                    /*se cicla por 1 seg*/
     }
 }
@@ -69,19 +69,19 @@ void main(void)
 {
     _U32 baudrate;
 
-    ANCON0 = 0XFF;  /*Desativamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desativamos las salidas analogicas*/
+    ANCON0 = 0XFF;  /*Desativamos las entradas analogicas*/
+    ANCON1 = 0XFF;  /*Desativamos las entradas analogicas*/
 
     Gpios_PinDirection(GPIOS_PORTC, 6, GPIOS_OUTPUT); /*pin de tx como salida*/
-    baudrate = Uart1_Init(115200);   /*se iniciliza el puerto serial a 115200 baudios*/
+    baudrate = Uart_Init(UART_PORT1, 115200);   /*se iniciliza el puerto serial a 115200 baudios*/
     __ENABLE_INTERRUPTS();          /*habilitamos interrupciones globales*/
 
     while (1)
     {
-        if(Uart1_TxBusy() == 0)              /*preguntamos si esta libre para transmitir*/
+        if(Uart_TxBusy(UART_PORT1) == 0)              /*preguntamos si esta libre para transmitir*/
         {
             /*transmitimos una cadena de datos almacenada en flash*/
-            Uart1_TxFlashBuffer((rom _U08*)"Hola mundo\n\r", sizeof("Hola mundo\n\r")-1);
+            Uart_TxFlashBuffer(UART_PORT1, (rom _U08*)"Hola mundo\n\r", sizeof("Hola mundo\n\r")-1);
         }
     }
 }
@@ -116,7 +116,7 @@ void main(void)
     ANCON1 = 0XFF;  /*Desativamos las salidas analogicas*/
     Gpios_PinDirection(GPIOS_PORTC, 6, GPIOS_OUTPUT); /*pin de tx como salida*/
     Gpios_PinDirection(GPIOS_PORTC, 7, GPIOS_INPUT); /*pin de rx como entrada*/
-    baudrate = Uart1_Init(9600);   /*se iniclaiza el puerto serial a 9600 baudios*/
+    baudrate = Uart_Init(UART_PORT1, 9600);   /*se iniclaiza el puerto serial a 9600 baudios*/
     __ENABLE_INTERRUPTS();          /*habilitamos interrupciones globales*/
 
     while (1)
@@ -124,7 +124,7 @@ void main(void)
         if(gbFlag == 1) /*llego un caracter por teclado*/
         {
             gbFlag = 0; /*limpiamos la bandera*/
-            Uart1_PutChar(gu8RxData);/*lo enviamos de regreso para tener feedback visual*/
+            Uart_PutChar(UART_PORT1, gu8RxData);/*lo enviamos de regreso para tener feedback visual*/
         }
     }
 }

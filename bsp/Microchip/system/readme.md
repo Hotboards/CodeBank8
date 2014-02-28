@@ -1,25 +1,27 @@
 Configuraciones internas el CPU (system)
-----------------------------------------
------------
+========================================
+
 
 Este driver maneja operaciones internas realizadas por el CPU tales como activación/desactivacion de interrupciones, reset del contador de watchdog, reset por software y la activación interna del PLL para que aumente la frecuencia de operación a 48MHz.
 
 Actualmente este driver no puede cambiar las configuraciones de reloj, a reloj secundario (31KHz) ni tampoco a modos de operación mas avanzadas como IDLE, SLEEP o DEEP SLEEP en un futuro se pretende agregar esas opciones.
 
 La manera en la que podemos aumentar la frecuencia de operación es activando el PLL interno que por default incrementa a la maxima de 48MHz
-```
-System_EnablePLL();	/*es recomendable que esta función se llama inmediatamente después de reset*/
+```C
+System_EnablePLL();	/*es recomendable que esta función se llame inmediatamente después de reset*/
 ```
 
 Se sugiere activar y desactivar las interrupciones globales usando los siguientes macros
-```
+```C
 __ENABLE_INTERRUPTS(); 
 :
 __DISABLE_INTERRUPTS();
 ```
 
-####API
-```
+API
+---
+
+```C
 	/*-- Defines --*/
     /**--------------------------------------------------------------------------------------------- 
       \def        _ePPS
@@ -124,7 +126,8 @@ __DISABLE_INTERRUPTS();
 
 ```
 
-####Ejemplos
+Ejemplos
+--------
 
 - [Ejemplo 1: Aumento de la frecuencia de operación][1]
 - [Ejemplo 2: Parpadeo de led usando timers e interrupciones a 48MHz][2]

@@ -113,7 +113,7 @@
 
     /**---------------------------------------------------------------------------------------------
       \brief      Regresa el valor actual del timer seleccionado
-      \param      eTimers.- Canal a regresar su valor de timepo, valores de 0 a TIMERS_CHANNELS-1
+      \param      u8Timer.- Canal a regresar su valor de timepo, valores de 0 a TIMERS_CHANNELS-1
       \return     Valor de la cuenta actual
       \warning    None      
     ----------------------------------------------------------------------------------------------*/
@@ -121,7 +121,7 @@
 
     /**---------------------------------------------------------------------------------------------    
       \brief      Asigna un nuevo periodo de tiempo a decrementar al canal asignado
-      \param      eTimers.- Canal a recargar, valores de 0 a TIMERS_CHANNELS-1 
+      \param      u8Timer.- Canal a recargar, valores de 0 a TIMERS_CHANNELS-1 
       \param      u16Time.-  Cantidad e tiempo a decrementar, solo valores múltiplos de TIMERS_BASE_TIME
       \return     None
       \warning    se puede convertir un valor constante a ms si se usa la constante timers_ms, siempre 
