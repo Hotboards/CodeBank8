@@ -39,16 +39,14 @@
     //#define ADC_CLOCK           12000000
 
     /**---------------------------------------------------------------------------------------------
-      \def      ADC_8BITS
-      \brief    Configura el modulo adc para conversiones de 8 bits
+      \def        _eADC_RESOLUTIONS
+      \brief      Resoluciones que puede manejar el ADC
     ----------------------------------------------------------------------------------------------*/
-    #define ADC_8BITS               1
-    
-    /**---------------------------------------------------------------------------------------------
-      \def      ADC_10BITS
-      \brief    Configura el modulo adc para conversiones de 10 bits
-    ----------------------------------------------------------------------------------------------*/
-    #define ADC_10BITS              2
+    typedef enum
+    {
+        ADC_8BITS = 1,
+        ADC_10BITS
+    }_eADC_RESOLUTIONS;
 
 
     /*-- Macros --*/
