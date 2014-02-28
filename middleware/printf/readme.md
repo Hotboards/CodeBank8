@@ -1,6 +1,6 @@
 Salidas y entradas formateadas (printf)
-------------------------------------
-------------
+=======================================
+
 
 Las funciones printf contenidas en este archivo son ideales para uC con poca memoria y que en general no tienen los recursos necesarios que demanda una función printf típica de la librería estándar de C. El uso recomendable de estas funciones es para propósitos de depuración y pruebas de código. Debido a la cantidad de overhead que le demandan al uC y a su característica bloqueante no se recomienda usar en aplicaciones finales.
 
@@ -9,9 +9,11 @@ El driver no depende de ninguna salida en especifico, es deber del usuario confi
 **NOTA:** Estas funciones están desarrolladas por [ChaN][5], y modificadas para que cumplieran los estándares de codificación de **Hotboards**. Se recomienda visitar la pagina del autor para mayor información.
 
 
-####Ejemplos de uso
+Ejemplos de uso
+---------------
+
 Distintas formas de cadenas formateadas con salida a través del puerto uart
-```
+```C
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
@@ -50,22 +52,26 @@ void main(void)
 ```
 
 
-####Configuración
+Configuración
+-------------
+
 La única constante a configurar en el archivo **hardware_profile.h** es la definición
 
-```
+```C
 #define _CR_CRLF            1 /*Convert \n ==> \r\n in the output char*/
 ```
 Esta definición solo inserta \r\n cuando se manda \n
 
 Otra configuración necesaria antes de mandar datos es la de decirle al driver que salida es la que usara, esto se realiza mediante la función
-```
+```C
 xdev_out(Uart1_PutChar);  /*funcion Uart1_PutChar como salida*/
 ```
 Esta función acepta otra función como parámetro, la cual se encargara de mandar un solo carácter por vez en el dispositivo de salida
 
-####API
-```
+API
+---
+
+```C
 	/*-- Functions --*/
     /**---------------------------------------------------------------------------------------------    
       \brief      Establece el sistema de salida que usaran el resto de las funciones por default
@@ -141,7 +147,9 @@ Esta función acepta otra función como parámetro, la cual se encargara de mand
     void put_dump(const void *buff, unsigned long addr, int len, int width);
 
 ```
-####Ejemplos
+
+Ejemplos
+--------
 
 - [Ejemplo 1: Trasnmicion de cadenas formateadas con la función xprintf][1]
 - [Ejemplo 2: Transmicion de una cadena formateada con xsprintf por interrupciones][2]

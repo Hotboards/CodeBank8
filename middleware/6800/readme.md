@@ -1,6 +1,6 @@
 Interfaz Paralela 6800 (_6800)
-------------------------------
------------
+==============================
+
 
 Esta pieza de código emula la interfaz paralela 6800 mediante simples pines del uC, las tres señales de control (E, RS y RW) utilizadas en esta interfaz se generan mediante el driver **gpios**. La amplitud del bus solo puede ser de 4 u 8 bits y para ello se utiliza un puerto completo del uC, en caso de 4 bits solo se usan los bits mas significativos.
 
@@ -8,9 +8,11 @@ Debido a los diferentes dispositivos que se pueden usar con esta interfaz es nec
 
 El driver es dependiente de ***types.h**, **gpios/gpios.h** y **hardware_profile.h**
 
-####Ejemplo de uso
+Ejemplo de uso
+--------------
+
 Simple escritura en modo de 8 bits
-```
+```C
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
@@ -32,7 +34,7 @@ void main(void)
 ```
 
 Simple escritura en modo de 4 bits
-```
+```C
 #include <p18cxxx.h>
 #include "vectors.h"
 #include "types.h"
@@ -56,9 +58,11 @@ void main(void)
 
 ```
 
-####Configuración
+Configuración
+-------------
+
 En el archivo **hardware_profile** se debe indicar de manera obligatorio los pines que actuaran en la interfaz 6800, de la siguiente manera, ademas de la duracion de la señal de enable medida en instrucciones tipo nop().
-```
+```C
 #define _6800_ENABLE_TIME			1	/*numero de Nop's que durara la señal Enable */	
 #define _6800_BUSLENGHT             8   /*numero de bits enviados por vez (valores de 4 o 8)*/
 #define _6800_DATAPORT              GPIOS_PORTD /*puerto que actúa como bus de datos*/
@@ -75,8 +79,10 @@ En el archivo **hardware_profile** se debe indicar de manera obligatorio los pin
 #define _6800_RS_B                  7			 /*pin*/
 ```
 
-####API
-```
+API
+---
+
+```C
 	/*-- Functions --*/
     /**---------------------------------------------------------------------------------------------
       \brief      Inicializa los pines de control que actuaran como puerto paralelo
@@ -121,7 +127,8 @@ En el archivo **hardware_profile** se debe indicar de manera obligatorio los pin
 
 ```
 
-####Ejemplos
+Ejemplos
+--------
 
 - [Ejemplo 1: Inicilizacion de un controlador hd44780][1]
 - [Ejemplo 2: Escritura de un dato a un controlador hd44780][2]

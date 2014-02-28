@@ -76,18 +76,18 @@
     /*-- Macros --*/
     /**--------------------------------------------------------------------------------------------- 
       \def      Define
-      \brief    Write a nice description for your macros
+      \brief    Write a nice descripción for your macros
     ----------------------------------------------------------------------------------------------*/ 
     
     
     /*-- Functions --*/
     /**---------------------------------------------------------------------------------------------    
-      \brief      Inicializa el pin de CS que seleccionara la memoria e indica a las demas funciones
-                  la debsidad de la memoria
+      \brief      Inicializa el pin de CS que seleccionara la memoria e indica a las demás funciones
+                  la densidad de la memoria
       \param	  u8Memory.- Memoria a incializar (solo usar enums _eEEPROM25XX_MEMORIES)
       \param	  u8Density.- Densidad de la memoria (solo usar enums _eEEPROM25XX_DENSITY)
       \return     None
-      \warning	  Esta funcion es necesaria antes de mandar llamar cualquier otra funcion del driver
+      \warning	  Esta función es necesaria antes de mandar llamar cualquier otra función del driver
     ----------------------------------------------------------------------------------------------*/
     void Eeprom25xx_Init(const _U08 u8Memory, const _U08 u8Density);
 
@@ -102,8 +102,8 @@
     /**---------------------------------------------------------------------------------------------    
       \brief      Lee una cantidad de bytes dada de una direccion de la memoria
       \param	  u8Memory.- Memoria a incializar (solo usar enums _eEEPROM25XX_MEMORIES)
-      \param	  pu8Buffer.- Puntero a la localidad de memoria donde se almacenara los bytes leidos
-      \param	  u32Addr.- Direccion detro de la memoria a leer
+      \param	  pu8Buffer.- Puntero a la localidad de memoria donde se almacenara los bytes leídos
+      \param	  u32Addr.- Dirección dentro de la memoria a leer
       \param	  u16Size.- Cantidad de bytes a leer
       \return     None
       \warning	  se recomienda preguntar si la memoria no esta ocupada antes de usar esta funcion
@@ -113,13 +113,13 @@
     /**---------------------------------------------------------------------------------------------    
       \brief      Inicializa el controlador hd44780, sin cursor, dos lineas y fuente 5x8
       \param	  u8Memory.- Memoria a incializar (solo usar enums _eEEPROM25XX_MEMORIES)
-      \param	  pu8Buffer.- Puntero a la localidad de memoria donde se almacenara los bytes leidos
-      \param	  u32Addr.- Direccion dentro de la memoria a escribir
+      \param	  pu8Buffer.- Puntero a la localidad de memoria donde se almacenara los bytes leídos
+      \param	  u32Addr.- Dirección dentro de la memoria a escribir
       \param	  u16Size.- Cantidad de bytes a leer
       \return     None
-      \warning	  se recomienda preguntar si la memoria no esta ocupada antes de usar esta funcion
-                  Esta funcion solo manda los datos al buffer interno de la memoria y da la orden de
-                  escritura pero no espera a que la memoria termine de escibir los datos
+      \warning	  se recomienda preguntar si la memoria no esta ocupada antes de usar esta función
+                  Esta función solo manda los datos al buffer interno de la memoria y da la orden de
+                  escritura pero no espera a que la memoria termine de escribir los datos
     ----------------------------------------------------------------------------------------------*/
     void Eeprom25xx_Write(const _U08 u8Memory, _U08 *pu8Buffer, _U32 u32Addr, _U16 u16Size);
 

@@ -1,16 +1,18 @@
 Teclado matricial (keyboard)
------------------
----------
+============================
+
+
 Este código permite manejar un teclado matricial de n x m, es decir la cantidad de lineas y columnas son configurables de 1 a 8, lo cual permite manejar un máximo de 64 botones en el teclado. El driver se utiliza únicamente por poleo y es necesario mandar llamar una función periódica cada x tiempo. Ademas es configurable por el usuario el tiempo de debounce y los pines a los cuales se puede conectar.
 
 El teclado solo funciona con resistencias de pullups externas en las columnas y de momento no permite presionar dos teclas al mismo tiempo, sin embargo es posible que mediante las funciones del driver la aplicación pueda implementar algoritmos tipo "Ctrl + <tecla>"
 
 El código es dependiente de **types.h**, **gpios/gpios.h** y **hardware_profile.h**
 
-####Ejemplo de uso
+Ejemplo de uso
+--------------
 
 Simple poleo del teclado matricial cada 10ms con un debounce por default de 5, por lo que la activación de cada tecla se realiza a los 50ms de haberla presionado
-```
+```C
 #include "vectors.h"
 #include "types.h"
 #include "swtimers/swtimers.h"
@@ -50,17 +52,18 @@ void YourHighPriorityISRCode(void)
 }
 ```
 
-####Configuración
+Configuración
+-------------
 
 Antes de utilizar este código se debe realizar algunas configuraciones dentro del archivo **hardware_profile.h** Se debe indicar el numero de filas que la aplicación utilizara
 
-```
+```C
 #define KEYBOARD_ROWS        2/*su valor por default es cero*/
 ```
 
 Se debe indicar a que pines esta conectado a cada fila
 
-```
+```C
 #define KEYBOARD_R0_P        GPIOS_PORTD
 #define KEYBOARD_R0_B        3
 
@@ -76,13 +79,13 @@ ser KEYBOARD_ROWS */
 
 De la misma forma se debe indicar el numero de columnas que la aplicación utilizara
 
-```
+```C
 #define KEYBOARD_COLUMNS     2/*su valor por default es cero*/
 ```
 
 Se debe indicar a que pines esta conectado cada entrada
 
-```
+```C
 #define KEYBOARD_C0_P        GPIOS_PORTC
 #define KEYBOARD_C0_B        2
 
@@ -98,12 +101,13 @@ ser KEYBOARD_COLUMNS */
 
 Existen otros parámetros los cuales son opcionales, en caso de querer variar sus valores solo habrá que definirnos en **hardware_profile.h**, de no hacerse esto, el driver tomara sus valores por defaul.
 
-```
+```C
 #define KEYBOARD_DEBOUNCE                   5/*debounce por default, la cifra mínima permitida es de 3*/
 #define KEYBOARD_PULLUPS                    0/*pullups activas (1) o desactivadas (0)*/
 ```
 
-####API
+API
+---
 
 ```
 	/*-- Functions --*/
@@ -157,7 +161,8 @@ Existen otros parámetros los cuales son opcionales, en caso de querer variar su
     _BOOL Keyboard_u8GetStatus(_U08 u8Key);
 ```
 
-####Ejemplos
+Ejemplos
+--------
 
 - [Ejemplo 1: Simple lectura de teclado y despliegue con leds][1]
 - [Ejemplo 2: Teclas con diferente tiempo de presionado][2]

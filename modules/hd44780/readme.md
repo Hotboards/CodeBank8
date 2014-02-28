@@ -1,6 +1,6 @@
 LCD Alfanumerico (HD44780)
----------------------------
------------
+==========================
+
 
 Pieza de código para controlar un lcd alfanumérico externo con el controlador Hitachi **hd44780** o compatible. este código solo se encarga de incializar el lcd, así como mandar comandos y/o datos al lcd, los detalles internos de comunicación se manejan a través del código que maneja la interfaz 6800 en 4 u 8 bits.
 
@@ -9,7 +9,9 @@ Se necesita implementar funciones para escribir en la memoria de gráficos del l
 Este codigo es dependiente de los archivos **types.h**, **6800/_6800.h**, y **hardware_profile.h** 
 
 
-####Ejemplo de uso
+Ejemplo de uso
+--------------
+
 Envió de cadenas de datos a diferentes posiciones de un lcd de 4x20
 ```
 
@@ -40,20 +42,24 @@ void main(void)
 }
 ```
 
-####Configuración
+Configuración
+-------------
+
 Para seleccionar el tamaño del bus de datos se define en el archivo hardware_profile.h el siguiente define 
-```
+```C
 #define _6800_BUSLENGHT         4 /*tamaño del bus en la interfaz 6800*/
 ```
 
 Para seleccionar el numero de columnas y filas en el lcd se escriben las siguientes lineas en el archivo hardware_profile.h
-```
+```C
 #define HD44780_ROWS			2 /*numero de filas (valor por default)*/  
 #define HD44780_COLUMNS			16/*numero de columnas (valor por default)*/
 ```
 
-####API 
-```
+API 
+---
+
+```C
 	/*-- Functions --*/
     /**---------------------------------------------------------------------------------------------    
       \brief      Inicializa el controlador hd44780, sin cursor, dos lineas y fuente 5x8
@@ -97,7 +103,8 @@ Para seleccionar el numero de columnas y filas en el lcd se escriben las siguien
     void HD44780_WriteString(const rom _S08 *strString);
 ```
 
-####Ejemplos
+Ejemplos
+--------
 
 - [Ejemplo 1: Envió de mensajes en diferentes posiciones del lcd][1]
 - [Ejemplo 2: Uso de la funciones printf con el lcd][2]
