@@ -43,7 +43,9 @@ typedef struct
 {
     _BOOL bTxFlag;
     _U08 u8Counter;
-    rom _U08 *pu8TxBuffer;
+    rom _U08 *pu8TxBufferFlash;
+    _U08 *pu8TxBufferRam;
+    _BOOL bRam;
 }_sUART;
 
 
@@ -185,8 +187,9 @@ void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Data, const _U08 u8Lenght)
     {
         gasUarts[u8Uart].bTxFlag = _TRUE;
         gasUarts[u8Uart].u8Counter = u8Lenght;
-        gasUarts[u8Uart].pu8TxBuffer = (_U08 *)pu8Data;
-        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBuffer;
+        gasUarts[u8Uart].pu8TxBufferRam = (_U08 *)pu8Data;
+        gasUarts[u8Uart].bRam = _TRUE;
+        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBufferRam;
         if(u8Uart == UART_PORT1)
         {
             SET_8BIT(PIE1, 4);
@@ -206,8 +209,9 @@ void Uart_TxFlashBuffer(const _U08 u8Uart, const rom _U08 *pu8Data, const _U08 u
     {
         gasUarts[u8Uart].bTxFlag = _TRUE;
         gasUarts[u8Uart].u8Counter = u8Lenght;
-        gasUarts[u8Uart].pu8TxBuffer = (rom _U08 *)pu8Data;
-        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBuffer;
+        gasUarts[u8Uart].pu8TxBufferFlash = (rom _U08 *)pu8Data;
+        gasUarts[u8Uart].bRam = _FALSE;
+        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBufferFlash;
         if(u8Uart == UART_PORT1)
         {
             SET_8BIT(PIE1, 4);
@@ -235,8 +239,16 @@ void Uart1_TxIsr(void)
         gasUarts[1].u8Counter--;
         if(gasUarts[1].u8Counter != 0u)
         {
-            gasUarts[1].pu8TxBuffer++;
-            *gau8TXREG[1] = *gasUarts[1].pu8TxBuffer;
+            if(gasUarts[1].bRam == _TRUE)
+            {
+                gasUarts[1].pu8TxBufferRam++;
+                *gau8TXREG[1] = *gasUarts[1].pu8TxBufferRam;
+            }
+            else
+            {
+                gasUarts[1].pu8TxBufferFlash++;
+                *gau8TXREG[1] = *gasUarts[1].pu8TxBufferFlash;
+            }
         }
         else
         {
@@ -255,8 +267,16 @@ void Uart2_TxIsr(void)
         gasUarts[2].u8Counter--;
         if(gasUarts[2].u8Counter != 0u)
         {
-            gasUarts[2].pu8TxBuffer++;
-            *gau8TXREG[2] = *gasUarts[2].pu8TxBuffer;
+            if(gasUarts[2].bRam == _TRUE)
+            {
+                gasUarts[2].pu8TxBufferRam++;
+                *gau8TXREG[2] = *gasUarts[2].pu8TxBufferRam;
+            }
+            else
+            {
+                gasUarts[2].pu8TxBufferFlash++;
+                *gau8TXREG[2] = *gasUarts[2].pu8TxBufferFlash;
+            }
         }
         else
         {
