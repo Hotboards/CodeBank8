@@ -21,6 +21,7 @@
 #include "pwm.h"
 #include <p18cxxx.h>
 #include <string.h>
+#include "hardware_profile.h"
 
 
 /*-- Private Definitions--*/
