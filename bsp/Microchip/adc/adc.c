@@ -58,8 +58,8 @@ static _U08 gu8Flags;
 
 
 /*-- Private Macros --*/
-#define ADC_INIT_CHANNEL(channel)           (SET_8BIT(ANCON0, (channel)))
-#define ADC_SET_CHANNEL(channel)            (ADCON0 |= ((channel)<<2))
+#define ADC_INIT_CHANNEL(channel)           (CLEAR_8BIT(ANCON0, (channel)))
+#define ADC_SET_CHANNEL(channel)            ADCON0 &= 0b11000011; ADCON0 |= ((channel)<<2)
 #define ADC_START()                         (SET_8BIT(ADCON0, 1u))
 #define ADC_FLAG()                          (QUERY_8BIT(ADCON0, 1u))
 #define ADC_BUFFER()                        (((_U16)ADRESH<<(_U16)8)|(_U16)ADRESL)
