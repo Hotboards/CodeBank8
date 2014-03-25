@@ -58,7 +58,6 @@ static _U08 gu8Flags;
 
 
 /*-- Private Macros --*/
-#define ADC_INIT_CHANNEL(channel)           (CLEAR_8BIT(ANCON0, (channel)))
 #define ADC_SET_CHANNEL(channel)            ADCON0 &= 0b11000011; ADCON0 |= ((channel)<<2)
 #define ADC_START()                         (SET_8BIT(ADCON0, 1u))
 #define ADC_FLAG()                          (QUERY_8BIT(ADCON0, 1u))
@@ -91,7 +90,14 @@ _U16 Adc_u16Read(_U08 u8Channel)
 {
     if(u8Channel < 13)
     {
-        ADC_INIT_CHANNEL(u8Channel);
+        if(u8Channel < 8)
+        {/*canales del 0 al 7*/
+            CLEAR_8BIT(ANCON0, u8Channel);
+        }
+        else
+        {/*canales del 8 al 12*/
+            CLEAR_8BIT(ANCON1, u8Channel - 8);
+        }
         ADC_SET_CHANNEL(u8Channel);
         ADC_START();
         while(ADC_FLAG()==1);

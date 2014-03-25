@@ -67,7 +67,7 @@
 
     /**---------------------------------------------------------------------------------------------
       \brief      Lee un canal de adc
-      \param      u8Channel.- Canal de adc a leer
+      \param      u8Channel.- Canal de adc a leer (valores del 0 al 12)
       \return     Lectura del adc
       \warning    Esta función traba al cpu hasta que se termina de samplear y convertir una lectura
     ----------------------------------------------------------------------------------------------*/
