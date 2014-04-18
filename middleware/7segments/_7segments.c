@@ -92,6 +92,23 @@ void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
+_U08 _7segments_u8GetDisplay(const _U08 u8Display)
+{
+    _U08 u8Value = 0;
+
+    if(u8Display < _7SEGMENTS_DIGI_N)
+    {
+        #if _7SEGMENTS_MODE == 1
+            u8Value = ~gau8Values[u8Display];
+        #else
+            u8Value = gau8Values[u8Display];
+        #endif
+    }
+    return u8Value;
+}
+/**-----------------------------------------------------------------------------------------------*/
+
+/**-----------------------------------------------------------------------------------------------*/
 void _7segments_SetNumber(const _U16 u16Value)
 {
     _U08 u8Digi;

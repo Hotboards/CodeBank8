@@ -104,13 +104,21 @@
 
     /**---------------------------------------------------------------------------------------------
       \brief      Carga el valor con los segemtnos a encender en cada display
-      \param	  u8Display.- numero de display uqe desplegara el valor seleccionado
+      \param	  u8Display.- numero de display uqe desplegara el valor seleccionado (de 0 a _7SEGMENTS_DIGI_N-1)
       \param	  u8Value.- valor con los segmentos que se deberan encender
       \return     None
       \warning	  Un bit en uno represetna un segmento encendido. La funcion invertira el valor si el
                   el driver esta configurado como anodo comun.
     ----------------------------------------------------------------------------------------------*/
     void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value);
+
+    /**---------------------------------------------------------------------------------------------
+      \brief      Regresa el valor con los segemtnos a encendidos en el display
+      \param	  u8Display.- numero de display que se le obtendra su valor (de 0 a _7SEGMENTS_DIGI_N-1)
+      \return     Valor en binario representando cada segmento encendido
+      \warning	  Un bit en uno represetna un segmento encendido.
+    ----------------------------------------------------------------------------------------------*/
+    _U08 _7segments_u8GetDisplay(const _U08 u8Display);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Despliega un numero decimal de hasta 4 digitos en los displays
