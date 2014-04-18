@@ -60,6 +60,7 @@ static const _U08 gua8Numbers[10] = {_0,_1,_2,_3,_4,_5,_6,_7,_8,_9};
 void _7segments_Init(void)
 {
     Gpios_WriteTris(_7SEGMENTS_PORT, 0x00);
+    Gpios_PinDirection(_7SEGMENTS_DIGI0_P, _7SEGMENTS_DIGI0_B, GPIOS_OUTPUT);
     Gpios_WritePin(_7SEGMENTS_DIGI0_P, _7SEGMENTS_DIGI0_B, DIGI_OFF);
     #if _7SEGMENTS_DIGI_N > 1
         Gpios_PinDirection(_7SEGMENTS_DIGI1_P, _7SEGMENTS_DIGI1_B, GPIOS_OUTPUT);
@@ -95,19 +96,19 @@ void _7segments_SetNumber(const _U16 u16Value)
 {
     _U08 u8Digi;
 
-    u8Digi = (_U08)(u16Value % (_U16)1000); /*unidades*/
+    u8Digi = (_U08)(u16Value % (_U16)10); /*unidades*/
     _7segments_SetDisplay(0, gua8Numbers[u8Digi]);
     #if _7SEGMENTS_DIGI_N > 1
-        u8Digi = (_U08)((u16Value % (_U16)100) / (_U16)10); /*decenas*/
-        _7segments_SetDisplay(0, gua8Numbers[u8Digi]);
+        u8Digi = ((u16Value / (_U16)10) % (_U16)10); /*decenas*/
+        _7segments_SetDisplay(1, gua8Numbers[u8Digi]);
     #endif
     #if _7SEGMENTS_DIGI_N > 2
-        u8Digi = (_U08)((u16Value % (_U16)10) / (_U16)100); /*centenas*/
-        _7segments_SetDisplay(0, gua8Numbers[u8Digi]);
+        u8Digi = (_U08)((u16Value / (_U16)100) % (_U16)10); /*centenas*/
+        _7segments_SetDisplay(2, gua8Numbers[u8Digi]);
     #endif
     #if _7SEGMENTS_DIGI_N > 3
         u8Digi = (_U08)(u16Value / (_U16)1000); /*millares*/
-        _7segments_SetDisplay(0, gua8Numbers[u8Digi]);
+        _7segments_SetDisplay(3, gua8Numbers[u8Digi]);
     #endif
 }
 /**-----------------------------------------------------------------------------------------------*/
@@ -120,7 +121,6 @@ void _7segments_Task(void)
     switch(u8States)
     {
         case 0:
-            Gpios_WritePin(_7SEGMENTS_DIGI0_P, _7SEGMENTS_DIGI0_B, DIGI_ON);
             #if _7SEGMENTS_DIGI_N > 1
                 Gpios_WritePin(_7SEGMENTS_DIGI1_P, _7SEGMENTS_DIGI1_B, DIGI_OFF);
             #endif
@@ -130,6 +130,7 @@ void _7segments_Task(void)
             #if _7SEGMENTS_DIGI_N > 3
                 Gpios_WritePin(_7SEGMENTS_DIGI3_P, _7SEGMENTS_DIGI3_B, DIGI_OFF);
             #endif
+            Gpios_WritePin(_7SEGMENTS_DIGI0_P, _7SEGMENTS_DIGI0_B, DIGI_ON);
             Gpios_WritePort(_7SEGMENTS_PORT, gau8Values[0]);
             #if _7SEGMENTS_DIGI_N > 1
                 u8States = 1;
@@ -142,12 +143,6 @@ void _7segments_Task(void)
             #if _7SEGMENTS_DIGI_N > 1
                 Gpios_WritePin(_7SEGMENTS_DIGI1_P, _7SEGMENTS_DIGI1_B, DIGI_ON);
             #endif
-            #if _7SEGMENTS_DIGI_N > 2
-                Gpios_WritePin(_7SEGMENTS_DIGI2_P, _7SEGMENTS_DIGI2_B, DIGI_OFF);
-            #endif
-            #if _7SEGMENTS_DIGI_N > 3
-                Gpios_WritePin(_7SEGMENTS_DIGI3_P, _7SEGMENTS_DIGI3_B, DIGI_OFF);
-            #endif
             Gpios_WritePort(_7SEGMENTS_PORT, gau8Values[1]);
             #if _7SEGMENTS_DIGI_N > 2
                 u8States = 2;
@@ -156,15 +151,11 @@ void _7segments_Task(void)
             #endif
         break;
         case 2:
-            Gpios_WritePin(_7SEGMENTS_DIGI0_P, _7SEGMENTS_DIGI0_B, DIGI_OFF);
             #if _7SEGMENTS_DIGI_N > 1
                 Gpios_WritePin(_7SEGMENTS_DIGI1_P, _7SEGMENTS_DIGI1_B, DIGI_OFF);
             #endif
             #if _7SEGMENTS_DIGI_N > 2
                 Gpios_WritePin(_7SEGMENTS_DIGI2_P, _7SEGMENTS_DIGI2_B, DIGI_ON);
-            #endif
-            #if _7SEGMENTS_DIGI_N > 3
-                Gpios_WritePin(_7SEGMENTS_DIGI3_P, _7SEGMENTS_DIGI3_B, DIGI_OFF);
             #endif
             Gpios_WritePort(_7SEGMENTS_PORT, gau8Values[2]);
             #if _7SEGMENTS_DIGI_N > 3
@@ -174,10 +165,6 @@ void _7segments_Task(void)
             #endif
         break;
         case 3:
-            Gpios_WritePin(_7SEGMENTS_DIGI0_P, _7SEGMENTS_DIGI0_B, DIGI_OFF);
-            #if _7SEGMENTS_DIGI_N > 1
-                Gpios_WritePin(_7SEGMENTS_DIGI1_P, _7SEGMENTS_DIGI1_B, DIGI_OFF);
-            #endif
             #if _7SEGMENTS_DIGI_N > 2
                 Gpios_WritePin(_7SEGMENTS_DIGI2_P, _7SEGMENTS_DIGI2_B, DIGI_OFF);
             #endif
