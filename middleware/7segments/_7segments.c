@@ -5,18 +5,27 @@
   this stuff is worth it, you can buy me a beer in return to Hotboards crew
   (Beer-ware license created by Poul-Henning Kamp)
 
-  \file         _6800.c
+  \file         _7segments.c
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         August 26, 2013
+  \date         April 17, 2014
   \target       8-bits Generic
 
-  \brief        Esta pieza de código emula la interfaz paralela 6800 mediante simples pines del uC,
-                las tres señales de control (E, RS y RW) utilizadas en esta interfaz se generan
-                mediante el driver **gpios**. La amplitud del bus solo puede ser de 4 u 8 bits y para
-                ello se utiliza un puerto completo del uC, en caso de 4 bits solo se usan los bits
-                mas significativos..
+  \brief        Esta pieza de código controla el multiplexado de display de 7 segmentos mediante un
+                bus de datos comun. El driver puede controlar de uno hasta cuatro display en
+                configuracion anodo comun o catodo comun, requiere de un puerto completo para el bus
+                de datos y un pin por cada display.
+                Es necesario mandar llamar una fucion periodica al menos cada 5ms para 4 displays.
+                Una simple funcion se encarga de setear los valores que se desplegaran por display, lo
+                que pemrite desplegar cualquier caracter que se desee combiando los 7 segmentos
+                (mas un punto), donde los segmentos a = bit0, b = bit1, ..., g = bit6 y . = bit7
+                            a
+                           ---
+                        f | g | b
+                           ---
+                        e | d | c
+                           --- .
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "_7segments.h"

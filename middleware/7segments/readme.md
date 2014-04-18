@@ -1,139 +1,146 @@
-Interfaz Paralela 6800 (_6800)
+Display de 7 Segmentos (_7segments)
 ==============================
 
 
-Esta pieza de código emula la interfaz paralela 6800 mediante simples pines del uC, las tres señales de control (E, RS y RW) utilizadas en esta interfaz se generan mediante el driver **gpios**. La amplitud del bus solo puede ser de 4 u 8 bits y para ello se utiliza un puerto completo del uC, en caso de 4 bits solo se usan los bits mas significativos.
+Esta pieza de código controla el multiplexado de display de 7 segmentos mediante un bus de datos común.El driver puede controlar de uno hasta cuatro display en configuración ánodo común o cátodo común. Requiere de un puerto completo para el bus de datos y un pin por cada display. Es necesario mandar llamar la función `_7segments_Task()` periódica al menos cada 5ms para cuatro displays.
 
-Debido a los diferentes dispositivos que se pueden usar con esta interfaz es necesario establecer la duración de la señal de estrobo o Enable acorde al dispositivo a usar. el driver mide la duración de esta señal acorde al numero de operaciones tipo Nop();  pues regularmente esta en el orden de los nano segundos.   
+Una simple función se encarga de setear los valores que se desplegaran en cada display, la que permite desplegar cualquier carácter que se desee combinado los 7 segmentos (mas un punto), donde los segmentos a = bit0, b = bit1, ..., g = bit6 y . = bit7
 
 El driver es dependiente de ***types.h**, **gpios/gpios.h** y **hardware_profile.h**
 
 Ejemplo de uso
 --------------
 
-Simple escritura en modo de 8 bits
+Simple despliegue de un numero de 4 cifras
 ```C
 #include <p18cxxx.h>
 #include "vectors.h"
-#include "types.h"
-#include "6800/_6800.h"
+#include "swtimers/swtimers.h"
+#include "system/system.h"
+#include "7segments/_7segments.h"
 
 #pragma code
 void main(void)
 {
-    ANCON0 = 0XFF;  /*Desactivamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desactivamos las salidas analogicas*/
+    ANCON0 = 0xff;
+    ANCON1 = 0xff;
 
-    _6800_Init();   /*incializamos la interfaz paralela*/
-	_6800_WriteData('a'); /*escribimos un simple dato*/
-	while (1)
+    Timers_Init();                      /*inicializamos el driver para genere una interrupcion cada 5ms*/
+    _7segments_Init();                  /*configuramos los pines como salidas*/
+    _7segments_SetNumbers(1234);
+  
+    __ENABLE_INTERRUPTS();   /*se habilitan las interrupciones globales con prioridad*/
+
+    while (1)
     {
-
+        if(Timers_u16GetTime(0) == 0)/*preguntamos si la interrupcion decremento hasta llegar a 0 el canal 0*/
+        {
+            Timers_SetTime(0, 5/timers_ms);/*se cumplen los 5ms asi que volvemos a recargar el mismo canal */
+            _7segments_Task();              /*actualiza el valor en el display y multiplexa al siguiente display*/
+        }
     }
 }
-```
 
-Simple escritura en modo de 4 bits
-```C
-#include <p18cxxx.h>
-#include "vectors.h"
-#include "types.h"
-#include "6800/_6800.h"
-
-#pragma code
-void main(void)
+#pragma interrupt YourHighPriorityISRCode
+void YourHighPriorityISRCode(void)
 {
-    ANCON0 = 0XFF;  /*Desactivamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desactivamos las salidas analogicas*/
-
-    _6800_Init();   /*incializamos la interfaz paralela*/
-	_6800_WriteData('a'); /*escribimos el nibble mas significativo*/
-	_6800_WriteData('a' << 4u); /*escribimos el nibble menos significativo*/
-	
-	while (1)
-    {
-
-    }
+    /*coloca aquí el código que llevará tu interrupción en caso de usarla*/
 }
 
+#pragma interruptlow YourLowPriorityISRCode
+void YourLowPriorityISRCode(void)
+{
+    Timers_Isr();
+}
 ```
 
 Configuración
 -------------
 
-En el archivo **hardware_profile** se debe indicar de manera obligatorio los pines que actuaran en la interfaz 6800, de la siguiente manera, ademas de la duracion de la señal de enable medida en instrucciones tipo nop().
+En el archivo **hardware_profile** se debe indicar de manera obligatorio los pines que se usaran para controlar el diplay de 7 segmentos, de la siguiente manera, 
 ```C
-#define _6800_ENABLE_TIME			1	/*numero de Nop's que durara la señal Enable */	
-#define _6800_BUSLENGHT             8   /*numero de bits enviados por vez (valores de 4 o 8)*/
-#define _6800_DATAPORT              GPIOS_PORTD /*puerto que actúa como bus de datos*/
-/*en caso de bus de 4 bits solo se usan los 4 bits menos significativos del puerto*/
+#define _7SEGMENTS_DIGI_N                    2       /*2 digitos*/
+#define _7SEGMENTS_MODE                     1       /*anodo comun*/
+#define _7SEGMENTS_PORT                     GPIOS_PORTB /*puerto b como bus de datos*/
+/*pines que controlan los comunes*/
+#define _7SEGMENTS_DIGI0_P                  GPIOS_PORTD /*primer display*/
+#define _7SEGMENTS_DIGI0_B                  7
 
-/*pin de enable*/
-#define _6800_E_P               	GPIOS_PORTC  /*puerto*/
-#define _6800_E_B               	6			 /*pin*/	
-/*pin de lectura/escritura*/
-#define _6800_RW_P                  GPIOS_PORTC  /*puerto*/
-#define _6800_RW_B                  7			 /*pin*/
-/*pin de datos/comandos*/
-#define _6800_RS_P                  GPIOS_PORTB  /*puerto*/
-#define _6800_RS_B                  7			 /*pin*/
+#define _7SEGMENTS_DIGI1_P                  GPIOS_PORTD /*segundo display*/
+#define _7SEGMENTS_DIGI1_B                  6
 ```
 
 API
 ---
 
 ```C
-	/*-- Functions --*/
     /**---------------------------------------------------------------------------------------------
-      \brief      Inicializa los pines de control que actuaran como puerto paralelo
-      \param	  None
+      \def      _e7SEGMENTS_NUMBERS
+      \brief    Valores que representan los numeros decimales desplegados en los displays
+    ----------------------------------------------------------------------------------------------*/
+    typedef enum
+    {
+        _0 = 0b00111111,
+        _1 = 0b00000110,
+        _2 = 0b01011011,
+        _3 = 0b01001111,
+        _4 = 0b01100110,
+        _5 = 0b01101101,
+        _6 = 0b01111101,
+        _7 = 0b00000111,
+        _8 = 0b01111111,
+        _9 = 0b01101111
+    }_e7SEGMENTS_NUMBERS;
+
+    
+    /*-- Functions --*/
+    /**---------------------------------------------------------------------------------------------
+      \brief      Inicializa como salidas los pines que se usaran con el display
+      \param    None
       \return     None
-      \warning	  Se deben declarar los pines a usar en el archivo middleware_profile.h
+      \warning    Se deben declarar los pines a usar en el archivo middleware_profile.h
     ----------------------------------------------------------------------------------------------*/
-    void _6800_Init(void);
+    void _7segments_Init(void);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Escribe un simple dato a través del bus (este valor puede ser de 8 o 4 bits)W/R=0,R/S=1
-      \param	  u8Data.- dato a ser enviado a través del bus de datos
+      \brief      Carga el valor con los segmentos a encender en cada display
+      \param    u8Display.- numero de display que desplegara el valor seleccionado (de 0 a _7SEGMENTS_DIGI_N-1)
+      \param    u8Value.- valor con los segmentos que se deberán encender
       \return     None
-      \warning	  En el caso de la opción de 4 bits la función solo toma en cuenta los 4 bits mas altos (4-7)
+      \warning    Un bit en uno representa un segmento encendido. La función invertirá el valor si el
+                  el driver esta configurado como ánodo común.
     ----------------------------------------------------------------------------------------------*/
-    void _6800_WriteData(_U08 u8Data);
+    void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      lee un dato del dispositivo externo conectado al bus de datos (W/R=1, R/S=1)
-      \param	  None
-      \return     Dato leído
-      \warning	  En el caso de el modo de 4 bits solo se toma en cuenta los 4 bits mas altos (4-7)
+      \brief      Regresa el valor con los segmentos a encendidos en el display
+      \param    u8Display.- numero de display que se le obtendrá su valor (de 0 a _7SEGMENTS_DIGI_N-1)
+      \return     Valor en binario representando cada segmento encendido
+      \warning    Un bit en uno representa un segmento encendido.
     ----------------------------------------------------------------------------------------------*/
-    _U08 _6800_u8ReadData(void);
+    _U08 _7segments_u8GetDisplay(const _U08 u8Display);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Esribe un comando al dispositivo externo (W/R=0 and R/S =0)
-      \param	  u8Cmd.- Comando a enviar
+      \brief      Despliega un numero decimal de hasta 4 dígitos en los displays
+      \param    u16Value.- numero a desplegar en los displays
       \return     None
-      \warning	  En el caso de el modo de 4 bits solo se toma en cuenta los 4 bits mas altos (4-7)
+      \warning    La función toma en cuenta el numero de displays que se ha configurado. No se toma
+                  en cuenta el punto
     ----------------------------------------------------------------------------------------------*/
-    void _6800_WriteCommand(_U08 u08Cmd);
+    void _7segments_SetNumber(const _U16 u16Value);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Lee una dirección del dispositivo externo (W/R=1 and R/S =0)
-      \param	  None
-      \return     Dirección enviada
-      \warning	  En el caso de el modo de 4 bits solo se toma en cuenta los 4 bits mas altos (4-7).
-                  En este tipo de dispositivos no se leen comandos pero si direcciones internas.
+      \brief      Actualiza el valor en los display y multiplexa al siguiente display
+      \param    None
+      \return     None
+      \warning    Esta función se debe mandar llamar de manera periódica al menos cada 5ms
     ----------------------------------------------------------------------------------------------*/
-    _U08 _6800_u8ReadAddr(void);
-
+    void _7segments_Task(void);
 ```
 
 Ejemplos
 --------
 
-- [Ejemplo 1: Inicilizacion de un controlador hd44780][1]
-- [Ejemplo 2: Escritura de un dato a un controlador hd44780][2]
-- [Ejemplo 3: Escritura de un dato a un controlador hd44780 en modo 4 bits a 48MHz][2]
-
-  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/68001.X/main.c
-  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/68002.X/main.c
-  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/68003.X/main.c
+- [Ejemplo 1: Simple despliegue de 4 numeros ](http://github.com/Hotboards/Examples/blob/master/Microchip/7segments_1.X/main.c)
+- [Ejemplo 2: Contador de 0 a 255 con tres display](http://github.com/Hotboards/Examples/blob/master/Microchip/7segments_2.X/main.c)
+- [Ejemplo 3: Despliegue de voltaje (0 a 3.3) con punto decimal](http://github.com/Hotboards/Examples/blob/master/Microchip/7segments_3.X/main.c)

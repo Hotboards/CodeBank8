@@ -12,12 +12,12 @@
   \date         April 17, 2014
   \target       8-bits Generic
 
-  \brief        Esta pieza de código controla el multiplexado de display de 7 segemtnos mediante un 
-                bus de datos comun. eL driver puede controlar de uno hasta cuatro display en
+  \brief        Esta pieza de código controla el multiplexado de display de 7 segmentos mediante un
+                bus de datos comun. El driver puede controlar de uno hasta cuatro display en
                 configuracion anodo comun o catodo comun, requiere de un puerto completo para el bus
                 de datos y un pin por cada display.
                 Es necesario mandar llamar una fucion periodica al menos cada 5ms para 4 displays.
-                Una simple funcion se encarga de setear los alorse que se desplegaran por display, lo
+                Una simple funcion se encarga de setear los valores que se desplegaran por display, lo
                 que pemrite desplegar cualquier caracter que se desee combiando los 7 segmentos
                 (mas un punto), donde los segmentos a = bit0, b = bit1, ..., g = bit6 y . = bit7
                             a
@@ -96,44 +96,44 @@
     /*-- Functions --*/
     /**---------------------------------------------------------------------------------------------
       \brief      Inicializa como salidas los pines que se usaran con el display
-      \param	  None
+      \param      None
       \return     None
-      \warning	  Se deben declarar los pines a usar en el archivo middleware_profile.h
+      \warning    Se deben declarar los pines a usar en el archivo middleware_profile.h
     ----------------------------------------------------------------------------------------------*/
     void _7segments_Init(void);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Carga el valor con los segemtnos a encender en cada display
-      \param	  u8Display.- numero de display uqe desplegara el valor seleccionado (de 0 a _7SEGMENTS_DIGI_N-1)
-      \param	  u8Value.- valor con los segmentos que se deberan encender
+      \brief      Carga el valor con los segmentos a encender en cada display
+      \param      u8Display.- numero de display que desplegara el valor seleccionado (de 0 a _7SEGMENTS_DIGI_N-1)
+      \param      u8Value.- valor con los segmentos que se deberán encender
       \return     None
-      \warning	  Un bit en uno represetna un segmento encendido. La funcion invertira el valor si el
-                  el driver esta configurado como anodo comun.
+      \warning    Un bit en uno representa un segmento encendido. La función invertirá el valor si el
+                  el driver esta configurado como ánodo común.
     ----------------------------------------------------------------------------------------------*/
     void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Regresa el valor con los segemtnos a encendidos en el display
-      \param	  u8Display.- numero de display que se le obtendra su valor (de 0 a _7SEGMENTS_DIGI_N-1)
+      \brief      Regresa el valor con los segmentos a encendidos en el display
+      \param      u8Display.- numero de display que se le obtendrá su valor (de 0 a _7SEGMENTS_DIGI_N-1)
       \return     Valor en binario representando cada segmento encendido
-      \warning	  Un bit en uno represetna un segmento encendido.
+      \warning    Un bit en uno representa un segmento encendido.
     ----------------------------------------------------------------------------------------------*/
     _U08 _7segments_u8GetDisplay(const _U08 u8Display);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Despliega un numero decimal de hasta 4 digitos en los displays
-      \param	  u16Value.- numero a desplegar en los displays
+      \brief      Despliega un numero decimal de hasta 4 dígitos en los displays
+      \param      u16Value.- numero a desplegar en los displays
       \return     None
-      \warning	  La funcion toma en cuenta el numero de displays que se ha configurado. No se toma
+      \warning    La función toma en cuenta el numero de displays que se ha configurado. No se toma
                   en cuenta el punto
     ----------------------------------------------------------------------------------------------*/
     void _7segments_SetNumber(const _U16 u16Value);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Actualiza el valor en los display y multiplexa al siguiente display
-      \param	  None
+      \param      None
       \return     None
-      \warning	  Esta funcion se deb mandar llamar de manera periodica al menos cada 5ms
+      \warning    Esta función se debe mandar llamar de manera periódica al menos cada 5ms
     ----------------------------------------------------------------------------------------------*/
     void _7segments_Task(void);
 
