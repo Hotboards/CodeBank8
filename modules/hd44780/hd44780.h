@@ -83,6 +83,14 @@
     void HD44780_WriteData(const _U08 u8Data);
 
     /**---------------------------------------------------------------------------------------------    
+      \brief      manda comandos a controlador 
+      \param      u8Data.- comando a enviar (revisar hoja de datos para posibles comandos)
+      \return     None
+      \warning    trava al uC por 40us
+    ----------------------------------------------------------------------------------------------*/
+    void HD44780_WriteCommand(const _U08 u8Data);
+
+    /**---------------------------------------------------------------------------------------------    
       \brief      Escribe una cadena terminada en cero, almacenada en flash,
       \param	  strString.- puntero a cadena terminada en cero
       \return     None
