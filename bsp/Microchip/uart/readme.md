@@ -161,14 +161,24 @@ API
 ---
 
 ```C
-    /*-- Functions --*/
+    /**---------------------------------------------------------------------------------------------
+      \def      _eUARTS
+      \brief    Puertos uart que se pueden usar con las funciones
+    ----------------------------------------------------------------------------------------------*/
+    typedef enum
+    {
+        UART_PORT1 = 1,
+        UART_PORT2
+    }_eUARTS;
+
+
     /**---------------------------------------------------------------------------------------------
       \brief      Inicializa el periférico del puerto serial uart a la velocidad seleccionada
       \param      u32BaudRate.- velocidad de tx (9600, 57600, 115200)
       \return     El valor actual que se estableció en el registro de baudrate
       \warning    Por default la configuración es tx de 8 bits, sin paridad y 1 bit de stop (_8N1)
     ----------------------------------------------------------------------------------------------*/
-    _U32 Uart1_Init(const _U32 u32BaudRate);
+    _U32 Uart_Init(const _U08 u8Uart, const _U32 u32BaudRate);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Cambia la prioridad de interrupción de Tx.
@@ -176,7 +186,7 @@ API
       \return     None
       \warning    Por default la función Uart_Init  pone la prioridad en _LOW
     ----------------------------------------------------------------------------------------------*/
-    void Uart1_TxInterruptProprity(const _BOOL bPriority);
+    void Uart_TxInterruptProprity(const _U08 u8Uart, const _BOOL bPriority);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Cambia la prioridad de interrupción de Rx.
@@ -184,7 +194,7 @@ API
       \return     None
       \warning    Por default la función Uart_Init  pone la prioridad en _LOW
     ----------------------------------------------------------------------------------------------*/
-    void Uart1_RxInterruptProprity(const _BOOL bPriority);
+    void Uart_RxInterruptProprity(const _U08 u8Uart, const _BOOL bPriority);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite un solo carácter de 8 bits por puerto serial
@@ -192,7 +202,7 @@ API
       \return     None
       \warning    La función se espera a que el buffer de trasmisión este libre para mandar el carácter
     ----------------------------------------------------------------------------------------------*/
-    void Uart1_PutChar(const _S08 u8Char);
+    void Uart_PutChar(const _U08 u8Uart, const _U08 u8Char);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite una cadena de caracteres terminada en cero
@@ -201,7 +211,7 @@ API
       \warning    la función traba al procesador hasta que la cadena es enviada por completo y solo
                   funciona con cadenas almacenadas en memoria flash
     ----------------------------------------------------------------------------------------------*/
-    void Uart1_PutString(const rom _S08 *strString);
+    void Uart_PutString(const _U08 u8Uart, const rom _S08 *strString);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite un arreglo de datos mediante interrupciones
@@ -211,7 +221,7 @@ API
       \warning    la Función activa interrupción por tx y deja que la interrupción transmita los datos
                   la función Uart_TxBusy debe regresar cero antes de llamar esta función
     ----------------------------------------------------------------------------------------------*/
-    void Uart1_TxBuffer(const _U08 *pu8Char, const _U08 u8Lenght);
+    void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Char, const _U08 u8Lenght);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite un arreglo de datos almacenados en memoria flash mediante interrupciones
@@ -222,18 +232,19 @@ API
                   la función Uart_TxBusy debe regresar cero antes de llamar esta función
     ----------------------------------------------------------------------------------------------*/
 
-    void Uart1_TxFlashBuffer(const rom _U08 *pu8Char, const _U08 u8Lenght);
+    void Uart_TxFlashBuffer(const _U08 u8Uart, const rom _U08 *pu8Char, const _U08 u8Lenght);
     /**---------------------------------------------------------------------------------------------
       \brief      Revisa si el puerto serial esta ocupado trasmitiendo
       \param      None
       \return     Regresa un uno si esta ocupado y un cero si esta libre para tx
       \warning    None
     ----------------------------------------------------------------------------------------------*/
-    _BOOL Uart1_TxBusy(void);
+    _BOOL Uart_TxBusy(const _U08 u8Uart);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función de interrupción por transmisión de datos en puerto serial, esta función es
-                  complemento de las función Uart1_TxBuffer y Uart1_TxFlashBuffer
+                  complemento de las funciónes Uart_TxBuffer y Uart_TxFlashBuffer cuando se usa
+                  el UART_PORT1
       \param      None
       \return     None
       \warning    Indispensable mandar llamar esta función en alguno de los vectores de interrupción
@@ -241,8 +252,18 @@ API
     void Uart1_TxIsr(void);
 
     /**---------------------------------------------------------------------------------------------
+      \brief      Función de interrupción por transmisión de datos en puerto serial, esta función es
+                  complemento de las funciónes Uart_TxBuffer y Uart_TxFlashBuffer cuando se usa
+                  el UART_PORT2
+      \param      None
+      \return     None
+      \warning    Indispensable mandar llamar esta función en alguno de los vectores de interrupción
+    ----------------------------------------------------------------------------------------------*/
+    void Uart2_TxIsr(void);
+
+    /**---------------------------------------------------------------------------------------------
       \brief      Función de interrupción por recepción en puerto serial, lo único que se realiza aquí
-                  es mandar llamar la función Uart1_CallbackRx y pasarle el dato llegado
+                  es mandar llamar la funcion Uart1_CallbackRx y pasarle el dato llegado
       \param      None
       \return     None
       \warning    Indispensable mandar llamar esta función en alguno de los vectores de interrupción
@@ -250,14 +271,35 @@ API
     void Uart1_RxIsr(void);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Función callback mandada llamar por la función Uart1_RxIsr, es necesario que la 
-                  aplicación defina esta función y establezca que hacer con dad parámetro que llegue
-      \param      u8Data.- dato de 8 bits llegado por puerto serial
+      \brief      Función de interrupción por recepción en puerto serial, lo único que se realiza aquí
+                  es mandar llamar la funcion Uart2_CallbackRx y pasarle el dato llegado
+      \param      None
       \return     None
-      \warning    Es importante recordar que esta función se ejecuta dentro de la interrupción por rx
-                  y debe ser lo mas eficiente posible
+      \warning    Indispensable mandar llamar esta función en alguno de los vectores de interrupción
+    ----------------------------------------------------------------------------------------------*/
+    void Uart2_RxIsr(void);
+
+    /**---------------------------------------------------------------------------------------------
+      \brief      Función callback mandada llamar por la función Uart1_RxIsr, es necesario que la
+                  aplicación defina esta funcion y establezca que haser con el parametro que llegue
+      \param      u8Data.- dato de 8 bits llegado por puerto serial 1
+      \return     None
+      \warning    Es importante recordar que esta funcion se ejecuta dentro de la interrupcion por rx
+                  y debe ser lo mas eficiente posible. se debe definir en bsp_profile.h
+                  #define UART_ENABLE_RX1          1
     ----------------------------------------------------------------------------------------------*/
     extern void Uart1_CallbackRx(_U08 u8Data);
+
+    /**---------------------------------------------------------------------------------------------
+      \brief      Función callback mandada llamar por la función Uart2_RxIsr, es necesario que la
+                  aplicación defina esta funcion y establezca que haser con el parametro que llegue
+      \param      u8Data.- dato de 8 bits llegado por puerto serial 2
+      \return     None
+      \warning    Es importante recordar que esta funcion se ejecuta dentro de la interrupcion por rx
+                  y debe ser lo mas eficiente posible. se debe definir en bsp_profile.h
+                  #define UART_ENABLE_RX2          1
+    ----------------------------------------------------------------------------------------------*/
+    extern void Uart2_CallbackRx(_U08 u8Data);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Regresa un carácter llegado del puerto serial
@@ -266,7 +308,7 @@ API
       \warning    Esta función traba al procesador hasta recibir un carácter por serial. Es
                   conveniente solo utilizarla para propósitos de depuración y pruebas.
     ----------------------------------------------------------------------------------------------*/
-	_U08 Uart1_u8GetChar(void);
+    _U08 Uart_u8GetChar(const _U08 u8Uart);
 ```
 
 Ejemplos
