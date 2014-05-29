@@ -19,36 +19,96 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "gpios.h"
-#include <p18cxxx.h>
+#include <xc.h>
 
 
 /*-- Private Definitions--*/
 
 
 /*-- Global variables --*/
-static volatile near _U08 *const guap8Direction[] =
+static volatile _U08 *const guap8Direction[] =
 {
+#if defined RA0_bit
     &TRISA,
+#else
+    (0),
+#endif
+#if defined RB0_bit
     &TRISB,
+#else
+    (0),
+#endif
+#if defined RC0_bit
     &TRISC,
+#else
+    (0),
+#endif
+#if defined RD0_bit
     &TRISD,
-    &TRISE
+#else
+    (0),
+#endif
+#if defined RE0_bit
+    &TRISE,
+#else
+    (0),
+#endif
 }; /* tris */
-static volatile near _U08 *const guap8Input[]     =
+static volatile _U08 *const guap8Input[]     =
 {
+#if defined RA0_bit
     &PORTA,
+#else
+    (0),
+#endif
+#if defined RB0_bit
     &PORTB,
+#else
+    (0),
+#endif
+#if defined RC0_bit
     &PORTC,
+#else
+    (0),
+#endif
+#if defined RD0_bit
     &PORTD,
-    &PORTE
+#else
+    (0),
+#endif
+#if defined RE0_bit
+    &PORTE,
+#else
+    (0),
+#endif
 }; /* input */
-static volatile near _U08 *const guap8Output[]    =
+static volatile _U08 *const guap8Output[]    =
 {
+#if defined RA0_bit
     &LATA,
+#else
+    (0),
+#endif
+#if defined RB0_bit
     &LATB,
+#else
+    (0),
+#endif
+#if defined RC0_bit
     &LATC,
+#else
+    (0),
+#endif
+#if defined RD0_bit
     &LATD,
-    &LATE 
+#else
+    (0),
+#endif
+#if defined RE0_bit
+    &LATE,
+#else
+    (0),
+#endif
 };  /* output */
 
 /*-- Private Macros --*/
