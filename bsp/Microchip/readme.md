@@ -2,7 +2,10 @@
 Microchip BSP
 -------------
 -------
-Funciones de bajo nivel que comunican las aplicaciones con los registros de los uC de 8 bits de la marca Microchip (PIC18F) Usando el compilador C18.
+
+**NOTA: este branch es experimnetal, se esta trabajando en la migracion del codigo para el mas nuevo compilador XC8. Se considerea altamente recomendable eperar a que ocurra el release 2.0 del banco de codigo**
+
+Funciones de bajo nivel que comunican las aplicaciones con los registros de los uC de 8 bits de la marca Microchip (PIC18F) Usando el compilador XC8.
 
 Actualmente este BSP a sido probado en los siguientes equipos, pero en teoría dentro de los dispositivos PIC18F deben ser compatibles, solo basta averiguar si los registros internos de los periféricos son iguales.
 

@@ -1,6 +1,7 @@
 CodeBank8 (maquinas de 8 bits)
 ==============================
 
+**NOTA: este branch es experimnetal, se esta trabajando en la migracion del codigo para el mas nuevo compilador XC8. Se considerea altamente recomendable eperar a que ocurra el release 2.0 del banco de codigo**
 
 En este repositorio se encuentra la librería oficial de **[Hotboards](http://hotboards.org/)** para maquinas de 8 bits. El código que encontrarás en esta página te permitirá desarrollar más rápido tus proyectos, fue diseñado para ser utilizado incluso por software de producción. Es perfectamente compatible con la técnica de programación de "Máquinas de Estado" la cual te permitirá programar aplicaciones multitarea. 
 
