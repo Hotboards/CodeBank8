@@ -8,8 +8,8 @@
   \file         swtimers.h
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         July 25, 2013
+  \ver          2.0
+  \date         May 30, 2014
   \target       PIC18F series
   
   \brief        El driver swtimers permite generar períodos de tiempo sin la necesidad de ciclar el 
@@ -36,7 +36,7 @@
 --------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "swtimers.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include "hardware_profile.h"
 
 
@@ -84,12 +84,11 @@
 /*-- Global variables --*/
 const _U16 timers_ms  = (_U16)TIMERS_BASE_TIME;
 static _U16 gua16Timers[(_U08)TIMERS_N_CHANNELS];
-static _U16 gua16ModValue = 0;
+static _U16 gua16ModValue = (_U16)((_U32)0xFFFF - ((((_U32)TIMERS_CLOCK / (_U32)4)/((_U32)TIMERS_PREESCALER * (_U32)1000)) * (_U32)TIMERS_BASE_TIME));
 
 
 /*-- Private Macros --*/
-#define TIMERS_VALUE()              (_U16)((_U32)0xFFFF - ((((_U32)TIMERS_CLOCK / (_U32)4)/((_U32)TIMERS_PREESCALER * (_U32)1000)) * (_U32)TIMERS_BASE_TIME))
-#define TIMERS_MOD(time)            TMR0H = (_U16)(time)>>(_U16)8;TMR0L = (_U16)(time)
+#define TIMERS_MOD(time)            WRITETIMER0((time))
 #define TIMERS_INT()                SET_8BIT(INTCON, 5u)
 #define TIMERS_SC()                 SET_8BIT(T0CON, 7u)
 #define TIMERS_CLEAR_FLAG()         CLEAR_8BIT(INTCON,2u)
@@ -106,13 +105,11 @@ void Timers_Init(void)
     _U08 i;
 
     TIMERS_CLEAR_FLAG();        /* clear interrupt flag */
-    gua16ModValue = TIMERS_VALUE(); /*calculate the value must set on TMR0*/
     TIMERS_MOD(gua16ModValue);	/* set the max count allow for the base time value */
     TIMERS_SET_PREESCALER();    /* set the preescaler value */
     TIMERS_SC();                /* set status and control register */   
     CLEAR_8BIT(INTCON2, 2u);    /* set to low priority interrupt by the fault */
     TIMERS_INT();               /* enable module interrupt */
-
 
     for(i=0;i<TIMERS_N_CHANNELS;i++)
     {
@@ -145,7 +142,7 @@ _U16 Timers_u16GetTime(const _U08 u8Timer)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Timers_SetTime(const _U08 u8Timer, const _U16 u16Time)
+void Timers_SetTime(const _U08 u8Timer, _U16 u16Time)
 {
     if(u8Timer > TIMERS_N_CHANNELS) return; /*this condition is only to prevent errors*/
     gua16Timers[u8Timer] = u16Time;

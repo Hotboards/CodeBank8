@@ -8,8 +8,8 @@
   \file         system.h
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         August 20, 2013
+  \ver          2.0
+  \date         May 30, 2014
   \target       PIC18F series
 
   \brief        Este driver maneja operaciones internas realizadas por el CPU tales como activacion/
@@ -22,7 +22,7 @@
 
     /*-- Includes --*/
     #include "types.h"
-     
+
 
     /*-- Defines --*/
     /**--------------------------------------------------------------------------------------------- 
@@ -77,19 +77,19 @@
       \def        __KICK_THE_DOG()
       \brief      Resetea el contador del Watchdog timer
     ----------------------------------------------------------------------------------------------*/
-    #define __KICK_THE_DOG()                      {_asm clrwdt _endasm}
+    #define __KICK_THE_DOG()                      asm(" clrwdt")
 
     /**---------------------------------------------------------------------------------------------
       \def        __RESET()
       \brief      Provoca un reset del uC
     ----------------------------------------------------------------------------------------------*/
-    #define __RESET()                             {_asm reset _endasm}
+    #define __RESET()                             asm(" reset")
 
     /**---------------------------------------------------------------------------------------------
       \def        __NOP()
       \brief      Ejecuta una instruccion que consume un ciclo en el procesador
     ----------------------------------------------------------------------------------------------*/
-    #define __NOP()                               {_asm nop _endasm}
+    #define __NOP()                               __nop()
 
     
     /*-- Functions --*/

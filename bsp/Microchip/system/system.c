@@ -8,8 +8,8 @@
   \file         system.c
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         August 20, 2013
+  \ver          2.0
+  \date         May 30, 2014
   \target       PIC18F series
 
   \brief        Este driver maneja operaciones internas realizadas por el CPU tales como activacion/
@@ -18,7 +18,7 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "system.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include <string.h>
 
 
@@ -26,7 +26,7 @@
 
 
 /*-- Global variables --*/
-static volatile far _U08 *const guap8Inputs[] =
+static volatile _U08 *const guap8Inputs[] =
 {
     &RPINR1,
     &RPINR2,
@@ -45,7 +45,7 @@ static volatile far _U08 *const guap8Inputs[] =
     &RPINR24
 };
 
-static volatile far _U08 *const guap8Outputs[] =
+static volatile _U08 *const guap8Outputs[] =
 {
     &RPOR0,
     &RPOR1,
@@ -136,10 +136,10 @@ void System_PeripheralPinSelect(_ePPS ePeripheral, _U08 u8Pin)
 --------------------------------------------------------------------------------------------------*/
 static void unlock(void)
 {
-    _asm MOVLW 0x55 _endasm;
-    _asm MOVWF EECON2, 0 _endasm;
-    _asm MOVLW 0xAA _endasm;
-    _asm MOVWF EECON2, 0 _endasm;
+    asm ("MOVLW 0x55");
+    asm ("MOVWF EECON2, 0");
+    asm ("MOVLW 0xAA");
+    asm ("MOVWF EECON2, 0");
     //Turn off PPS Write Protect
     PPSCON = 0;//_asm BCF PPSCON, IOLOCK, BANKED _endasm;
 }
@@ -152,10 +152,10 @@ static void unlock(void)
 --------------------------------------------------------------------------------------------------*/
 static void lock(void)
 {
-    _asm MOVLW 0x55 _endasm;
-    _asm MOVWF EECON2, 0 _endasm;
-    _asm MOVLW 0xAA _endasm;
-    _asm MOVWF EECON2, 0 _endasm;
+    asm ("MOVLW 0x55");
+    asm ("MOVWF EECON2, 0");
+    asm ("MOVLW 0xAA");
+    asm ("MOVWF EECON2, 0");
     // Write Protect PPS (if desired)
     PPSCON = 1;//_asm BSF PPSCON, IOLOCK, BANKED _endasm;
 }

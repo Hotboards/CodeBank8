@@ -8,8 +8,8 @@
   \file         swtimers.h
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         July 25, 2013
+  \ver          2.0
+  \date         May 30, 2014
   \target       PIC18F series
   
   \brief        El driver swtimers permite generar períodos de tiempo sin la necesidad de ciclar el 
@@ -40,6 +40,7 @@
 
     /*-- Includes --*/
     #include "types.h"
+
 
     /*-- Defines --*/
     /**--------------------------------------------------------------------------------------------- 
@@ -127,7 +128,7 @@
       \warning    se puede convertir un valor constante a ms si se usa la constante timers_ms, siempre 
                   y cuando el valor sea múltiplo de TIMERS_BASE_TIME       
     ----------------------------------------------------------------------------------------------*/
-    void Timers_SetTime(const _U08 u8Timer, const _U16 u16Time);
+    void Timers_SetTime(const _U08 u8Timer, _U16 u16Time);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función de interrupción la cual decrementa en uno los canales activos.
