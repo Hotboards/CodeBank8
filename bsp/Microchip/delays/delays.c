@@ -19,7 +19,7 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "delays.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include "hardware_profile.h"
 
 
@@ -73,8 +73,8 @@ void Delays_10us( _U32 us )
             /*Try as you may, you can't get out of this heavier-duty case under 30us.*/
             while (s32Cycles>0) /*153 cycles used to this point*/
             {
-                {_asm nop _endasm}; /*Delay one instruction cycle at a time, not absolutely necessary*/
-                s32Cycles -= 42; /*Subtract cycles burned while doing each delay stage, 42 in this case*/
+                NOP(); /*Delay one instruction cycle at a time, not absolutely necessary*/
+                s32Cycles -= 21; /*Subtract cycles burned while doing each delay stage, 42 in this case*/
             }
         }
     }
@@ -100,8 +100,8 @@ void Delays_ms( _U16 ms )
     {
         while (s32Cycles > 0) /*148 cycles used to this point.*/
         {
-            {_asm nop _endasm};              /* Delay one instruction cycle at a time, not absolutely necessary.*/
-            s32Cycles -= 39;    /* Subtract cycles burned while doing each delay stage, 39 in this case.*/
+            NOP();              /* Delay one instruction cycle at a time, not absolutely necessary.*/
+            s32Cycles -= 22;    /* Subtract cycles burned while doing each delay stage, 39 in this case.*/
         }
     }
 }
