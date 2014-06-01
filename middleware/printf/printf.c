@@ -17,10 +17,6 @@
 
 
 /*-- Private Definitions--*/
-#ifndef _CR_CRLF
-    #define	_CR_CRLF		1	/* 1: Convert \n ==> \r\n in the output char */
-#endif
-
 #define DW_CHAR                 sizeof(char)
 #define DW_SHORT                sizeof(short)
 #define DW_LONG                 sizeof(long)
@@ -35,7 +31,7 @@ static char *outptr = (void*)0;
 
 
 /*-- Private functions prototypes --*/
-static void xvprintf(const rom char *fmt, va_list arp);
+static void xvprintf(const char *fmt, va_list arp);
 
 
 /*-- External functions --*/
@@ -49,10 +45,6 @@ void xdev_out( void(*func)(const unsigned char) )
 /**-----------------------------------------------------------------------------------------------*/
 void xputc( char c )
 {
-    if (_CR_CRLF && c == '\n')
-    {
-        xputc('\r');		/* CR -> CRLF */
-    }
     if (outptr)
     {
         *outptr++ = (unsigned char)c;
@@ -66,7 +58,7 @@ void xputc( char c )
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void xputs( const rom char* str )
+void xputs( const char* str )
 {
     while(*str != 0)
     {
@@ -77,7 +69,7 @@ void xputs( const rom char* str )
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void xfputs(void(*func)(const unsigned char), const rom char *str)
+void xfputs(void(*func)(const unsigned char), const char *str)
 {
     void (*pf)(const unsigned char);
 
@@ -93,7 +85,7 @@ void xfputs(void(*func)(const unsigned char), const rom char *str)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void xprintf(const rom char *fmt, ...)
+void xprintf(const char *fmt, ...)
 {
     va_list arp;
 
@@ -104,7 +96,7 @@ void xprintf(const rom char *fmt, ...)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void xsprintf(char* buff, const rom char *fmt, ... )
+void xsprintf(char* buff, const char *fmt, ... )
 {
     va_list arp;
 
@@ -120,7 +112,7 @@ void xsprintf(char* buff, const rom char *fmt, ... )
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void xfprintf(void(*func)(const unsigned char), const rom char *fmt, ... )							/* Optional arguments */
+void xfprintf(void(*func)(const unsigned char), const char *fmt, ... )							/* Optional arguments */
 {
     va_list arp;
     void (*pf)(const unsigned char);
@@ -182,7 +174,7 @@ void put_dump(const void* buff, unsigned long addr, int len, int width)
   \return       None
   \warning      None       
 --------------------------------------------------------------------------------------------------*/
-static void xvprintf(const rom char* fmt, va_list arp)
+static void xvprintf(const char* fmt, va_list arp)
 {
     unsigned int r, i, j, w, f;
     unsigned long v;
@@ -224,7 +216,7 @@ static void xvprintf(const rom char* fmt, va_list arp)
                 for (j = 0; p[j]; j++);
                 while (!(f & 2) && j++ < w)
                     xputc(' ');
-                xputs((const rom char*)p);
+                xputs((const char*)p);
                 while (j++ < w)
                     xputc(' ');
                 continue;
@@ -271,4 +263,3 @@ static void xvprintf(const rom char* fmt, va_list arp)
             xputc(' ');
     }
 }
-

@@ -40,7 +40,7 @@ void main(void)
     xprintf("%04x\n", (_U16)0xA3);                  //"00a3"
     xprintf("%08LX\n", (_U32)0x123ABC);             //"00123ABC"
     xprintf("%016b\n", (_U16)0x550F);               //"0101010100001111"
-    xprintf("%s\n", "String");                      //"String"
+    xprintf("%s\n", "String");                      //No soportado
     xprintf("%c\n", (_U16)'a');                     //"a"
 	xprintf("%s\n", buffer);                        //No soportado
 	xprintf("flotante %f", 3.14)					//No soportado
@@ -95,7 +95,7 @@ API
       \return     None 
       \warning    Esta función solo trabaja con cadenas almacenadas en flash    
     ----------------------------------------------------------------------------------------------*/
-    void xputs(const rom char *str );
+    void xputs(const char *str );
     
 	/**---------------------------------------------------------------------------------------------    
       \brief      Manda una cadena de caracteres terminada en cero a través de una salida especifica
@@ -104,7 +104,7 @@ API
       \return     None 
       \warning    Esta función solo trabaja con cadenas almacenadas en flash    
     ----------------------------------------------------------------------------------------------*/
-    void xfputs(void(*func)(const unsigned char), const rom char *str);
+    void xfputs(void(*func)(const unsigned char), const char *str);
     
 	/**---------------------------------------------------------------------------------------------    
       \brief      Emulación de función printf
@@ -113,7 +113,7 @@ API
       \return     None 
       \warning    Esta función solo trabaja con cadenas almacenadas en flash    
     ----------------------------------------------------------------------------------------------*/
-    void xprintf(const rom char *fmt, ...);
+    void xprintf(const char *fmt, ...);
     
 	/**---------------------------------------------------------------------------------------------    
       \brief      Almacena la cadena de salida formateada en un buffer de memoria
@@ -123,7 +123,7 @@ API
       \return     None 
       \warning    Esta función solo trabaja con cadenas almacenadas en flash    
     ----------------------------------------------------------------------------------------------*/
-    void xsprintf(char* buff, const rom char* fmt, ...);
+    void xsprintf(char* buff, const char* fmt, ...);
     
 	/**---------------------------------------------------------------------------------------------    
       \brief      Similar a la función printf, solo que aquí se indica la opción de salida de caracteres
@@ -133,7 +133,7 @@ API
       \return     None 
       \warning    Esta función solo trabaja con cadenas almacenadas en flash    
     ----------------------------------------------------------------------------------------------*/
-    void xfprintf(void (*func)(const unsigned char), const rom char *fmt, ...);
+    void xfprintf(void (*func)(const unsigned char), const char *fmt, ...);
     
     /**---------------------------------------------------------------------------------------------    
       \brief      Despliega el contenido de memoria apuntado

@@ -18,12 +18,7 @@
     #include "types.h"
      
 
-    /*-- Defines --*/
-    /**---------------------------------------------------------------------------------------------
-      \def        _CR_CRLF
-      \brief      1: Convert \n ==> \r\n in the output char
-    ----------------------------------------------------------------------------------------------*/
-    //#define _CR_CRLF            1
+    /*-- Defines --*/          
 
     
     /*-- Macros --*/
@@ -56,7 +51,7 @@
       \return     None
       \warning    Esta función solo trabaja con cadenas almacenadas en flash
     ----------------------------------------------------------------------------------------------*/
-    void xputs(const rom char *str );
+    void xputs(const char *str );
 
     /**---------------------------------------------------------------------------------------------
       \brief      Manda una cadena de caracteres terminada en cero a través de una salida especifica
@@ -65,7 +60,7 @@
       \return     None
       \warning    Esta función solo trabaja con cadenas almacenadas en flash
     ----------------------------------------------------------------------------------------------*/
-    void xfputs(void(*func)(const unsigned char), const rom char *str);
+    void xfputs(void(*func)(const unsigned char), const char *str);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Emulación de función printf
@@ -74,7 +69,7 @@
       \return     None
       \warning    Esta función solo trabaja con cadenas almacenadas en flash
     ----------------------------------------------------------------------------------------------*/
-    void xprintf(const rom char *fmt, ...);
+    void xprintf(const char *fmt, ...);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Almacena la cadena de salida formateada en un buffer de memoria
@@ -84,7 +79,7 @@
       \return     None
       \warning    Esta función solo trabaja con cadenas almacenadas en flash
     ----------------------------------------------------------------------------------------------*/
-    void xsprintf(char* buff, const rom char* fmt, ...);
+    void xsprintf(char* buff, const char* fmt, ...);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Similar a la función printf, solo que aquí se indica la opción de salida de caracteres
@@ -94,7 +89,7 @@
       \return     None
       \warning    Esta función solo trabaja con cadenas almacenadas en flash
     ----------------------------------------------------------------------------------------------*/
-    void xfprintf(void (*func)(const unsigned char), const rom char *fmt, ...);
+    void xfprintf(void (*func)(const unsigned char), const char *fmt, ...);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Despliega el contenido de memoria apuntado
