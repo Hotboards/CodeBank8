@@ -21,7 +21,7 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "uart.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include <string.h>
 #include "hardware_profile.h"
 
@@ -43,20 +43,18 @@ typedef struct
 {
     _BOOL bTxFlag;
     _U08 u8Counter;
-    rom _U08 *pu8TxBufferFlash;
-    _U08 *pu8TxBufferRam;
-    _BOOL bRam;
+    _U08 *pu8TxBuffer;
 }_sUART;
 
 
 /*-- Global variables --*/
-static volatile near unsigned char *gau8SPBRGH[3]  = {NULL, &SPBRGH1, &SPBRGH2};
-static volatile near unsigned char *gau8SPBRG[3]   = {NULL, &SPBRG1, &SPBRG2};
-static volatile near unsigned char *gau8TXSTA[3]   = {NULL, &TXSTA1, &TXSTA2};
-static volatile near unsigned char *gau8RCSTA[3]   = {NULL, &RCSTA1, &RCSTA2};
-static volatile near unsigned char *gau8TXREG[3]   = {NULL, &TXREG1, &TXREG2};
-static volatile near unsigned char *gau8RCREG[3]   = {NULL, &RCREG1, &RCREG2};
-static volatile near unsigned char *gau8BAUDCON[3] = {NULL, &BAUDCON1, &BAUDCON2};
+static volatile unsigned char *gau8SPBRGH[3]  = {NULL, &SPBRGH1, &SPBRGH2};
+static volatile unsigned char *gau8SPBRG[3]   = {NULL, &SPBRG1, &SPBRG2};
+static volatile unsigned char *gau8TXSTA[3]   = {NULL, &TXSTA1, &TXSTA2};
+static volatile unsigned char *gau8RCSTA[3]   = {NULL, &RCSTA1, &RCSTA2};
+static volatile unsigned char *gau8TXREG[3]   = {NULL, &TXREG1, &TXREG2};
+static volatile unsigned char *gau8RCREG[3]   = {NULL, &RCREG1, &RCREG2};
+static volatile unsigned char *gau8BAUDCON[3] = {NULL, &BAUDCON1, &BAUDCON2};
 static _sUART gasUarts[3];
 
 
@@ -64,14 +62,14 @@ static _sUART gasUarts[3];
 
 
 /*-- Private functions prototypes --*/
-static _U16 u16BaudRateL(const _U08 u8Uart, const _U32 u32BaudRate);
-static _U16 u16BaudRateH(const _U08 u8Uart, const _U32 u32BaudRate);
+static _U16 u16BaudRateL(const _U08 u8Uart, _U32 u32BaudRate);
+static _U16 u16BaudRateH(const _U08 u8Uart, _U32 u32BaudRate);
 static _U32 u32GetBaudRate(const _U08 u8Uart);
 
 
 /*-- External functions --*/
 /**-----------------------------------------------------------------------------------------------*/
-_U32 Uart_Init(const _U08 u8Uart, const _U32 u32BaudRate)
+_U32 Uart_Init(const _U08 u8Uart, _U32 u32BaudRate)
 {
     _U16 u16Baud;
 
@@ -162,7 +160,7 @@ void Uart_RxInterruptProprity(const _U08 u8Uart, const _BOOL bPriority)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Uart_PutChar(const _U08 u8Uart, const _U08 u8Char)
+void Uart_PutChar(const _U08 u8Uart, _U08 u8Char)
 {
     while(QUERY_8BIT(*gau8TXSTA[u8Uart], 1)==0){}
     *gau8TXREG[u8Uart] = u8Char;
@@ -170,7 +168,7 @@ void Uart_PutChar(const _U08 u8Uart, const _U08 u8Char)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Uart_PutString(const _U08 u8Uart, const rom _S08 *strString)
+void Uart_PutString(const _U08 u8Uart, const _U08 *strString)
 {
     while(*strString != 0)
     {
@@ -181,37 +179,14 @@ void Uart_PutString(const _U08 u8Uart, const rom _S08 *strString)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Data, const _U08 u8Lenght)
+void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Data, _U08 u8Lenght)
 {
     if((gasUarts[u8Uart].bTxFlag == _FALSE) && (u8Lenght != 0u))
     {
         gasUarts[u8Uart].bTxFlag = _TRUE;
         gasUarts[u8Uart].u8Counter = u8Lenght;
-        gasUarts[u8Uart].pu8TxBufferRam = (_U08 *)pu8Data;
-        gasUarts[u8Uart].bRam = _TRUE;
-        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBufferRam;
-        if(u8Uart == UART_PORT1)
-        {
-            SET_8BIT(PIE1, 4);
-        }
-        else if(u8Uart == UART_PORT2)
-        {
-            SET_8BIT(PIE3, 4);
-        }
-    }
-}
-/**-----------------------------------------------------------------------------------------------*/
-
-/**-----------------------------------------------------------------------------------------------*/
-void Uart_TxFlashBuffer(const _U08 u8Uart, const rom _U08 *pu8Data, const _U08 u8Lenght)
-{
-    if((gasUarts[u8Uart].bTxFlag == _FALSE) && (u8Lenght != 0u))
-    {
-        gasUarts[u8Uart].bTxFlag = _TRUE;
-        gasUarts[u8Uart].u8Counter = u8Lenght;
-        gasUarts[u8Uart].pu8TxBufferFlash = (rom _U08 *)pu8Data;
-        gasUarts[u8Uart].bRam = _FALSE;
-        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBufferFlash;
+        gasUarts[u8Uart].pu8TxBuffer = (_U08 *)pu8Data;
+        *gau8TXREG[u8Uart] = *gasUarts[u8Uart].pu8TxBuffer;
         if(u8Uart == UART_PORT1)
         {
             SET_8BIT(PIE1, 4);
@@ -239,16 +214,8 @@ void Uart1_TxIsr(void)
         gasUarts[1].u8Counter--;
         if(gasUarts[1].u8Counter != 0u)
         {
-            if(gasUarts[1].bRam == _TRUE)
-            {
-                gasUarts[1].pu8TxBufferRam++;
-                *gau8TXREG[1] = *gasUarts[1].pu8TxBufferRam;
-            }
-            else
-            {
-                gasUarts[1].pu8TxBufferFlash++;
-                *gau8TXREG[1] = *gasUarts[1].pu8TxBufferFlash;
-            }
+            gasUarts[1].pu8TxBuffer++;
+            *gau8TXREG[1] = *gasUarts[1].pu8TxBuffer;
         }
         else
         {
@@ -267,16 +234,8 @@ void Uart2_TxIsr(void)
         gasUarts[2].u8Counter--;
         if(gasUarts[2].u8Counter != 0u)
         {
-            if(gasUarts[2].bRam == _TRUE)
-            {
-                gasUarts[2].pu8TxBufferRam++;
-                *gau8TXREG[2] = *gasUarts[2].pu8TxBufferRam;
-            }
-            else
-            {
-                gasUarts[2].pu8TxBufferFlash++;
-                *gau8TXREG[2] = *gasUarts[2].pu8TxBufferFlash;
-            }
+            gasUarts[2].pu8TxBuffer++;
+            *gau8TXREG[2] = *gasUarts[2].pu8TxBuffer;
         }
         else
         {
@@ -334,7 +293,7 @@ _U08 Uart_u8GetChar(const _U08 u8Uart)
   \return       None
   \warning      Valor del registro que ira en BAUDREG
 --------------------------------------------------------------------------------------------------*/
-static _U16 u16BaudRateL(const _U08 u8Uart, const _U32 u32BaudRate)
+static _U16 u16BaudRateL(const _U08 u8Uart, _U32 u32BaudRate)
 {
     _U16 u16Baud;
 
@@ -349,7 +308,7 @@ static _U16 u16BaudRateL(const _U08 u8Uart, const _U32 u32BaudRate)
   \return       None
   \warning      Valor del registro que ira en BAUDREG
 --------------------------------------------------------------------------------------------------*/
-static _U16 u16BaudRateH(const _U08 u8Uart, const _U32 u32BaudRate)
+static _U16 u16BaudRateH(const _U08 u8Uart, _U32 u32BaudRate)
 {
     _U16 u16Baud;
 

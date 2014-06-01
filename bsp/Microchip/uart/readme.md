@@ -224,16 +224,6 @@ API
     void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Char, const _U08 u8Lenght);
 
     /**---------------------------------------------------------------------------------------------
-      \brief      Transmite un arreglo de datos almacenados en memoria flash mediante interrupciones
-      \param      pu8Char.- puntero al arreglo de datos
-      \param      pu8Lenght.- numero de elementos a transmitir
-      \return     None
-      \warning    la Función activa interrupción por tx y deja que la interrupción transmita los datos
-                  la función Uart_TxBusy debe regresar cero antes de llamar esta función
-    ----------------------------------------------------------------------------------------------*/
-
-    void Uart_TxFlashBuffer(const _U08 u8Uart, const rom _U08 *pu8Char, const _U08 u8Lenght);
-    /**---------------------------------------------------------------------------------------------
       \brief      Revisa si el puerto serial esta ocupado trasmitiendo
       \param      None
       \return     Regresa un uno si esta ocupado y un cero si esta libre para tx

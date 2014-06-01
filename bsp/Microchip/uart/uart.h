@@ -77,7 +77,7 @@
       \return     El valor actual que se estableció en el registro de baudrate
       \warning    Por default la configuración es tx de 8 bits, sin paridad y 1 bit de stop (_8N1)
     ----------------------------------------------------------------------------------------------*/
-    _U32 Uart_Init(const _U08 u8Uart, const _U32 u32BaudRate);
+    _U32 Uart_Init(const _U08 u8Uart, _U32 u32BaudRate);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Cambia la prioridad de interrupción de Tx.
@@ -101,7 +101,7 @@
       \return     None
       \warning    La función se espera a que el buffer de trasmisión este libre para mandar el carácter
     ----------------------------------------------------------------------------------------------*/
-    void Uart_PutChar(const _U08 u8Uart, const _U08 u8Char);
+    void Uart_PutChar(const _U08 u8Uart, _U08 u8Char);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite una cadena de caracteres terminada en cero
@@ -110,7 +110,7 @@
       \warning    la función traba al procesador hasta que la cadena es enviada por completo y solo
                   funciona con cadenas almacenadas en memoria flash
     ----------------------------------------------------------------------------------------------*/
-    void Uart_PutString(const _U08 u8Uart, const rom _S08 *strString);
+    void Uart_PutString(const _U08 u8Uart, const _U08 *strString);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Transmite un arreglo de datos mediante interrupciones
@@ -120,18 +120,8 @@
       \warning    la Función activa interrupción por tx y deja que la interrupción transmita los datos
                   la función Uart_TxBusy debe regresar cero antes de llamar esta función
     ----------------------------------------------------------------------------------------------*/
-    void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Char, const _U08 u8Lenght);
+    void Uart_TxBuffer(const _U08 u8Uart, const _U08 *pu8Char, _U08 u8Lenght);
 
-    /**---------------------------------------------------------------------------------------------
-      \brief      Transmite un arreglo de datos almacenados en memoria flash mediante interrupciones
-      \param      pu8Char.- puntero al arreglo de datos
-      \param      pu8Lenght.- numero de elementos a transmitir
-      \return     None
-      \warning    la Función activa interrupción por tx y deja que la interrupción transmita los datos
-                  la función Uart_TxBusy debe regresar cero antes de llamar esta función
-    ----------------------------------------------------------------------------------------------*/
-
-    void Uart_TxFlashBuffer(const _U08 u8Uart, const rom _U08 *pu8Char, const _U08 u8Lenght);
     /**---------------------------------------------------------------------------------------------
       \brief      Revisa si el puerto serial esta ocupado trasmitiendo
       \param      None
