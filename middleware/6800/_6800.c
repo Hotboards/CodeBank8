@@ -20,6 +20,7 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "_6800.h"
+#include "system/system.h"
 #include "hardware_profile.h"
 
 /*-- Private Definitions--*/
@@ -61,7 +62,7 @@ static _U08 i;
 #define RW_FOR_WRITE()                  Gpios_WritePin(_6800_RW_P, _6800_RW_B, 0u)
 #define RW_FOR_READ()                   Gpios_WritePin(_6800_RW_P, _6800_RW_B, 1u)
 
-#define _6800_Delay()                   for(i=0;i<_6800_ENABLE_TIME;i++) _asm nop _endasm;
+#define _6800_Delay()                   for(i=0;i<_6800_ENABLE_TIME;i++) __NOP();
 
 
 /*-- Private functions prototypes --*/
