@@ -87,7 +87,7 @@ void _7segments_Init(void)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value)
+void _7segments_SetDisplay(_U08 u8Display, _U08 u8Value)
 {
     if(u8Display < _7SEGMENTS_DIGI_N)
     {
@@ -101,7 +101,7 @@ void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-_U08 _7segments_u8GetDisplay(const _U08 u8Display)
+_U08 _7segments_u8GetDisplay(_U08 u8Display)
 {
     _U08 u8Value = 0;
 
@@ -118,7 +118,7 @@ _U08 _7segments_u8GetDisplay(const _U08 u8Display)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void _7segments_SetNumber(const _U16 u16Value)
+void _7segments_SetNumber(_U16 u16Value)
 {
     _U08 u8Digi;
 

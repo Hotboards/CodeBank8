@@ -110,7 +110,7 @@
       \warning    Un bit en uno representa un segmento encendido. La función invertirá el valor si el
                   el driver esta configurado como ánodo común.
     ----------------------------------------------------------------------------------------------*/
-    void _7segments_SetDisplay(const _U08 u8Display, const _U08 u8Value);
+    void _7segments_SetDisplay(_U08 u8Display, _U08 u8Value);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Regresa el valor con los segmentos a encendidos en el display
@@ -118,7 +118,7 @@
       \return     Valor en binario representando cada segmento encendido
       \warning    Un bit en uno representa un segmento encendido.
     ----------------------------------------------------------------------------------------------*/
-    _U08 _7segments_u8GetDisplay(const _U08 u8Display);
+    _U08 _7segments_u8GetDisplay(_U08 u8Display);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Despliega un numero decimal de hasta 4 dígitos en los displays
@@ -127,7 +127,7 @@
       \warning    La función toma en cuenta el numero de displays que se ha configurado. No se toma
                   en cuenta el punto
     ----------------------------------------------------------------------------------------------*/
-    void _7segments_SetNumber(const _U16 u16Value);
+    void _7segments_SetNumber(_U16 u16Value);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Actualiza el valor en los display y multiplexa al siguiente display
