@@ -23,7 +23,7 @@
  -------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "adc.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include "hardware_profile.h"
 
 
