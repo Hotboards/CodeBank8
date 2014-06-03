@@ -72,7 +72,7 @@
       \return     None
       \warning	  Trava al uC por espacio de 40us
     ----------------------------------------------------------------------------------------------*/
-    void HD44780_SetCursor(const _U08 u8Row, const _U08 u8Col);
+    void HD44780_SetCursor(_U08 u8Row, _U08 u8Col);
 
     /**---------------------------------------------------------------------------------------------    
       \brief      manda un simple dato a la memoria interna de datos
@@ -80,7 +80,7 @@
       \return     None
       \warning	  trava al uC por 40us
     ----------------------------------------------------------------------------------------------*/
-    void HD44780_WriteData(const _U08 u8Data);
+    void HD44780_WriteData(_U08 u8Data);
 
     /**---------------------------------------------------------------------------------------------    
       \brief      manda comandos a controlador 
@@ -88,7 +88,7 @@
       \return     None
       \warning    trava al uC por 40us
     ----------------------------------------------------------------------------------------------*/
-    void HD44780_WriteCommand(const _U08 u8Data);
+    void HD44780_WriteCommand(_U08 u8Data);
 
     /**---------------------------------------------------------------------------------------------    
       \brief      Escribe una cadena terminada en cero, almacenada en flash,
@@ -96,7 +96,7 @@
       \return     None
       \warning	  Trava al uC 40us por cada caracter enviado
     ----------------------------------------------------------------------------------------------*/
-    void HD44780_WriteString(const rom _S08 *strString);
+    void HD44780_WriteString(const _U08 *strString);
 
 
 #endif   
