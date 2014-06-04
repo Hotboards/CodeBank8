@@ -19,7 +19,7 @@
 --------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "i2c.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include <string.h>
 #include "hardware_profile.h"
 
@@ -40,11 +40,11 @@
 
 
 /*-- Global variables --*/
-static volatile near _U08 *gau8SSPCON2[3] = {NULL, &SSP1CON2, &SSP2CON2};
-static volatile near _U08 *gau8SSPBUF[3] = {NULL, &SSP1BUF, &SSP2BUF};
-static volatile near _U08 *gau8SSPIF[3]  = {NULL, &PIR1, &PIR3};
-static volatile near _U08 *gau8SSPCON1[3]  = {NULL, &SSP1CON1, &SSP2CON1};
-static volatile near _U08 *gau8SSPADD[3]  = {NULL, &SSP1ADD, &SSP2ADD};
+static volatile _U08 *gau8SSPCON2[3] = {NULL, &SSP1CON2, &SSP2CON2};
+static volatile _U08 *gau8SSPBUF[3] = {NULL, &SSP1BUF, &SSP2BUF};
+static volatile _U08 *gau8SSPIF[3]  = {NULL, &PIR1, &PIR3};
+static volatile _U08 *gau8SSPCON1[3]  = {NULL, &SSP1CON1, &SSP2CON1};
+static volatile _U08 *gau8SSPADD[3]  = {NULL, &SSP1ADD, &SSP2ADD};
 static const _U08 gau8SSPIFBIT[3]  = {0x00, 3, 7};
 
 
