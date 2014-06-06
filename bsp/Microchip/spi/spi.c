@@ -20,7 +20,7 @@
 --------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "spi.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include <string.h>
 
 
@@ -28,11 +28,11 @@
 
 
 /*-- Global variables --*/
-static volatile near _U08 *gau8SSPCON1[3] = {NULL, &SSP1CON1, &SSP2CON1};
-static volatile near _U08 *gau8SSPSTAT[3] = {NULL, &SSP1STAT, &SSP2STAT};
-static volatile near _U08 *gau8SSPBUF[3]  = {NULL, &SSP1BUF, &SSP2BUF};
-static const rom _U08 gau8ModeCKP[4] = {0x00,0x00,0x10,0x10};
-static const rom _U08 gau8ModeCKE[4] = {0x40,0x00,0x40,0x00};
+static volatile _U08 *gau8SSPCON1[3] = {NULL, &SSP1CON1, &SSP2CON1};
+static volatile _U08 *gau8SSPSTAT[3] = {NULL, &SSP1STAT, &SSP2STAT};
+static volatile _U08 *gau8SSPBUF[3]  = {NULL, &SSP1BUF, &SSP2BUF};
+static const _U08 gau8ModeCKP[4] = {0x00,0x00,0x10,0x10};
+static const _U08 gau8ModeCKE[4] = {0x40,0x00,0x40,0x00};
 
 
 /*-- Private Macros --*/

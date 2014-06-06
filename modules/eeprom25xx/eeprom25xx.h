@@ -89,7 +89,7 @@
       \return     None
       \warning	  Esta función es necesaria antes de mandar llamar cualquier otra función del driver
     ----------------------------------------------------------------------------------------------*/
-    void Eeprom25xx_Init(const _U08 u8Memory, const _U08 u8Density);
+    void Eeprom25xx_Init(const _U08 u8Memory, _U08 u8Density);
 
     /**---------------------------------------------------------------------------------------------
       \brief      lee el registro de estatus de la memoria

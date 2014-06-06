@@ -102,7 +102,7 @@ static _U32 gau8PinSS[EEPROM25XX_N_MEMORIES] =
 
 /*-- External functions --*/
 /**-----------------------------------------------------------------------------------------------*/
-void Eeprom25xx_Init(const _U08 u8Memory, const _U08 u8Density)
+void Eeprom25xx_Init(const _U08 u8Memory, _U08 u8Density)
 {
     if(u8Density < EEPROM25XX_1M)
     {
