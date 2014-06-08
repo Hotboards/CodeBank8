@@ -19,7 +19,7 @@
 --------------------------------------------------------------------------------------------------*/
 /*-- Includes --*/
 #include "pwm.h"
-#include <p18cxxx.h>
+#include <xc.h>
 #include <string.h>
 #include "hardware_profile.h"
 
@@ -47,11 +47,11 @@
 
 
 /*-- Global variables --*/
-static volatile near _U08 *gau8CCPCON[3] = {NULL, &CCP1CON, &CCP2CON};
-static volatile near _U08 *gau8PSTRCON[3] = {NULL, &PSTR1CON, &PSTR2CON};
-static volatile near _U08 *gau8CCPRL[3]  = {NULL, &CCPR1L, &CCPR2L};
-static volatile near _U08 *gau8TCON[3]  = {NULL, &T2CON, &T4CON};
-static volatile near _U08 *gau8PR[3]  = {NULL, &PR2, &PR4};
+static volatile _U08 *gau8CCPCON[3] = {NULL, &CCP1CON, &CCP2CON};
+static volatile _U08 *gau8PSTRCON[3] = {NULL, &PSTR1CON, &PSTR2CON};
+static volatile _U08 *gau8CCPRL[3]  = {NULL, &CCPR1L, &CCPR2L};
+static volatile _U08 *gau8TCON[3]  = {NULL, &T2CON, &T4CON};
+static volatile _U08 *gau8PR[3]  = {NULL, &PR2, &PR4};
 static const _U08 gau8TCLKCON[3]  = {0x00, 0x01, 0x02};
 
 
