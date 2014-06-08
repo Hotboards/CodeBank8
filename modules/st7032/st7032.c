@@ -195,7 +195,7 @@ void ST7032_Init(const _U08 u8Lcd)
 
 
 /**-----------------------------------------------------------------------------------------------*/    
-void ST7032_SetCursor(const _U08 u8Lcd, const _U08 u8Row, const _U08 u8Col)
+void ST7032_SetCursor(const _U08 u8Lcd, _U08 u8Row, _U08 u8Col)
 {
     _U08 u8Address;
 
@@ -208,7 +208,7 @@ void ST7032_SetCursor(const _U08 u8Lcd, const _U08 u8Row, const _U08 u8Col)
 /**-----------------------------------------------------------------------------------------------*/    
 
 /**-----------------------------------------------------------------------------------------------*/    
-void ST7032_WriteData(const _U08 u8Lcd, const _U08 u8Data)
+void ST7032_WriteData(const _U08 u8Lcd, _U08 u8Data)
 {
     Gpios_WritePin(gau8PortSS[u8Lcd], gau8PinSS[u8Lcd],0); /* CS = 0 */
     Gpios_WritePin(gau8PortRS[u8Lcd], gau8PinRS[u8Lcd], 1); /*RS = 1*/
@@ -219,7 +219,7 @@ void ST7032_WriteData(const _U08 u8Lcd, const _U08 u8Data)
 /**-----------------------------------------------------------------------------------------------*/    
 
 /**-----------------------------------------------------------------------------------------------*/
-void ST7032_WriteCommand(const _U08 u8Lcd, const _U08 u8Cmd)
+void ST7032_WriteCommand(const _U08 u8Lcd, _U08 u8Cmd)
 {
     Gpios_WritePin(gau8PortSS[u8Lcd], gau8PinSS[u8Lcd],0); /* CS = 0 */
     Gpios_WritePin(gau8PortRS[u8Lcd], gau8PinRS[u8Lcd], 0); /*RS = 0*/
@@ -230,7 +230,7 @@ void ST7032_WriteCommand(const _U08 u8Lcd, const _U08 u8Cmd)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/    
-void ST7032_WriteString(const _U08 u8Lcd, const rom _S08 *strString)
+void ST7032_WriteString(const _U08 u8Lcd, const _U08 *strString)
 {
     while(*strString != 0)
     {

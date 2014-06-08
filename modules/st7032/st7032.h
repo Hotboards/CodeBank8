@@ -65,7 +65,7 @@
       \return     None
       \warning	  Trava al uC por espacio de 30us
     ----------------------------------------------------------------------------------------------*/
-    void ST7032_SetCursor(const _U08 u8Lcd, const _U08 u8Row, const _U08 u8Col);
+    void ST7032_SetCursor(const _U08 u8Lcd, _U08 u8Row, _U08 u8Col);
 
     /**---------------------------------------------------------------------------------------------
       \brief      manda un comando al controlador
@@ -73,7 +73,7 @@
       \return     None
       \warning	  trava al uC por 30us exepto si es un clear screen, le tomara 300uS
     ----------------------------------------------------------------------------------------------*/
-    void ST7032_WriteCommand(const _U08 u8Lcd, const _U08 u8Data);
+    void ST7032_WriteCommand(const _U08 u8Lcd, _U08 u8Data);
 
     /**---------------------------------------------------------------------------------------------    
       \brief      manda un simple dato a la memoria interna de datos
@@ -81,7 +81,7 @@
       \return     None
       \warning	  trava al uC por 30us
     ----------------------------------------------------------------------------------------------*/
-    void ST7032_WriteData(const _U08 u8Lcd, const _U08 u8Data);
+    void ST7032_WriteData(const _U08 u8Lcd, _U08 u8Data);
 
     /**---------------------------------------------------------------------------------------------    
       \brief      Escribe una cadena terminada en cero, almacenada en flash,
@@ -89,7 +89,7 @@
       \return     None
       \warning	  Trava al uC 30us por cada caracter enviado
     ----------------------------------------------------------------------------------------------*/
-    void ST7032_WriteString(const _U08 u8Lcd, const rom _S08 *strString);
+    void ST7032_WriteString(const _U08 u8Lcd, const _U08 *strString);
 
 
 #endif   
