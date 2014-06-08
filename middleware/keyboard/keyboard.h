@@ -126,7 +126,7 @@
       \return     None
       \warning	  None
     ----------------------------------------------------------------------------------------------*/
-    void Keyboard_SetDebounce(const _U08 u8Key, const _U08 u8Debounce);
+    void Keyboard_SetDebounce(const _U08 u8Key, _U08 u8Debounce);
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función que permite conocer si se presiono una tecla

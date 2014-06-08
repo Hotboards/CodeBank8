@@ -250,7 +250,7 @@ void Keyboard_Task(void)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Keyboard_SetDebounce(const _U08 u8Key, const _U08 u8Debounce)
+void Keyboard_SetDebounce(const _U08 u8Key, _U08 u8Debounce)
 {
     if((u8Key < KEYBOARD_N_KEYS()) && (u8Debounce >= 3))
     {
