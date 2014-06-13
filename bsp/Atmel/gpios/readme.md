@@ -33,7 +33,7 @@ Lectura de un puerto completo.
 
 ```C
 _U08 valor;
-Gpios_WriteTris(GPIOS_PORTA, 0xFF); 	/*puerto A como entrada*/
+Gpios_WriteTris(GPIOS_PORTA, 0x00); 	/*puerto A como entrada*/
 valor = Gpios_u8ReadPort(GPIOS_PORTA); 	/*asignamos el valor del puerto a la variable valor*/
 ```
 
@@ -41,8 +41,8 @@ Lectura de un puerto y escritura en otro puerto
 
 ```C
 _U08 valor;
-Gpios_WriteTris(GPIOS_PORTD, 0xFF); 	/*puerto D como entrada*/
-Gpios_WriteTris(GPIOS_PORTB, 0x00); 	/*puerto B como salida*/
+Gpios_WriteTris(GPIOS_PORTD, 0x00); 	/*puerto D como entrada*/
+Gpios_WriteTris(GPIOS_PORTB, 0xFF); 	/*puerto B como salida*/
 
 valor = Gpios_u8ReadPort(GPIOS_PORTD); 	/*asignamos el valor del puerto a la variable valor*/
 Gpios_WritePort(GPIOS_PORTB, valor);	/*escribimos el valor de valor en el puerto B*/
@@ -61,8 +61,8 @@ API
   \def		GPIOS_INPUT/OUTPUT
   \brief	constantes para definir la dirección en la que operaran los pines de los puertos 
 ----------------------------------------------------------------------------------------------*/
-#define GPIOS_OUTPUT		0
-#define GPIOS_INTPUT		1
+#define GPIOS_OUTPUT		1
+#define GPIOS_INTPUT		0
 
 /**--------------------------------------------------------------------------------------------- 
   \typedef  _eGPIOS_PORT
@@ -189,7 +189,7 @@ Ejemplos
 - [Ejemplo 3: Escritura y lectura de un puerto][3]
 
 
-  [1]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpios1.X/main.c
-  [2]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpios2.X/main.c
-  [3]: https://github.com/Hotboards/Examples/blob/master/Microchip/gpios3.X/main.c
+  [1]: https://github.com/Hotboards/Examples/blob/master/Atmel/gpios1/gpios1/main.c
+  [2]: https://github.com/Hotboards/Examples/blob/master/Atmel/gpios2/gpios2/main.c
+  [3]: https://github.com/Hotboards/Examples/blob/master/Atmel/gpios3/gpios3/main.c
 
