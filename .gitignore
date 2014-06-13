@@ -17,9 +17,4 @@
 *.app
 
 # Local objects
-bsp/Microchip/usb/audio
-bsp/Microchip/usb/generic
-bsp/Microchip/usb/hid
-bsp/Microchip/usb/msd
-bsp/Microchip/usb/phdc
- 
+bsp/Atmel 

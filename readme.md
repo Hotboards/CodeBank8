@@ -1,7 +1,9 @@
 CodeBank8 (maquinas de 8 bits)
 ==============================
 
-**NOTA: este branch es experimnetal, se esta trabajando en la migracion del codigo para el mas nuevo compilador XC8. Se considerea altamente recomendable eperar a que ocurra el release 2.0 del banco de codigo**
+####Nuevo soporte para XC8
+
+***NOTA: Si deseas seguir usando la version para C18 de este repositorio, solo ve a la seccion de [Releases](https://github.com/Hotboards/CodeBank8/releases) y descarga el CodeBank8v1.1**
 
 En este repositorio se encuentra la librería oficial de **[Hotboards](http://hotboards.org/)** para maquinas de 8 bits. El código que encontrarás en esta página te permitirá desarrollar más rápido tus proyectos, fue diseñado para ser utilizado incluso por software de producción. Es perfectamente compatible con la técnica de programación de "Máquinas de Estado" la cual te permitirá programar aplicaciones multitarea. 
 
@@ -24,7 +26,7 @@ Directorios
 
 El código que encontraras dentro de este repositorio esta subdividido en la siguientes capas:
 
-- **bsp.-** Todas la piezas de código que se comuniquen directamente con la maquina y sean dependientes de la misma (puertos, adc, serial, etc.)  
+- **bsp.-** Todas la piezas de código que se comuniquen directamente con la maquina y sean dependientes de la misma (puertos, adc, serial, etc.). En esta capa se soportan unicamanete los compiladores XC8 y AVR-gcc.
 
 - **middleware.-** Piezas de código que no son dependientes de ningún hardware en especifico y que solo estén programadas usando el estándar ANSI C
 
