@@ -8,8 +8,8 @@
   \file         _6800.h
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         August 26, 2013
+  \ver          1.1
+  \date         June 22, 2014
   \target       8-bits Generic
 
   \brief        Esta pieza de código emula la interfaz paralela 6800 mediante simples pines del uC,
@@ -35,15 +35,6 @@
                 cuando no se define _6800_BUSLENGHT en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
     //#define _6800_BUSLENGHT               4
-
-    /**---------------------------------------------------------------------------------------------
-      \def      _6800_ENABLE_TIME
-      \brief    Numero de nop instrucciones para completar 300ns utlizados en la generacion de la
-                señal Enable
-                Esta definicion es interna unicamente, actuando solo como valor por default cuando
-                cuando no se define _6800_ENABLE_TIME en hardware_profile.h
-    ----------------------------------------------------------------------------------------------*/
-    //#define _6800_ENABLE_TIME               1
 
     /**--------------------------------------------------------------------------------------------- 
       \def      _6800_DATAPORT

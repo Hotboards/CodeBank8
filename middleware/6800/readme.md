@@ -4,26 +4,20 @@ Interfaz Paralela 6800 (_6800)
 
 Esta pieza de código emula la interfaz paralela 6800 mediante simples pines del uC, las tres señales de control (E, RS y RW) utilizadas en esta interfaz se generan mediante el driver **gpios**. La amplitud del bus solo puede ser de 4 u 8 bits y para ello se utiliza un puerto completo del uC, en caso de 4 bits solo se usan los bits mas significativos.
 
-Debido a los diferentes dispositivos que se pueden usar con esta interfaz es necesario establecer la duración de la señal de estrobo o Enable acorde al dispositivo a usar. el driver mide la duración de esta señal acorde al numero de operaciones tipo Nop();  pues regularmente esta en el orden de los nano segundos.   
+La señal enable la cual tipicamene es un pulso se establece de manera fija a 1 micro segundo. Este tiempo es mas que suficiente pues tipicamnete es acorde a los 300ns
 
-El driver es dependiente de ***types.h**, **gpios/gpios.h** y **hardware_profile.h**
+El driver es dependiente de ***types.h**, **delays/delays**, **gpios/gpios.h** y **hardware_profile.h**
 
 Ejemplo de uso
 --------------
 
 Simple escritura en modo de 8 bits
 ```C
-#include <p18cxxx.h>
-#include "vectors.h"
 #include "types.h"
 #include "6800/_6800.h"
 
-#pragma code
-void main(void)
+int main(void)
 {
-    ANCON0 = 0XFF;  /*Desactivamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desactivamos las salidas analogicas*/
-
     _6800_Init();   /*incializamos la interfaz paralela*/
 	_6800_WriteData('a'); /*escribimos un simple dato*/
 	while (1)
@@ -35,17 +29,11 @@ void main(void)
 
 Simple escritura en modo de 4 bits
 ```C
-#include <p18cxxx.h>
-#include "vectors.h"
 #include "types.h"
 #include "6800/_6800.h"
 
-#pragma code
-void main(void)
+int main(void)
 {
-    ANCON0 = 0XFF;  /*Desactivamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desactivamos las salidas analogicas*/
-
     _6800_Init();   /*incializamos la interfaz paralela*/
 	_6800_WriteData('a'); /*escribimos el nibble mas significativo*/
 	_6800_WriteData('a' << 4u); /*escribimos el nibble menos significativo*/
@@ -61,12 +49,11 @@ void main(void)
 Configuración
 -------------
 
-En el archivo **hardware_profile** se debe indicar de manera obligatorio los pines que actuaran en la interfaz 6800, de la siguiente manera, ademas de la duracion de la señal de enable medida en instrucciones tipo nop().
+En el archivo **hardware_profile** se debe indicar de manera obligatorio los pines que actuaran en la interfaz 6800, de la siguiente manera.
 ```C
-#define _6800_ENABLE_TIME			1	/*numero de Nop's que durara la señal Enable */	
 #define _6800_BUSLENGHT             8   /*numero de bits enviados por vez (valores de 4 o 8)*/
 #define _6800_DATAPORT              GPIOS_PORTD /*puerto que actúa como bus de datos*/
-/*en caso de bus de 4 bits solo se usan los 4 bits menos significativos del puerto*/
+/*en caso de bus de 4 bits solo se usan los 4 bits mas significativos del puerto*/
 
 /*pin de enable*/
 #define _6800_E_P               	GPIOS_PORTC  /*puerto*/
