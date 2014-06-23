@@ -99,8 +99,26 @@ void Gpios_PinDirection(_eGPIOS_PORT ePort, _U08 u8Pin, _BOOL bDirection);
   \return     None
   \warning    Se debe inicializar el pin como salida antes de usar esta función      
 ----------------------------------------------------------------------------------------------*/
-    void Gpios_WritePin(_eGPIOS_PORT ePort, _U08 u8Pin, _BOOL bValue);
+void Gpios_WritePin(_eGPIOS_PORT ePort, _U08 u8Pin, _BOOL bValue);
+
+/**---------------------------------------------------------------------------------------------
+  \brief      funcion usada para colocar en uno un pin del uC
+  \param      ePort: Puerto en el que se encuentra el pin (GPIOS_PORTx)
+  \param      u8Pin: Numero de pin (de 0 a 7)
+  \return     None
+  \warning    Se debe inicializar el pin como salida antes de usar esta función
+----------------------------------------------------------------------------------------------*/
+void Gpios_SetPin(_eGPIOS_PORT ePort, _U08 u8Pin);    
  
+/**---------------------------------------------------------------------------------------------
+  \brief      funcion usada para colocar en cero un pin del uC
+  \param      ePort: Puerto en el que se encuentra el pin (GPIOS_PORTx)
+  \param      u8Pin: Numero de pin (de 0 a 7)
+  \return     None
+  \warning    Se debe inicializar el pin como salida antes de usar esta función
+----------------------------------------------------------------------------------------------*/
+void Gpios_ClearPin(_eGPIOS_PORT ePort, _U08 u8Pin);    
+
 /**---------------------------------------------------------------------------------------------    
   \brief      Funcion usada para activar las pullups internas del uC 
   \param      ePort: Puerto en el que se encuentra el pin (GPIOS_PORTx)

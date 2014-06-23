@@ -8,8 +8,8 @@
   \file         gpios.c
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         July 25, 2013
+  \ver          2.0
+  \date         June 22, 2014
   \target       PIC18F series
 
   \brief        El driver de bajo nivel gpios agrupa una colección de funciones que permiten manejar 
@@ -26,7 +26,7 @@
 
 
 /*-- Global variables --*/
-static volatile _U08 *const guap8Direction[] =
+volatile _U08 *const guap8Direction[] =
 {
 #if defined RA0_bit
     &TRISA,
@@ -54,7 +54,7 @@ static volatile _U08 *const guap8Direction[] =
     (0),
 #endif
 }; /* tris */
-static volatile _U08 *const guap8Input[]     =
+volatile _U08 *const guap8Input[]     =
 {
 #if defined RA0_bit
     &PORTA,
@@ -82,7 +82,7 @@ static volatile _U08 *const guap8Input[]     =
     (0),
 #endif
 }; /* input */
-static volatile _U08 *const guap8Output[]    =
+volatile _U08 *const guap8Output[]    =
 {
 #if defined RA0_bit
     &LATA,
@@ -161,47 +161,47 @@ void Gpios_PullupPin(_eGPIOS_PORT ePort, _U08 u8Pin, _BOOL bValue)
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Gpios_TogglePin(_eGPIOS_PORT ePort, _U08 u8Pin)
-{
-    u8Pin &= (_U08)0x07; /*just to be sure you didn't write a value bigger than 7*/
-    TOGGLE_8BIT(*guap8Output[(_U08)ePort], u8Pin);
-}
+//void Gpios_TogglePin(_eGPIOS_PORT ePort, _U08 u8Pin)
+//{
+  //  u8Pin &= (_U08)0x07; /*just to be sure you didn't write a value bigger than 7*/
+  //  TOGGLE_8BIT(*guap8Output[(_U08)ePort], u8Pin);
+//}
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-_BOOL Gpios_bReadPin(_eGPIOS_PORT ePort, _U08 u8Pin)
-{
-    u8Pin &= (_U08)0x07; /*just to be sure you didn't write a value bigger than 7*/
-    return QUERY_8BIT(*guap8Input[(_U08)ePort], u8Pin);
-}
+//_BOOL Gpios_bReadPin(_eGPIOS_PORT ePort, _U08 u8Pin)
+//{
+    //u8Pin &= (_U08)0x07; /*just to be sure you didn't write a value bigger than 7*/
+    //return QUERY_8BIT(*guap8Input[(_U08)ePort], u8Pin);
+//}
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Gpios_WritePort(_eGPIOS_PORT ePort, _U08 u8Value)
-{
-    *guap8Output[(_U08)ePort] = u8Value;
-}
+//void Gpios_WritePort(_eGPIOS_PORT ePort, _U08 u8Value)
+//{
+    //*guap8Output[(_U08)ePort] = u8Value;
+//}
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-_U08 Gpios_u8ReadPort(_eGPIOS_PORT ePort)
-{
-    return *guap8Input[(_U08)ePort];
-}
+//_U08 Gpios_u8ReadPort(_eGPIOS_PORT ePort)
+//{
+    //return *guap8Input[(_U08)ePort];
+//}
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-void Gpios_WriteTris(_eGPIOS_PORT ePort, _U08 u8Value)
-{
-    *guap8Direction[(_U08)ePort] = u8Value;
-}
+//void Gpios_WriteTris(_eGPIOS_PORT ePort, _U08 u8Value)
+//{
+    //*guap8Direction[(_U08)ePort] = u8Value;
+//}
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/
-_U08 Gpios_u8ReadTris(_eGPIOS_PORT ePort)
-{
-    return *guap8Direction[(_U08)ePort];
-}
+//_U08 Gpios_u8ReadTris(_eGPIOS_PORT ePort)
+//{
+    //return *guap8Direction[(_U08)ePort];
+//}
 /**-----------------------------------------------------------------------------------------------*/
 
 /**-----------------------------------------------------------------------------------------------*/

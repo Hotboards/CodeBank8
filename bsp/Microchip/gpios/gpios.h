@@ -8,8 +8,8 @@
   \file         gpios.h
   \author       Diego
   \email        diego.perez@hotboards.org
-  \ver          1.0
-  \date         July 25, 2013
+  \ver          2.0
+  \date         June 22, 2014
   \target       PIC18F series
 
   \brief        El driver de bajo nivel gpios agrupa una colección de funciones que permiten manejar 
@@ -53,7 +53,10 @@
       \def        Macro
       \brief      Write a nice description for your macros
     ----------------------------------------------------------------------------------------------*/ 
-    
+    extern volatile _U08 *const guap8Direction[];
+    extern volatile _U08 *const guap8Output[];
+    extern volatile _U08 *const guap8Input[];
+
     
     /*-- Functions --*/
     /**---------------------------------------------------------------------------------------------    
@@ -76,6 +79,24 @@
     ----------------------------------------------------------------------------------------------*/
     void Gpios_WritePin(_eGPIOS_PORT ePort, _U08 u8Pin, _BOOL bValue);
 
+    /**---------------------------------------------------------------------------------------------
+      \brief      funcion usada para colocar en uno un pin del uC
+      \param      ePort: Puerto en el que se encuentra el pin (GPIOS_PORTx)
+      \param      u8Pin: Numero de pin (de 0 a 7)
+      \return     None
+      \warning    Se debe inicializar el pin como salida antes de usar esta función
+    ----------------------------------------------------------------------------------------------*/
+    #define Gpios_SetPin(ePort, u8Pin)              SET_8BIT(*guap8Output[(ePort)], (u8Pin))
+
+    /**---------------------------------------------------------------------------------------------
+      \brief      funcion usada para colocar en cero un pin del uC
+      \param      ePort: Puerto en el que se encuentra el pin (GPIOS_PORTx)
+      \param      u8Pin: Numero de pin (de 0 a 7)
+      \return     None
+      \warning    Se debe inicializar el pin como salida antes de usar esta función
+    ----------------------------------------------------------------------------------------------*/
+    #define Gpios_ClearPin(ePort, u8Pin)            CLEAR_8BIT(*guap8Output[(ePort)], (u8Pin))
+
     /**---------------------------------------------------------------------------------------------    
       \brief      Funcion usada para activar las pullups internas del uC 
       \param      ePort: Puerto en el que se encuentra el pin (GPIOS_PORTx)
@@ -93,7 +114,7 @@
       \return     None
       \warning    Se debe inicializar el pin como salida antes de usar esta función   
     ----------------------------------------------------------------------------------------------*/  
-    void Gpios_TogglePin(_eGPIOS_PORT ePort, _U08 u8Pin);
+    #define Gpios_TogglePin(ePort, u8Pin)           TOGGLE_8BIT(*guap8Output[(ePort)], (u8Pin))
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función usada para leer el valor en un pin.
@@ -102,7 +123,7 @@
       \return     la función solo regresa valores de 1 o 0 
       \warning    Se debe inicializar el pin como entrada antes de usar esta función        
     ----------------------------------------------------------------------------------------------*/  
-    _BOOL Gpios_bReadPin(_eGPIOS_PORT ePort, _U08 u8Pin);
+    #define Gpios_bReadPin(ePort, u8Pin)            QUERY_8BIT(*guap8Input[(ePort)], (u8Pin))
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función usada para escribir completamente en un puerto
@@ -111,7 +132,7 @@
       \return     None
       \warning    se debe inicializar el puerto completo como salida
     ----------------------------------------------------------------------------------------------*/
-    void Gpios_WritePort(_eGPIOS_PORT ePort, _U08 u8Value);
+    #define Gpios_WritePort(ePort, u8Value)         *guap8Output[(ePort)] = (u8Value)
 
     /**---------------------------------------------------------------------------------------------
       \brief      Función usada para leer un puerto completo
@@ -119,7 +140,7 @@
       \return     Valor leído del puerto 
       \warning    None
     ----------------------------------------------------------------------------------------------*/
-    _U08 Gpios_u8ReadPort(_eGPIOS_PORT ePort);
+    #define Gpios_u8ReadPort(ePort)                 *guap8Input[(ePort)]
 
     /**---------------------------------------------------------------------------------------------    
       \brief      Función usada para escribir la dirección de los pines del puerto
@@ -128,7 +149,7 @@
       \return     None
       \warning    None      
     ----------------------------------------------------------------------------------------------*/
-    void Gpios_WriteTris(_eGPIOS_PORT ePort, _U08 u8Value);
+    #define Gpios_WriteTris(ePort, u8Value)         *guap8Direction[(ePort)] = (u8Value)
 
     /**---------------------------------------------------------------------------------------------
       \brief      Funcion usada para leer la configuración de un puerto completo
@@ -136,7 +157,7 @@
       \return     Valor interno del registro                   
       \warning    None
     ----------------------------------------------------------------------------------------------*/
-    _U08 Gpios_u8ReadTris(_eGPIOS_PORT ePort);
+    #define Gpios_u8ReadTris(ePort)                 *guap8Direction[(ePort)]
 
     /**---------------------------------------------------------------------------------------------
       \brief      Funcion usada para activar las resistencias de pullup de un puerto completo
