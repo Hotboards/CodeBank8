@@ -19,7 +19,7 @@ Ejemplos de uso
 Parpadeando un led cada 100ms
 
 ```C
-#include "vectors.h"
+#include "fuses.h"
 #include "types.h"
 #include "gpios.h"
 #include "delays.h"
@@ -37,7 +37,7 @@ void main(void)
 
 Rotando un led a la izquierda cada 100ms
 ```C
-#include "vectors.h"
+#include "fuses.h"
 #include "types.h"
 #include "gpios.h"
 #include "delays.h"
@@ -71,13 +71,21 @@ API
 
 ```C
 /*-- Functions --*/
+/**---------------------------------------------------------------------------------------------
+  \brief      Esta función realiza retardos en múltiplos de micro segundos
+  \param      us.- numero de micro segundos a retardar.
+  \return     None
+  \warning    Esta función se debe usar con las interrupciones desactivadas
+---------------------------------------------------------------------------------------------*/
+#define Delays_us(us)               __delay_us(us)
+
 /**---------------------------------------------------------------------------------------------    
   \brief      Esta función realiza retardos en múltiplos de 10 micro segundos
   \param      us.- numero de decenas de micro segundos a retardar.
   \return     None
-  \warning    Esta función se debe usar con las interrupciones desactivadas
+  \warning    Esta función es obsoleta y sera removida en futuras versiones
 ----------------------------------------------------------------------------------------------*/
-void Delays_10us(_U32 us);
+#define Delays_10us(us)             __delay_us(10*us)
 
 /**---------------------------------------------------------------------------------------------
   \brief      Esta función realiza retardos en lapsos de milisegundos

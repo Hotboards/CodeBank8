@@ -8,8 +8,8 @@
   \file         delays.h
   \author       Microchip Technology, Inc
   \email        
-  \ver          1.0
-  \date         July 25, 2013
+  \ver          2.0
+  \date         June 22, 2014
   \target       PIC18F series
   
   \brief        Código para generar retardos por software sin utilizar ningún periférico del 
@@ -23,15 +23,21 @@
 
     /*-- Includes --*/
     #include "types.h"
+    #include "hardware_profile.h"
      
 
     /*-- Defines --*/
     /**--------------------------------------------------------------------------------------------- 
-      \def        DELAYS_CLOCK
+      \def        _XTAL_FREQ
       \brief      Esta definicion es interna unicamente, autuando solo como valor por default cuando
                   cuando no se define BSP_CLOCK en hardware_profile.h
     ----------------------------------------------------------------------------------------------*/ 
-    //#define DELAYS_CLOCK                 12000000 (move to delays.c)
+    #ifndef BSP_CLOCK
+        #define _XTAL_FREQ                 12000000
+    #else
+        #define _XTAL_FREQ                 BSP_CLOCK
+    #endif
+    #include <xc.h>
 
 
     /*-- Macros --*/
@@ -42,13 +48,21 @@
     
     
     /*-- Functions --*/
+    /**---------------------------------------------------------------------------------------------
+      \brief      Esta función realiza retardos en múltiplos de micro segundos
+      \param      us.- numero de micro segundos a retardar.
+      \return     None
+      \warning    Esta función se debe usar con las interrupciones desactivadas
+    ----------------------------------------------------------------------------------------------*/
+    #define Delays_us(us)               __delay_us(us)
+
     /**---------------------------------------------------------------------------------------------    
       \brief      Esta función realiza retardos en múltiplos de 10 micro segundos
       \param      us.- numero de decenas de micro segundos a retardar.
       \return     None
-      \warning    Esta función se debe usar con las interrupciones desactivadas
+      \warning    Esta función es obsoleta y sera removida en futuras versiones
     ----------------------------------------------------------------------------------------------*/
-    void Delays_10us(_U32 us);
+    #define Delays_10us(us)             __delay_us(10*us)
 
     /**---------------------------------------------------------------------------------------------
       \brief      Esta función realiza retardos en lapsos de mili segundos
