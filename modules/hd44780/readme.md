@@ -15,17 +15,11 @@ Ejemplo de uso
 Envió de cadenas de datos a diferentes posiciones de un lcd de 4x20
 ```
 
-#include <p18cxxx.h>
-#include "vectors.h"
 #include "types.h"
 #include "hd44780/hd44780.h"
 
-#pragma code
 void main(void)
 {
-    ANCON0 = 0XFF;  /*Desactivamos las salidas analogicas*/
-    ANCON1 = 0XFF;  /*Desactivamos las salidas analogicas*/
-
     HD44780_Init(); /*Se iniciliaza el lcd*/
 
     HD44780_WriteString("Hola mundo1");
@@ -45,12 +39,12 @@ void main(void)
 Configuración
 -------------
 
-Para seleccionar el tamaño del bus de datos se define en el archivo hardware_profile.h el siguiente define 
+Para seleccionar el tamaño del bus de datos se define en el archivo hardware_profile.h el siguiente define. recuerda consultar el driver de comunicacion 6800 para conocer mas detalles de las constantes que se deben definir.
 ```C
 #define _6800_BUSLENGHT         4 /*tamaño del bus en la interfaz 6800*/
 ```
 
-Para seleccionar el numero de columnas y filas en el lcd se escriben las siguientes lineas en el archivo hardware_profile.h
+Para seleccionar el numero de columnas y filas en el lcd se escriben las siguientes lineas en el archivo hardware_profile.h. el codigo soporta las siguientes combinaciones 1x16, 2x16, 4x16, 2x32, 2x20, 2x40 y 4x20
 ```C
 #define HD44780_ROWS			2 /*numero de filas (valor por default)*/  
 #define HD44780_COLUMNS			16/*numero de columnas (valor por default)*/

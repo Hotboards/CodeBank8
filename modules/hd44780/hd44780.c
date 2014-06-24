@@ -9,7 +9,7 @@
   \author       Diego
   \email        diego.perez@hotboards.org
   \ver          1.0
-  \date         August 29, 2013
+  \date         June 23, 2014
   \target       8-bits Generic
 
   \brief        Pieza de código para controlar un lcd alfanumérico externo con el controlador Hitachi
@@ -34,25 +34,25 @@
 #endif
 
 /* Display ON/OFF Control defines */
-#define DON         		(_U08)0b00001111  /* Display on      */
-#define DOFF        		(_U08)0b00001011  /* Display off     */
-#define CURSOR_ON   		(_U08)0b00001111  /* Cursor on       */
-#define CURSOR_OFF  		(_U08)0b00001101  /* Cursor off      */
-#define BLINK_ON    		(_U08)0b00001111  /* Cursor Blink    */
-#define BLINK_OFF   		(_U08)0b00001110  /* Cursor No Blink */
+#define lcdDON         		(_U08)0b00001111  /* Display on      */
+#define lcdDOFF        		(_U08)0b00001011  /* Display off     */
+#define lcdCURSOR_ON   		(_U08)0b00001111  /* Cursor on       */
+#define lcdCURSOR_OFF  		(_U08)0b00001101  /* Cursor off      */
+#define lcdBLINK_ON    		(_U08)0b00001111  /* Cursor Blink    */
+#define lcdBLINK_OFF   		(_U08)0b00001110  /* Cursor No Blink */
 
 /* Cursor or Display Shift defines */
-#define SHIFT_CUR_LEFT    	(_U08)0b00000100  /* Cursor shifts to the left   */
-#define SHIFT_CUR_RIGHT   	(_U08)0b00000101  /* Cursor shifts to the right  */
-#define SHIFT_DISP_LEFT   	(_U08)0b00000110  /* Display shifts to the left  */
-#define SHIFT_DISP_RIGHT  	(_U08)0b00000111  /* Display shifts to the right */
+#define lcdSHIFT_CUR_LEFT    	(_U08)0b00000100  /* Cursor shifts to the left   */
+#define lcdSHIFT_CUR_RIGHT   	(_U08)0b00000101  /* Cursor shifts to the right  */
+#define lcdSHIFT_DISP_LEFT   	(_U08)0b00000110  /* Display shifts to the left  */
+#define lcdSHIFT_DISP_RIGHT  	(_U08)0b00000111  /* Display shifts to the right */
 
 /* Function Set defines */
-#define FOUR_BIT   		(_U08)0b00101100  /* 4-bit Interface               */
-#define EIGHT_BIT  		(_U08)0b00111100  /* 8-bit Interface               */
-#define LINE_5X7   		(_U08)0b00110000  /* 5x7 characters, single line   */
-#define LINE_5X10  		(_U08)0b00110100  /* 5x10 characters               */
-#define LINES_5X7  		(_U08)0b00111000  /* 5x7 characters, multiple line */
+#define lcdFOUR_BIT   		(_U08)0b00101100  /* 4-bit Interface               */
+#define lcdEIGHT_BIT  		(_U08)0b00111100  /* 8-bit Interface               */
+#define lcdLINE_5X7   		(_U08)0b00110000  /* 5x7 characters, single line   */
+#define lcdLINE_5X10  		(_U08)0b00110100  /* 5x10 characters               */
+#define lcdLINES_5X7  		(_U08)0b00111000  /* 5x7 characters, multiple line */
 
 
 /*-- Global variables --*/
@@ -87,48 +87,29 @@ void HD44780_Init(void)
 {
     _6800_Init();
     /*secuencia para incilizar controlador*/
-    Delays_ms((_U08)15);                /* 15 ms para que el controlador encienda */
-    _6800_WriteCommand((_U08)0x30);	/* Secuecia de encendido en modo 8 bits */
-    Delays_ms((_U08)5);
-    _6800_WriteCommand((_U08)0x30);
-    Delays_10us((_U08)20);
-    _6800_WriteCommand((_U08)0x30);
-    Delays_10us((_U08)4);
+    Delays_ms(15);                /* 15 ms para que el controlador encienda */
+    _6800_WriteCommand(0x30);	/* Secuecia de encendido en modo 8 bits */
+    Delays_ms(5);
+    _6800_WriteCommand(0x30);
+    Delays_ms(2);
+    _6800_WriteCommand(0x30);
+    Delays_ms(1);
 
     #if _6800_BUSLENGHT == 8
-        _6800_WriteCommand(0x38);           /*modo 8 bits todas las lineas activas*/
-        Delays_10us((_U08)4);
-        _6800_WriteCommand(DOFF);           /*Se apaga el controlador*/
-        Delays_10us((_U08)4);
-        _6800_WriteCommand((_U08)0x01);     /*se enciende y limpia el display*/
-        Delays_ms((_U08)2);
-        _6800_WriteCommand(SHIFT_DISP_LEFT);/*incremento de cursor a la derecha*/
-        Delays_10us((_U08)4);
-        _6800_WriteCommand(DON & CURSOR_OFF & BLINK_OFF); /*se despliega cursor y parpadeo*/
-        Delays_10us(4);
-        _6800_WriteCommand((_U08)0x80);                 /* Set Display data ram address to 0 */
-        Delays_10us(4);
+        HD44780_WriteCommand(0x38);              /*modo 8 bits todas las lineas activas*/
+        HD44780_WriteCommand(lcdDOFF);           /*Se apaga el controlador*/
+        HD44780_WriteCommand(0x01);              /*se enciende y limpia el display*/
+        HD44780_WriteCommand(lcdSHIFT_DISP_LEFT);/*incremento de cursor a la derecha*/
+        HD44780_WriteCommand(lcdDON & lcdCURSOR_OFF & lcdBLINK_OFF); /*se despliega cursor y parpadeo*/
+        HD44780_WriteCommand(0x80);              /* Set Display data ram address to 0 */
     #elif _6800_BUSLENGHT == 4
-        _6800_WriteCommand(0x20);
-        Delays_10us((_U08)4);
-        _6800_WriteCommand(0x20);           /*modo 8 bits todas las lineas activas*/
-        _6800_WriteCommand(0x80);
-        Delays_10us((_U08)4);
-        _6800_WriteCommand(DOFF);           /*Se apaga el controlador*/
-        _6800_WriteCommand(DOFF<<4u);
-        Delays_10us((_U08)4);
-        _6800_WriteCommand((_U08)0x01);     /*se enciende y limpia el display*/
-        _6800_WriteCommand((_U08)0x01<<4u);
-        Delays_ms((_U08)2);
-        _6800_WriteCommand(SHIFT_DISP_LEFT);/*incremento de cursor a la derecha*/
-        _6800_WriteCommand(SHIFT_DISP_LEFT<<4);
-        Delays_10us((_U08)4);
-        _6800_WriteCommand(DON & CURSOR_OFF & BLINK_OFF); /*se despliega cursor y parpadeo*/
-        _6800_WriteCommand((DON & CURSOR_OFF & BLINK_OFF)<<4u);
-        Delays_10us(4);
-        _6800_WriteCommand((_U08)0x80);                 /* Set Display data ram address to 0 */
-        _6800_WriteCommand((_U08)0x80<<4);
-        Delays_10us(4);
+        _6800_WriteCommand(0x20);                /*modo 4 bits todas las lineas activas*/
+        while(HD44780_bBusyFlag() == 1);
+        HD44780_WriteCommand(lcdDOFF);           /*Se apaga el controlador*/
+        HD44780_WriteCommand(0x01);              /*se enciende y limpia el display*/
+        HD44780_WriteCommand(lcdSHIFT_DISP_LEFT);/*incremento de cursor a la derecha*/
+        HD44780_WriteCommand(lcdDON & lcdCURSOR_OFF & lcdBLINK_OFF); /*se despliega cursor y parpadeo*/
+        HD44780_WriteCommand(0x80);              /* Set Display data ram address to 0 */
     #endif
 }
 /**-----------------------------------------------------------------------------------------------*/    
@@ -161,7 +142,7 @@ void HD44780_SetCursor(_U08 u8Row, _U08 u8Col)
             _6800_WriteCommand(0x80 | u8Add);
             _6800_WriteCommand((0x80 | u8Add)<<4u);
         #endif
-        Delays_10us(4);
+        while(HD44780_bBusyFlag() == 1);
     }
 }
 /**-----------------------------------------------------------------------------------------------*/    
@@ -175,7 +156,7 @@ void HD44780_WriteData(_U08 u8Data)
         _6800_WriteData(u8Data);
         _6800_WriteData(u8Data<<4);
     #endif
-    Delays_10us(4);
+    while(HD44780_bBusyFlag() == 1);
 }
 /**-----------------------------------------------------------------------------------------------*/    
 
@@ -189,7 +170,7 @@ void HD44780_WriteCommand(_U08 u8Data)
         _6800_WriteCommand(u8Data);
         _6800_WriteCommand(u8Data<<4);
     #endif
-    Delays_10us(4);
+    while(HD44780_bBusyFlag() == 1);
 }
 /**-----------------------------------------------------------------------------------------------*/
 
@@ -208,9 +189,7 @@ void HD44780_WriteString(const _U08 *strString)
 /**-------------------------------------------------------------------------------------------------    
   \fn         HD44780_SetDDRamAddr
   \brief      init the parallel master port internal registers 
-  \param	  None
+  \param      None
   \return     None
-  \warning	  None   	
+  \warning    None
 --------------------------------------------------------------------------------------------------*/
-
-
